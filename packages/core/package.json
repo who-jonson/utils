@@ -1,0 +1,56 @@
+{
+  "name": "@whoj/utils",
+  "description": "",
+  "version": "0.0.0",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "typescript",
+    "ts",
+    "starter"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "prepublishOnly": "unbuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "unbuild": "^0.7.4"
+  },
+  "packageManager": "pnpm@7.5.0",
+  "author": {
+    "name": "Jonson B.",
+    "email": "www.jbc.bd@gmail.com",
+    "url": "https://who-jonson.github.io"
+  },
+  "funding": "https://github.com/sponsors/who-jonson",
+  "homepage": "https://github.com/who-jonson/name#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/who-jonson/name.git"
+  },
+  "bugs": "https://github.com/who-jonson/name/issues",
+  "sideEffects": false
+}

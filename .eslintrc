@@ -1,0 +1,38 @@
+{
+  "root": true,
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "@antfu"
+  ],
+  "rules": {
+    "@typescript-eslint/comma-dangle": [2, "never"],
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/semi": ["error", "always"],
+    "@typescript-eslint/space-before-function-paren": "off",
+    "import/no-mutable-exports": "off",
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
+    "keyword-spacing": ["error", {
+      "before": true,
+      "after": true
+    }],
+    "quotes": [2, "single", {
+      "avoidEscape": true,
+      "allowTemplateLiterals": true
+    }],
+    "space-before-function-paren": ["error", "never"],
+    "semi": "off",
+    "no-console": "off",
+    "no-unused-vars": "off",
+    "require-await": "off",
+    "no-mixed-spaces-and-tabs": "off",
+    "comma-dangle": [2, "never"]
+  }
+}
