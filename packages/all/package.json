@@ -1,6 +1,6 @@
 {
-  "name": "@whoj/utils-core",
-  "description": "Core collection of common JS / TS helpers/utils by @whoj",
+  "name": "@whoj/utils",
+  "description": "All collection of common JS / TS helpers/utils by @whoj",
   "version": "0.0.0",
   "type": "module",
   "license": "MIT",
@@ -32,10 +32,13 @@
     "*.d.ts"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "unbuild",
     "stub": "unbuild --stub",
     "prepublishOnly": "npm run build",
     "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@whoj/utils-core": "workspace:*"
   },
   "packageManager": "pnpm@7.6.0",
   "author": {
