@@ -47,11 +47,16 @@
     "url": "https://who-jonson.github.io"
   },
   "funding": "https://github.com/sponsors/who-jonson",
-  "homepage": "https://github.com/who-jonson/name#readme",
+  "homepage": "https://github.com/who-jonson/utils#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/who-jonson/name.git"
+    "url": "git+https://github.com/who-jonson/utils.git",
+    "directory": "packages/all"
   },
-  "bugs": "https://github.com/who-jonson/name/issues",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "bugs": "https://github.com/who-jonson/utils/issues",
   "sideEffects": false
 }
