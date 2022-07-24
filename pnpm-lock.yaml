@@ -5,48 +5,59 @@ importers:
   .:
     specifiers:
       '@antfu/eslint-config': ^0.25.2
-      '@antfu/ni': ^0.16.3
       '@changesets/cli': ^2.23.2
+      '@types/node': ^18.0.6
+      '@types/throttle-debounce': ^5.0.0
       '@vitest/ui': ^0.18.1
       bumpp: ^8.2.1
       c8: ^7.12.0
       core-js: ^3.23.5
       cross-env: ^7.0.3
       eslint: ^8.20.0
+      eslint-plugin-tsdoc: ^0.2.16
       esno: ^0.16.3
       fast-glob: ^3.2.11
       npm-run-all: ^4.1.5
       rimraf: ^3.0.2
+      throttle-debounce: ^5.0.0
       typescript: ^4.7.4
       unbuild: ^0.7.6
       utility-types: ^3.10.0
       vite: ^3.0.2
+      vite-dts: ^1.0.4
       vitest: ^0.18.1
     devDependencies:
       '@antfu/eslint-config': 0.25.2_he2ccbldppg44uulnyq4rwocfa
-      '@antfu/ni': 0.16.3
       '@changesets/cli': 2.23.2
+      '@types/node': 18.0.6
+      '@types/throttle-debounce': 5.0.0
       '@vitest/ui': 0.18.1
       bumpp: 8.2.1
       c8: 7.12.0
       core-js: 3.23.5
       cross-env: 7.0.3
       eslint: 8.20.0
+      eslint-plugin-tsdoc: 0.2.16
       esno: 0.16.3
       fast-glob: 3.2.11
       npm-run-all: 4.1.5
       rimraf: 3.0.2
+      throttle-debounce: 5.0.0
       typescript: 4.7.4
       unbuild: 0.7.6
       utility-types: 3.10.0
       vite: 3.0.2
+      vite-dts: 1.0.4_vite@3.0.2
       vitest: 0.18.1_ps3rclznr4tkimneamanfdq2tu
 
-  packages/core:
+  packages/all:
     specifiers:
-      unbuild: ^0.7.4
-    devDependencies:
-      unbuild: 0.7.6
+      '@whoj/utils-core': workspace:*
+    dependencies:
+      '@whoj/utils-core': link:../core
+
+  packages/core:
+    specifiers: {}
 
 packages:
 
@@ -157,11 +168,6 @@ packages:
       - eslint-import-resolver-webpack
       - supports-color
       - typescript
-    dev: true
-
-  /@antfu/ni/0.16.3:
-    resolution: {integrity: sha512-/C1N/hORSJp1qJHr4oRqQzmWPqB6S42T4HV4dWhXOllPJkcqQA/L40U55Oc7Gq4Gm9pLeCNZn7YYU1kUK2Ekpg==}
-    hasBin: true
     dev: true
 
   /@babel/code-frame/7.18.6:
@@ -676,6 +682,19 @@ packages:
       read-yaml-file: 1.1.0
     dev: true
 
+  /@microsoft/tsdoc-config/0.16.1:
+    resolution: {integrity: sha512-2RqkwiD4uN6MLnHFljqBlZIXlt/SaUT6cuogU1w2ARw4nKuuppSmR0+s+NC+7kXBQykd9zzu0P4HtBpZT5zBpQ==}
+    dependencies:
+      '@microsoft/tsdoc': 0.14.1
+      ajv: 6.12.6
+      jju: 1.4.0
+      resolve: 1.19.0
+    dev: true
+
+  /@microsoft/tsdoc/0.14.1:
+    resolution: {integrity: sha512-6Wci+Tp3CgPt/B9B0a3J4s3yMgLNSku6w5TV6mN+61C71UqsRBv2FUibBf3tPGlNxebgPHMEUzKpb1ggE8KCKw==}
+    dev: true
+
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -847,6 +866,10 @@ packages:
 
   /@types/semver/6.2.3:
     resolution: {integrity: sha512-KQf+QAMWKMrtBMsB8/24w53tEsxllMj6TuA80TT/5igJalLI/zm0L3oXRbIAl4Ohfc85gyHX/jhMwsVkmhLU4A==}
+    dev: true
+
+  /@types/throttle-debounce/5.0.0:
+    resolution: {integrity: sha512-Pb7k35iCGFcGPECoNE4DYp3Oyf2xcTd3FbFQxXUI9hEYKUl6YX+KLf7HrBmgVcD05nl50LIH6i+80js4iYmWbw==}
     dev: true
 
   /@types/unist/2.0.6:
@@ -2026,6 +2049,13 @@ packages:
       string.prototype.matchall: 4.0.7
     dev: true
 
+  /eslint-plugin-tsdoc/0.2.16:
+    resolution: {integrity: sha512-F/RWMnyDQuGlg82vQEFHQtGyWi7++XJKdYNn0ulIbyMOFqYIjoJOUdE6olORxgwgLkpJxsCJpJbTHgxJ/ggfXw==}
+    dependencies:
+      '@microsoft/tsdoc': 0.14.1
+      '@microsoft/tsdoc-config': 0.16.1
+    dev: true
+
   /eslint-plugin-unicorn/42.0.0_eslint@8.20.0:
     resolution: {integrity: sha512-ixBsbhgWuxVaNlPTT8AyfJMlhyC5flCJFjyK3oKE8TRrwBnaHvUbuIkCM1lqg8ryYrFStL/T557zfKzX4GKSlg==}
     engines: {node: '>=12'}
@@ -2805,6 +2835,10 @@ packages:
     hasBin: true
     dev: true
 
+  /jju/1.4.0:
+    resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
+    dev: true
+
   /joycon/3.1.1:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
     engines: {node: '>=10'}
@@ -2935,6 +2969,16 @@ packages:
       parse-json: 4.0.0
       pify: 3.0.0
       strip-bom: 3.0.0
+    dev: true
+
+  /load-json-file/6.2.0:
+    resolution: {integrity: sha512-gUD/epcRms75Cw8RT1pUdHugZYM5ce64ucs2GEISABwkRsOQr0q2wm/MV2TKThycIe5e0ytRweW2RZxclogCdQ==}
+    engines: {node: '>=8'}
+    dependencies:
+      graceful-fs: 4.2.10
+      parse-json: 5.2.0
+      strip-bom: 4.0.0
+      type-fest: 0.6.0
     dev: true
 
   /load-yaml-file/0.2.0:
@@ -3687,6 +3731,13 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /resolve/1.19.0:
+    resolution: {integrity: sha512-rArEXAgsBG4UgRGcynxWIWKFvh/XZCcS8UJdHhwy91zwAvCZIbcs+vAbflgBnNjYMs/i/i+/Ux6IZhML1yPvxg==}
+    dependencies:
+      is-core-module: 2.9.0
+      path-parse: 1.0.7
+    dev: true
+
   /resolve/1.22.1:
     resolution: {integrity: sha512-nBpuuYuY5jFsli/JIs1oldw6fOQCBioohqWZg/2hiaOybXOft4lonv85uDOKXdf8rhyK159cxU5cDcK/NKk8zw==}
     hasBin: true
@@ -3998,6 +4049,11 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
+  /strip-bom/4.0.0:
+    resolution: {integrity: sha512-3xurFv5tEgii33Zi8Jtp55wEIILR9eh34FAW00PZf+JnSsTmV/ioewSgQl97JHvgjoRGwPShsWm+IdrxB35d0w==}
+    engines: {node: '>=8'}
+    dev: true
+
   /strip-indent/3.0.0:
     resolution: {integrity: sha512-laJTa3Jb+VQpaC6DseHhF7dXVqHTfJPCRDaEbid/drOhgitgYku/letMUqOXFoWV0zIIUbjpdH2t+tYj4bQMRQ==}
     engines: {node: '>=8'}
@@ -4045,6 +4101,11 @@ packages:
 
   /text-table/0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
+    dev: true
+
+  /throttle-debounce/5.0.0:
+    resolution: {integrity: sha512-2iQTSgkkc1Zyk0MeVrt/3BvuOXYPl/R8Z0U2xxo9rjwNciaHDG3R+Lm6dh4EeUci49DanvBnuqI6jshoQQRGEg==}
+    engines: {node: '>=12.22'}
     dev: true
 
   /tinypool/0.2.4:
@@ -4287,6 +4348,15 @@ packages:
     dependencies:
       spdx-correct: 3.1.1
       spdx-expression-parse: 3.0.1
+    dev: true
+
+  /vite-dts/1.0.4_vite@3.0.2:
+    resolution: {integrity: sha512-jfRsrBU8vibUS4a/AboDzHdph2/9/dpoMdYgkiD5tb4OXL75wnlzeEZ6D2XoEZNExwnkXqARKAvz7pv5VtUm5g==}
+    peerDependencies:
+      vite: '>2.0.0-0'
+    dependencies:
+      load-json-file: 6.2.0
+      vite: 3.0.2
     dev: true
 
   /vite/3.0.2:

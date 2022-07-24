@@ -6,6 +6,13 @@
   "extends": [
     "@antfu"
   ],
+  "plugins": [
+    "eslint-plugin-tsdoc"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
   "rules": {
     "@typescript-eslint/comma-dangle": [2, "never"],
     "@typescript-eslint/ban-types": "off",
