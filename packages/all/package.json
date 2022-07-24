@@ -57,6 +57,6 @@
     "registry": "https://registry.npmjs.org",
     "access": "public"
   },
-  "bugs": "https://github.com/who-jonson/name/issues",
+  "bugs": "https://github.com/who-jonson/utils/issues",
   "sideEffects": false
 }
