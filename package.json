@@ -47,5 +47,9 @@
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",
     "url": "https://who-jonson.github.io"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   }
 }

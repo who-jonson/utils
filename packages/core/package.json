@@ -47,7 +47,12 @@
   "homepage": "https://github.com/who-jonson/name#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/who-jonson/name.git"
+    "url": "git+https://github.com/who-jonson/utils.git",
+    "directory": "packages/core"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "bugs": "https://github.com/who-jonson/name/issues",
   "sideEffects": false
