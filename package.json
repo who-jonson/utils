@@ -12,7 +12,7 @@
   "scripts": {
     "lint": "eslint \"packages/**/*.{js,ts,tsx,vue}\" --fix",
     "prepare": "pnpm -r run stub",
-    "prepublishOnly": "pnpm -r run build",
+    "build": "pnpm -r run build",
     "test": "vitest",
     "ci:version": "pnpm changeset version",
     "ci:publish": "pnpm changeset publish",
