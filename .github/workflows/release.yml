@@ -3,7 +3,12 @@ name: Release
 on:
   push:
     branches:
-      - main
+      - master
+    tags:
+      - v0.*
+      - v1.*
+    paths:
+      - 'packages/**'
 
 env:
   CI: true
@@ -39,4 +44,4 @@ jobs:
           title: "chore: update versions"
           publish: pnpm ci:publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITTU_TOKEN }}

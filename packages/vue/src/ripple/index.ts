@@ -1,7 +1,7 @@
 import { isVue3 } from 'vue-demi';
 import type { Directive, ObjectDirective, Plugin } from 'vue-demi';
 import { isNumber, objectKeys } from '@whoj/utils-core';
-import './_ripple.css';
+import './style.css';
 
 type DirectiveEl = HTMLButtonElement | HTMLAnchorElement | HTMLElement;
 
