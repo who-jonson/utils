@@ -61,7 +61,7 @@ export type ElementOf<T> = T extends (infer E)[] ? E : never;
  *
  * @category Type Alias
  *
- * @typeParam D - Type of Function the for the arguments
+ * @typeParam D - Type of Function for the arguments
  */
 export type ArgumentsType<T> = T extends ((...args: infer A) => any) ? A : never;
 

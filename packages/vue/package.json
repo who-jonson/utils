@@ -1,6 +1,6 @@
 {
-  "name": "@whoj/utils",
-  "description": "All collection of common JS / TS helpers/utils by @whoj",
+  "name": "@whoj/utils-vue",
+  "description": "A collection of common Vue JS / TS helpers/utils by @whoj",
   "version": "0.0.1",
   "type": "module",
   "license": "MIT",
@@ -14,6 +14,11 @@
       "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
+    },
+    "./ripple": {
+      "types": "./dist/ripple.d.ts",
+      "require": "./dist/ripple.cjs",
+      "import": "./dist/ripple.mjs"
     }
   },
   "main": "./dist/index.mjs",
@@ -39,7 +44,13 @@
   },
   "dependencies": {
     "@whoj/utils-core": "workspace:^",
-    "@whoj/utils-vue": "workspace:^"
+    "vue-demi": "latest"
+  },
+  "devDependencies": {
+    "vue": "^3.2.37"
+  },
+  "peerDependencies": {
+    "vue": "^2.6 || >=3.2"
   },
   "packageManager": "pnpm@7.6.0",
   "author": {
@@ -52,7 +63,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/who-jonson/utils.git",
-    "directory": "packages/all"
+    "directory": "packages/vue"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
