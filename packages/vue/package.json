@@ -15,6 +15,11 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     },
+    "./prop": {
+      "types": "./dist/prop.d.ts",
+      "require": "./dist/prop.cjs",
+      "import": "./dist/prop.mjs"
+    },
     "./ripple": {
       "types": "./dist/ripple.d.ts",
       "require": "./dist/ripple.cjs",
