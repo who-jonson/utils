@@ -42,5 +42,21 @@
     "require-await": "off",
     "no-mixed-spaces-and-tabs": "off",
     "comma-dangle": [2, "never"]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/packages/**/*.test.[jt]s?(x)",
+        "**/test/**/*.test.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "extends": ["plugin:testing-library/vue"],
+      "rules": {
+        "testing-library/await-async-query": "error",
+        "testing-library/no-await-sync-query": "error",
+        "testing-library/no-debugging-utils": "warn",
+        "testing-library/no-dom-import": "off"
+      }
+    }
+  ]
 }

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-
+import { vRipple } from '../../packages/vue/src';
 </script>
 
 <template>

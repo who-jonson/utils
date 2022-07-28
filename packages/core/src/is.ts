@@ -69,7 +69,17 @@ export const isString = (val: unknown): val is string => typeof val === 'string'
  * @returns - Boolean
  *
  */
-export const isObject = (val: any): val is object => toString(val) === '[object Object]';
+export const isObject = <T extends object>(val: any): val is T => toString(val) === '[object Object]';
+
+/**
+ * Check if is Array
+ * @category Is Type
+ *
+ * @param val
+ * @returns - Boolean
+ *
+ */
+export const isArray = <T = any>(val: any): val is Array<T> => Array.isArray(val);
 
 /**
  * Check if window defined
