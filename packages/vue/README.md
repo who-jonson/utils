@@ -18,6 +18,38 @@
 npm i @whoj/utils-vue # OR pnpm add @whoj/utils-vue
 ```
 
+### @whoj/utils-vue/fusejs
 
+Fully typed [Fuse.js](https://fusejs.io/) search library.
+
+```vue
+<template>
+  <div>
+    <input type="text" v-model="search">
+    <p v-if="noResults">Sorry, no results for {{search}}</p>
+    <div v-for="(r, i) in results" :key="i">
+      {{ r }}
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { useVueFuse } from '@whoj/utils-vue/fusejs';
+
+export default defineComponent({
+  setup () {
+    const myList = ['aaaa', 'bbbb', 'cccc', 'abc', 'xyz']
+    const { search, results, noResults } = useVueFuse(myList)
+
+    return {
+      search,
+      results,
+      noResults,
+    }
+  }
+})
+</script>
+```
 
 [MIT](./LICENSE) License © 2022 [Jonson B.](https://github.com/who-jonson)
