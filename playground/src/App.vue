@@ -11,7 +11,7 @@ import { vRipple } from '../../packages/vue/src';
             <div class="column is-6 is-offset-3" style="display: flex; align-items: center;">
               <div class="is-pulled-left" style="text-align: left">
                 <h1 class="title text-medium-grey" style="margin-bottom: .5rem">
-                  Material Ripple Effect
+                  Vue Ripple Effect
                 </h1>
                 <hr class="is-marginless">
                 <h2 class="subtitle text-light-grey" style="margin-top: .5rem">

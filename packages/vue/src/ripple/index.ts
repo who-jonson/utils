@@ -209,12 +209,3 @@ export const Ripple: Plugin = {
     app.directive('ripple', makeRippleDir<DirectiveEl>(options));
   }
 };
-
-declare module '@vue/runtime-dom' {
-  interface AppContext {
-    // @ts-ignore
-    directives: {
-      ripple: Directive<DirectiveEl, string>
-    }
-  }
-}

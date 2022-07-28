@@ -5,8 +5,8 @@ export default defineBuildConfig({
   clean: true,
   entries: [
     { input: 'src/index', builder: 'rollup', name: 'index' },
-    { input: 'src/ripple/index', builder: 'rollup', name: 'ripple' },
-    { input: 'src/ripple/composables', builder: 'rollup', name: 'composables' }
+    { input: 'src/ripple/index', builder: 'rollup', name: 'ripple' }
+    // { input: 'src/ripple/composables', builder: 'rollup', name: 'composables' }
   ],
   rollup: {
     alias: {
