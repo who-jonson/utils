@@ -1,5 +1,13 @@
 <script lang="ts" setup>
-import { vRipple } from '../../packages/vue/src';
+import { defineProp, prop, vRipple } from '../../packages/vue/src';
+interface PropT {
+  name: string
+}
+
+const props = defineProps({
+  test: prop.boolean.isRequired,
+  testT: defineProp<PropT>(Object)
+});
 </script>
 
 <template>

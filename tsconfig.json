@@ -18,7 +18,9 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "types": [
-      "node"
+      "node",
+      "vitest/globals",
+      "vitest/importMeta"
     ]
   }
 }
