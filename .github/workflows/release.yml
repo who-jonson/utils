@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - mainable
-    tags:
-      - v0.*
-      - v1.*
-    paths:
-      - 'packages/**'
+#    tags:
+#      - v0.*
+#      - v1.*
+#    paths:
+#      - 'packages/**'
 
 env:
   CI: true
