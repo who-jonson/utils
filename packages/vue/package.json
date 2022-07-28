@@ -15,6 +15,11 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     },
+    "./fusejs": {
+      "types": "./dist/fusejs.d.ts",
+      "require": "./dist/fusejs.cjs",
+      "import": "./dist/fusejs.mjs"
+    },
     "./prop": {
       "types": "./dist/prop.d.ts",
       "require": "./dist/prop.cjs",
@@ -32,7 +37,6 @@
   "typesVersions": {
     "*": {
       "*": [
-        "./dist/*",
         "./dist/index.d.ts"
       ]
     }
@@ -49,6 +53,7 @@
   },
   "dependencies": {
     "@whoj/utils-core": "workspace:^",
+    "fuse.js": "^6.6.2",
     "vue-demi": "latest"
   },
   "devDependencies": {
