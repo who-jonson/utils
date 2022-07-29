@@ -2,6 +2,7 @@ import type { PropType, StyleValue, VNode } from 'vue-demi';
 import type { Nullable, Numberish } from '@whoj/utils-core';
 import { defineProp } from './prop';
 
+/* `Prop` is a class that contains static methods that return a `PropOptions` object */
 export class Prop {
   static get string() {
     return defineProp<string>(String);

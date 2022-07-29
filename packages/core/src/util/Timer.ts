@@ -26,11 +26,18 @@ export default class Timer {
     this.timerId = setTimeout(cb, interval);
   }
 
+  /**
+   * It stops the timer, then subtracts the time that has passed since the timer was started from the interval
+   */
   pause() {
     this.stop();
     this.interval -= Date.now() - this.startedAt;
   }
 
+  /**
+   * It resumes the timer by setting the startedAt property to the current time, and then setting the timerId property to
+   * the result of calling setTimeout with the callback and interval properties
+   */
   resume() {
     this.stop();
     this.startedAt = Date.now();

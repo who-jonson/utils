@@ -1,4 +1,4 @@
-import { isVue3, onBeforeMount } from 'vue-demi';
+import { isVue3 } from 'vue-demi';
 import type { Directive, DirectiveBinding, ObjectDirective, Plugin, Ref } from 'vue-demi';
 import { isNumber, objectKeys } from '@whoj/utils-core';
 import './style.css';
@@ -41,6 +41,12 @@ export interface DirectiveProps {
   transition: number
 }
 
+/**
+ * It takes an array of modifiers and a DirectiveProps object, and sets the event and transition properties of the
+ * DirectiveProps object based on the modifiers
+ * @param {any} modifiers - The modifiers passed to the directive.
+ * @param {DirectiveProps} props - DirectiveProps
+ */
 function setProps(modifiers: any, props: DirectiveProps) {
   // @ts-ignore
   modifiers.forEach((item) => {
@@ -51,6 +57,13 @@ function setProps(modifiers: any, props: DirectiveProps) {
   });
 }
 
+/**
+ * It adds an event listener to the element, and when the event is triggered, it creates a ripple element and appends it to
+ * the element
+ * @param {DirectiveEl} el - DirectiveEl - The element that the directive is attached to.
+ * @param {DirectiveModifiers} modifiers - An object containing the modifiers passed to the directive.
+ * @param {RippleOptions} [options] - {
+ */
 function rippleHandler(el: DirectiveEl, modifiers: DirectiveModifiers, options?: RippleOptions) {
   // Default values.
   const props: DirectiveProps = {
@@ -156,7 +169,7 @@ function rippleHandler(el: DirectiveEl, modifiers: DirectiveModifiers, options?:
       el.removeEventListener('mouseleave', clearRipple, false);
       el.removeEventListener('dragstart', clearRipple, false);
 
-      // After removing event set position to target to it's original one
+      // After removing event set position to target to its original one
       // Timeout it's needed to avoid jerky effect of ripple jumping out parent target
       setTimeout(() => {
         let clearPosition = true;
@@ -197,13 +210,22 @@ function makeRippleDir<T extends DirectiveEl>(options: RippleOptions = {}): Dire
   };
 }
 
+/* Creating a directive that can be used in a Vue component. */
 export const vRipple = makeRippleDir<DirectiveEl>();
 
+/**
+ * It takes an element, an optional event name, and an optional options object, and then calls the rippleHandler function
+ * with the element, an object with the event name as a key and a boolean value, and the options object
+ * @param {DirectiveEl | Ref<DirectiveEl>} el - The element to apply the ripple effect to.
+ * @param event - The event that triggers the ripple effect.
+ * @param {RippleOptions} [options] - RippleOptions
+ */
 export function useRipple<K extends DirectiveProps['event']>(el: DirectiveEl | Ref<DirectiveEl>, event?: K, options?: RippleOptions) {
   const element = el instanceof HTMLElement ? el : el.value;
   rippleHandler(element, (event ? { [event]: true } : { mousedown: true }), options);
 }
 
+/* Creating a plugin that can be used in a Vue component. */
 export const Ripple: Plugin = {
   install(app, options?: RippleOptions) {
     app.directive('ripple', makeRippleDir<DirectiveEl>(options));
