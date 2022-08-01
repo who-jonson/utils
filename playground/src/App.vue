@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineProp, prop, vRipple } from '../../packages/vue/src';
+import { defineProp, prop, vImgFallback, vRipple } from '../../packages/vue/src';
 interface PropT {
   name: string
 }
@@ -89,6 +89,10 @@ const props = defineProps({
           </div>
         </div>
       </div>
+    </section>
+
+    <section class="section">
+      <img v-img-fallback src="https://designshack.net/wp-conten/uploads/placeholder-image.png" alt="">
     </section>
   </div>
 </template>

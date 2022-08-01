@@ -6,6 +6,7 @@ export default defineBuildConfig({
   entries: [
     { input: 'src/index', builder: 'rollup', name: 'index' },
     { input: 'src/fusejs/index', builder: 'rollup', name: 'fusejs' },
+    { input: 'src/img-fallback/index', builder: 'rollup', name: 'img-fallback' },
     { input: 'src/ripple/index', builder: 'rollup', name: 'ripple' },
     { input: 'src/tsprop/index', builder: 'rollup', name: 'prop' }
   ],

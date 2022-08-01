@@ -29,6 +29,11 @@
       "types": "./dist/ripple.d.ts",
       "require": "./dist/ripple.cjs",
       "import": "./dist/ripple.mjs"
+    },
+    "./img-fallback": {
+      "types": "./dist/img-fallback.d.ts",
+      "require": "./dist/img-fallback.cjs",
+      "import": "./dist/img-fallback.mjs"
     }
   },
   "main": "./dist/index.mjs",
