@@ -1,5 +1,5 @@
 import type { PropType, StyleValue, VNode } from 'vue-demi';
-import type { Nullable, Numberish } from '@whoj/utils-core';
+import type { Nullable, Numberish } from '@whoj/utils-types';
 import { defineProp } from './prop';
 
 /* `Prop` is a class that contains static methods that return a `PropOptions` object */

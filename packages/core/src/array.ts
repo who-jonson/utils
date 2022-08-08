@@ -1,5 +1,5 @@
+import type { Arrayable, Nullable } from '@whoj/utils-types';
 import { clamp } from './math';
-import type { Arrayable, Nullable } from './types';
 
 /**
  * Convert `Arrayable<T>` to `Array<T>`

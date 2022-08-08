@@ -1,5 +1,5 @@
+import type { Func } from '@whoj/utils-types';
 import { remove } from './array';
-import type { Func } from './types';
 
 /**
  * @category Interface

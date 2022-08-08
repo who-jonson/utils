@@ -36,7 +36,10 @@
     "prepublishOnly": "npm run build",
     "typecheck": "tsc --noEmit"
   },
-  "packageManager": "pnpm@7.6.0",
+  "dependencies": {
+    "@whoj/utils-types": "workspace:^"
+  },
+  "packageManager": "pnpm@7.9.0",
   "author": {
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",

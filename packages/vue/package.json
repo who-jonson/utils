@@ -42,13 +42,13 @@
   "typesVersions": {
     "*": {
       "*": [
+        "./dist/*",
         "./dist/index.d.ts"
       ]
     }
   },
   "files": [
-    "dist",
-    "*.d.ts"
+    "dist"
   ],
   "scripts": {
     "build": "unbuild",
@@ -58,6 +58,7 @@
   },
   "dependencies": {
     "@whoj/utils-core": "workspace:^",
+    "@whoj/utils-types": "workspace:^",
     "fuse.js": "^6.6.2",
     "vue-demi": "latest"
   },
@@ -67,7 +68,7 @@
   "peerDependencies": {
     "vue": "^2.6 || >=3.2"
   },
-  "packageManager": "pnpm@7.6.0",
+  "packageManager": "pnpm@7.9.0",
   "author": {
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",

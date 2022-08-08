@@ -38,6 +38,7 @@
     "space-before-function-paren": ["error", "never"],
     "semi": "off",
     "no-console": "off",
+    "no-extend-native": "off",
     "no-unused-vars": "off",
     "require-await": "off",
     "no-mixed-spaces-and-tabs": "off",

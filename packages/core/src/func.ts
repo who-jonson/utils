@@ -1,4 +1,4 @@
-import type { Func, Nullable } from './types';
+import type { Func, Nullable } from '@whoj/utils-types';
 
 /**
  * Call every function in an array

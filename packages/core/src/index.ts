@@ -9,5 +9,4 @@ export * from './obj';
 export * from './promise';
 export * from './str';
 export * from './timer';
-export * from './types';
 export * from './vendor';

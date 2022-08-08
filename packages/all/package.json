@@ -38,9 +38,10 @@
   },
   "dependencies": {
     "@whoj/utils-core": "workspace:^",
+    "@whoj/utils-types": "workspace:^",
     "@whoj/utils-vue": "workspace:^"
   },
-  "packageManager": "pnpm@7.6.0",
+  "packageManager": "pnpm@7.9.0",
   "author": {
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",

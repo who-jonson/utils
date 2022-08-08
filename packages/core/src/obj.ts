@@ -1,6 +1,6 @@
+import type { DeepMerge } from '@whoj/utils-types';
 import { isObject } from './is';
 import { notNullish } from './guard';
-import type { DeepMerge } from './types';
 
 /**
  * Map key/value pairs for an object, and construct a new one
