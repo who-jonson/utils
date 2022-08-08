@@ -20,7 +20,7 @@
     "release": "bumpp package.json packages/*/package.json --commit --push --tag && pnpm -r publish --access public"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.25.2",
+    "@antfu/eslint-config": "0.26.0",
     "@types/node": "^18.6.4",
     "@testing-library/vue": "^6.6.1",
     "@types/throttle-debounce": "^5.0.0",
