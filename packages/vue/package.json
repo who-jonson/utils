@@ -63,7 +63,7 @@
     "vue-demi": "latest"
   },
   "devDependencies": {
-    "vue": "^3.2.37"
+    "vue": "3.2.37"
   },
   "peerDependencies": {
     "vue": "^2.6 || >=3.2"
