@@ -1,0 +1,58 @@
+{
+  "name": "@whoj/utils-types",
+  "description": "Typescript utility/helper collection by @whoj",
+  "version": "0.0.5",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "typescript",
+    "ts",
+    "starter"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "stub": "unbuild --stub",
+    "prepublishOnly": "npm run build",
+    "typecheck": "tsc --noEmit"
+  },
+  "packageManager": "pnpm@7.9.0",
+  "author": {
+    "name": "Jonson B.",
+    "email": "www.jbc.bd@gmail.com",
+    "url": "https://who-jonson.github.io"
+  },
+  "funding": "https://github.com/sponsors/who-jonson",
+  "homepage": "https://github.com/who-jonson/utils#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/who-jonson/utils.git",
+    "directory": "packages/types"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "bugs": "https://github.com/who-jonson/utils/issues",
+  "sideEffects": false
+}

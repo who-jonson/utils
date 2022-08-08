@@ -20,4 +20,4 @@ npm i @whoj/utils # OR pnpm add @whoj/utils
 
 
 
-[MIT](./LICENSE) License © 2022 [Jonson B.](https://github.com/who-jonson)
+[MIT](../../LICENSE) License © 2022 [Jonson B.](https://github.com/who-jonson)

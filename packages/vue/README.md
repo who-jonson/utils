@@ -52,4 +52,4 @@ export default defineComponent({
 </script>
 ```
 
-[MIT](./LICENSE) License © 2022 [Jonson B.](https://github.com/who-jonson)
+[MIT](../../LICENSE) License © 2022 [Jonson B.](https://github.com/who-jonson)
