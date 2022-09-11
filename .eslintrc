@@ -37,7 +37,6 @@
     }],
     "space-before-function-paren": ["error", "never"],
     "semi": "off",
-    "no-eval": "off",
     "no-console": "off",
     "no-extend-native": "off",
     "no-unused-vars": "off",

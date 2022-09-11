@@ -37,7 +37,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@whoj/utils-types": "workspace:^"
+    "@whoj/utils-types": "workspace:^",
+    "serialize-javascript": "^6.0.0"
   },
   "packageManager": "pnpm@7.11.0",
   "author": {

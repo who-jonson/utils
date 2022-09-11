@@ -50,12 +50,3 @@ export function template(str: string, ...args: any[]): string {
     return args[index];
   });
 }
-
-/**
- * It takes a string of JavaScript code, and returns the result of evaluating that code
- * @param {string} serializedJavascript - The stringified javascript object.
- * @returns The function deserialize is returning the result of the eval function.
- */
-export function deserialize(serializedJavascript: string) {
-  return eval(`(${serializedJavascript})`);
-}

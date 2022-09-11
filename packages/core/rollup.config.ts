@@ -39,7 +39,9 @@ function buildEntries() {
         format: 'cjs'
       }
     ],
-    external: [],
+    external: [
+      'serialize-javascript'
+    ],
     plugins
   }));
 }
