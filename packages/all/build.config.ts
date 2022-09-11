@@ -4,7 +4,10 @@ export default defineBuildConfig({
   declaration: true,
   clean: true,
   entries: [
-    'src/index'
+    'src/core',
+    'src/index',
+    'src/types',
+    'src/vue'
   ],
   rollup: {
     alias: {

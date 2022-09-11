@@ -1,5 +1,5 @@
 import { isVue3 } from 'vue-demi';
-import type { DirectiveBinding, ObjectDirective, Plugin, Ref } from 'vue-demi';
+import type { DirectiveBinding, ObjectDirective, Plugin } from 'vue-demi';
 import { isObject, isString } from '@whoj/utils-core';
 import { loadingImg } from './assets';
 
@@ -8,9 +8,9 @@ export interface ImgFallbackOptions {
   loading?: string
 }
 
-type ImgFallbackObjDirective<T extends HTMLImageElement, V extends ImgFallbackOptions | string> = ObjectDirective<T, V>;
+type ImgFallbackObjDirective<T extends HTMLImageElement, V extends ImgFallbackOptions | string = ImgFallbackOptions> = ObjectDirective<T, V>;
 
-function makeImgFallbackDir<ImgT extends HTMLImageElement, ImgV = ImgFallbackOptions | string>(options: ImgFallbackOptions = {}): ImgFallbackObjDirective<ImgT, ImgV> {
+function makeImgFallbackDir<ImgT extends HTMLImageElement, ImgV extends ImgFallbackOptions | string = ImgFallbackOptions>(options: ImgFallbackOptions = {}): ImgFallbackObjDirective<ImgT, ImgV> {
   return <ImgFallbackObjDirective<ImgT, ImgV>>{
     [`${isVue3 ? 'beforeMount' : 'bind'}`]: (el: ImgT, binding: DirectiveBinding<ImgV>) => {
       const { value } = binding;
@@ -65,6 +65,6 @@ export const vImgFallback = makeImgFallbackDir<HTMLImageElement>();
 /* A plugin that can be used in Vue. */
 export const ImgFallback: Plugin = {
   install(app, options?: ImgFallbackOptions) {
-    app.directive('img-fallback', makeImgFallbackDir<HTMLImageElement>(options));
+    app.directive('img-fallback', makeImgFallbackDir<HTMLImageElement, ImgFallbackOptions>(options));
   }
 };
