@@ -1,7 +1,6 @@
-export {
-  throttle,
-  debounce
-} from 'throttle-debounce';
+export { default as serialize } from 'serialize-javascript';
+
+export { throttle, debounce } from 'throttle-debounce';
 
 export {
   getProperty as getObjProp,
