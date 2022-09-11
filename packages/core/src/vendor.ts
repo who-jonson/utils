@@ -1,5 +1,3 @@
-export { default as serialize } from 'serialize-javascript';
-
 export { throttle, debounce } from 'throttle-debounce';
 
 export {
