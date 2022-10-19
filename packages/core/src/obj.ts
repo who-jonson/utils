@@ -105,9 +105,7 @@ export function deepMerge<T extends object = object, S extends object = T>(targe
         // @ts-ignore
         if (!target[key])
         // @ts-ignore
-        {
-          target[key] = {};
-        }
+        { target[key] = {}; }
         // @ts-ignore
         deepMerge(target[key], source[key]);
       } else {
