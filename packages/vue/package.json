@@ -1,7 +1,7 @@
 {
   "name": "@whoj/utils-vue",
   "description": "A collection of common Vue JS / TS helpers/utils by @whoj",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "type": "module",
   "license": "MIT",
   "keywords": [
@@ -53,7 +53,7 @@
   "scripts": {
     "build": "unbuild",
     "stub": "unbuild --stub",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "pnpm run build",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
