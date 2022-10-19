@@ -10,8 +10,7 @@ export class Emitter<Events extends Record<EventType, unknown>> {
   constructor() {
     try {
       this._t = new EventTarget();
-    }
-    catch (e) {
+    } catch (e) {
       this._t = document?.createDocumentFragment();
     }
   }

@@ -12,19 +12,19 @@ export interface RippleOptions {
    *
    * @default `true`
    */
-  enable?: boolean
+  enable?: boolean;
 
   /**
    *
    * @default `rgba(0, 0, 0, 0.35)`
    */
-  color?: string
+  color?: string;
 
   /**
    *
    * @default `1`
    */
-  zIndex?: string
+  zIndex?: string;
 }
 
 export interface DirectiveProps {
@@ -32,13 +32,13 @@ export interface DirectiveProps {
    *
    * @default `mousedown`
    */
-  event: keyof HTMLElementEventMap
+  event: keyof HTMLElementEventMap;
 
   /**
    *
    * @default `450`
    */
-  transition: number
+  transition: number;
 }
 
 /**
@@ -50,10 +50,11 @@ export interface DirectiveProps {
 function setProps(modifiers: any, props: DirectiveProps) {
   // @ts-ignore
   modifiers.forEach((item) => {
-    if (!isNumber(item))
+    if (!isNumber(item)) {
       props.event = item;
-    else
+    } else {
       props.transition = item;
+    }
   });
 }
 
@@ -130,8 +131,9 @@ function rippleHandler(el: DirectiveEl, modifiers: DirectiveModifiers, options?:
     // Store target position to change it after
     const storedTargetPosition = ((target.style.position).length > 0) ? target.style.position : getComputedStyle(target).position;
     // Change target position to relative to guarantee ripples correct positioning
-    if (storedTargetPosition !== 'relative')
+    if (storedTargetPosition !== 'relative') {
       target.style.position = 'relative';
+    }
 
     rippleContainer.appendChild(ripple);
     target.appendChild(rippleContainer);
@@ -176,15 +178,17 @@ function rippleHandler(el: DirectiveEl, modifiers: DirectiveModifiers, options?:
 
         for (const child of target.childNodes) {
           // @ts-ignore
-          if (child.className === 'ripple-container')
+          if (child.className === 'ripple-container') {
             clearPosition = false;
+          }
         }
 
         if (clearPosition) {
-          if (storedTargetPosition !== 'static')
+          if (storedTargetPosition !== 'static') {
             target.style.position = storedTargetPosition;
-          else
+          } else {
             target.style.position = '';
+          }
         }
       }, props.transition + 250);
     }
@@ -193,8 +197,7 @@ function rippleHandler(el: DirectiveEl, modifiers: DirectiveModifiers, options?:
       el.addEventListener('mouseup', clearRipple, false);
       el.addEventListener('mouseleave', clearRipple, false);
       el.addEventListener('dragstart', clearRipple, false);
-    }
-    else {
+    } else {
       clearRipple();
     }
   };

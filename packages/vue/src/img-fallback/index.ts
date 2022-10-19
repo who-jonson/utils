@@ -4,8 +4,8 @@ import { isObject, isString } from '@whoj/utils-core';
 import { loadingImg } from './assets';
 
 export interface ImgFallbackOptions {
-  error?: string
-  loading?: string
+  error?: string;
+  loading?: string;
 }
 
 type ImgFallbackObjDirective<T extends HTMLImageElement, V extends ImgFallbackOptions | string = ImgFallbackOptions> = ObjectDirective<T, V>;
@@ -31,8 +31,7 @@ function makeImgFallbackDir<ImgT extends HTMLImageElement, ImgV extends ImgFallb
       if (isString(value)) {
         // @ts-ignore
         loading = error = value;
-      }
-      else if (isObject<ImgFallbackOptions>(value)) {
+      } else if (isObject<ImgFallbackOptions>(value)) {
         // @ts-ignore
         loading = value.loading || defaultLoading;
         // @ts-ignore

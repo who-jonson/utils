@@ -8,8 +8,9 @@ import { clamp } from './math';
  */
 export function toArray<T>(array?: Nullable<Arrayable<T>>): Array<T> {
   array = array || [];
-  if (Array.isArray(array))
+  if (Array.isArray(array)) {
     return array;
+  }
   return [array];
 }
 
@@ -88,8 +89,9 @@ export function last<T>(array: readonly T[]): T | undefined {
  * @category Array
  */
 export function remove<T>(array: T[], value: T) {
-  if (!array)
+  if (!array) {
     return false;
+  }
   const index = array.indexOf(value);
   if (index >= 0) {
     array.splice(index, 1);
@@ -107,11 +109,13 @@ export function at(array: readonly [], index: number): undefined;
 export function at<T>(array: readonly T[], index: number): T;
 export function at<T>(array: readonly T[] | [], index: number): T | undefined {
   const len = array.length;
-  if (!len)
+  if (!len) {
     return undefined;
+  }
 
-  if (index < 0)
+  if (index < 0) {
     index += len;
+  }
 
   return array[index];
 }
@@ -130,8 +134,7 @@ export function range(...args: any): number[] {
     start = 0;
     step = 1;
     ([stop] = args);
-  }
-  else {
+  } else {
     ([start, stop, step = 1] = args);
   }
 

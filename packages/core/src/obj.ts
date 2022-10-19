@@ -90,24 +90,27 @@ export function objectEntries<T extends object>(obj: T) {
  * @typeParam S
  */
 export function deepMerge<T extends object = object, S extends object = T>(target: T, ...sources: S[]): DeepMerge<T, S> {
-  if (!sources.length)
+  if (!sources.length) {
     return target as any;
+  }
 
   const source = sources.shift();
-  if (source === undefined)
+  if (source === undefined) {
     return target as any;
+  }
 
   if (isObjectMergable(target) && isObjectMergable(source)) {
     objectKeys(source).forEach((key) => {
       if (isObjectMergable(source[key])) {
         // @ts-ignore
         if (!target[key])
-          // @ts-ignore
+        // @ts-ignore
+        {
           target[key] = {};
+        }
         // @ts-ignore
         deepMerge(target[key], source[key]);
-      }
-      else {
+      } else {
         // @ts-ignore
         target[key] = source[key];
       }
@@ -143,8 +146,9 @@ function isObjectMergable(item: any): item is Object {
 export function objectPick<O, T extends keyof O>(obj: O, keys: T[], omitUndefined = false) {
   return keys.reduce((n, k) => {
     if (k in obj) {
-      if (!omitUndefined || obj[k] !== undefined)
+      if (!omitUndefined || obj[k] !== undefined) {
         n[k] = obj[k];
+      }
     }
     return n;
   }, {} as Pick<O, T>);
@@ -173,7 +177,8 @@ export function clearUndefined<T extends object>(obj: T): T {
  * @typeParam T
  */
 export function hasOwnProperty<T>(obj: T, key: PropertyKey) {
-  if (obj == null)
+  if (obj == null) {
     return false;
+  }
   return Object.prototype.hasOwnProperty.call(obj, key);
 }

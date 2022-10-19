@@ -55,8 +55,9 @@ export class FuseJS<DataT> {
    * @returns The results of the search.
    */
   runSearch(search?: string) {
-    if (!this.fuse)
+    if (!this.fuse) {
       return;
+    }
 
     if (!search) {
       this.resultsRaw.value = [];
@@ -78,8 +79,7 @@ export class FuseJS<DataT> {
     let locArr: Array<DataT> = [];
     if (Array.isArray(list)) {
       locArr = list;
-    }
-    else if (list) {
+    } else if (list) {
       locArr = list.value ?? [];
       watch(list, () => {
         this.loadItems(list.value ?? []);

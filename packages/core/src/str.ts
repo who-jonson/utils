@@ -13,8 +13,9 @@ export function slash(str: string) {
  * @category String
  */
 export function ensurePrefix(prefix: string, str: string) {
-  if (!str.startsWith(prefix))
+  if (!str.startsWith(prefix)) {
     return prefix + str;
+  }
   return str;
 }
 
@@ -24,8 +25,9 @@ export function ensurePrefix(prefix: string, str: string) {
  * @category String
  */
 export function ensureSuffix(suffix: string, str: string) {
-  if (!str.endsWith(suffix))
+  if (!str.endsWith(suffix)) {
     return str + suffix;
+  }
   return str;
 }
 
@@ -45,8 +47,9 @@ export function ensureSuffix(suffix: string, str: string) {
 export function template(str: string, ...args: any[]): string {
   return str.replace(/{(\d+)}/g, (match, key) => {
     const index = Number(key);
-    if (Number.isNaN(index))
+    if (Number.isNaN(index)) {
       return match;
+    }
     return args[index];
   });
 }

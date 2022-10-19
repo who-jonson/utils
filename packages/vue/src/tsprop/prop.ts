@@ -8,18 +8,18 @@ export type DefaultFactory<T> = (
 
 export type DefaultType<T> = T | DefaultFactory<T> | null | undefined | object;
 
-export type RequiredProp<T, D> = Prop<T, D> & { required: true };
+export type RequiredProp<T, D> = Prop<T, D> & { required: true, };
 
 export type PropOptions<T, D> = Prop<T, D> & {
-  def(value: D): PropOptions<T, D>
-  valid(validator: (value: D) => boolean): PropOptions<T, D>
-  get isRequired(): RequiredProp<T, D>
+  def(value: D): PropOptions<T, D>,
+  valid(validator: (value: D) => boolean): PropOptions<T, D>,
+  get isRequired(): RequiredProp<T, D>,
 };
 
 export type LiteralPropOptions<T> = Prop<T, T> & {
-  def(value: T): LiteralPropOptions<T>
-  valid(validator: (value: T) => boolean): LiteralPropOptions<T>
-  get isRequired(): RequiredProp<T, T>
+  def(value: T): LiteralPropOptions<T>,
+  valid(validator: (value: T) => boolean): LiteralPropOptions<T>,
+  get isRequired(): RequiredProp<T, T>,
 };
 
 /* It's a class that takes a type parameter T, and returns a new instance of the VuePropType class, with a type property
