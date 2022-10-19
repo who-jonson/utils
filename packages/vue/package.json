@@ -63,12 +63,12 @@
     "vue-demi": "latest"
   },
   "devDependencies": {
-    "vue": "^3.2.39"
+    "vue": "^3.2.41"
   },
   "peerDependencies": {
     "vue": "^2.6 || >=3.2"
   },
-  "packageManager": "pnpm@7.11.0",
+  "packageManager": "pnpm@7.13.5",
   "author": {
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",
