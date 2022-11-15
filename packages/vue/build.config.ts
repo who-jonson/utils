@@ -21,8 +21,7 @@ export default defineBuildConfig({
     },
     emitCJS: true,
     esbuild: {
-      target: 'node14',
-      treeShaking: true
+      target: 'node14'
     },
     replace: {
       'import.meta.vitest': 'undefined'
