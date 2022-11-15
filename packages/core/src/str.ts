@@ -53,3 +53,26 @@ export function template(str: string, ...args: any[]): string {
     return args[index];
   });
 }
+
+/**
+ * @category String
+ * Divide a string into 2 parts by char(s)
+ * You may define a position if string includes the separator multiple times
+ * @param {string} str - The string to be divided.
+ * @param {string} separator - The separator to use to divide the string.
+ * @param {number} [position=1] - The position of the separator.
+ *
+ * It will make 2nd item for the return as empty string, if no separator found!
+ * @returns string[]
+ */
+export function divideStr(str: string, separator: string, position = 1) {
+  if (str.includes(separator)) {
+    const arr = str.split(separator);
+
+    return [
+      arr.slice(0, position).join(separator),
+      arr.slice(position).join(separator)
+    ];
+  }
+  return [str, ''];
+}
