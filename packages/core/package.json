@@ -31,7 +31,7 @@
     "*.d.ts"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup --config rollup.config.ts --configPlugin typescript",
     "stub": "unbuild --stub",
     "prepublishOnly": "pnpm run build",
     "typecheck": "tsc --noEmit"

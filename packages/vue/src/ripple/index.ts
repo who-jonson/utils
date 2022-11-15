@@ -81,7 +81,7 @@ function rippleHandler(el: DirectiveEl, modifiers: DirectiveModifiers, options?:
   const bg = options?.color || 'rgba(0, 0, 0, 0.35)';
   const zIndex = options?.zIndex || '9999';
 
-  const rippleEl = function(event, el: DirectiveEl) {
+  const rippleEl = function (event, el: DirectiveEl) {
     const target = el;
     const targetBorder = parseInt((getComputedStyle(target).borderWidth).replace('px', ''));
     const clientX = event.clientX || event.touches[0].clientX;

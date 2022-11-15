@@ -54,5 +54,8 @@
     "access": "public"
   },
   "bugs": "https://github.com/who-jonson/utils/issues",
-  "sideEffects": false
+  "sideEffects": false,
+  "devDependencies": {
+    "rollup": "^2.79.1"
+  }
 }

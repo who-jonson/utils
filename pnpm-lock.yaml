@@ -4,6 +4,7 @@ importers:
 
   .:
     specifiers:
+      '@rollup/plugin-typescript': ^9.0.2
       '@testing-library/vue': ^6.6.1
       '@types/node': ^18.11.9
       '@types/throttle-debounce': ^5.0.0
@@ -23,6 +24,7 @@ importers:
       fast-glob: ^3.2.12
       npm-run-all: ^4.1.5
       rimraf: ^3.0.2
+      rollup-plugin-esbuild: ^5.0.0
       throttle-debounce: ^5.0.0
       ts-toolbelt: ^9.6.0
       type-fest: ^3.2.0
@@ -34,6 +36,7 @@ importers:
       vitest: ^0.25.2
       vue: ^3.2.45
     devDependencies:
+      '@rollup/plugin-typescript': 9.0.2_typescript@4.8.4
       '@testing-library/vue': 6.6.1_vue@3.2.45
       '@types/node': 18.11.9
       '@types/throttle-debounce': 5.0.0
@@ -53,6 +56,7 @@ importers:
       fast-glob: 3.2.12
       npm-run-all: 4.1.5
       rimraf: 3.0.2
+      rollup-plugin-esbuild: 5.0.0
       throttle-debounce: 5.0.0
       ts-toolbelt: 9.6.0
       type-fest: 3.2.0
@@ -81,7 +85,10 @@ importers:
       '@whoj/utils-types': link:../types
 
   packages/types:
-    specifiers: {}
+    specifiers:
+      rollup: ^2.79.1
+    devDependencies:
+      rollup: 2.79.1
 
   packages/vue:
     specifiers:
@@ -593,6 +600,38 @@ packages:
       '@rollup/pluginutils': 5.0.2_rollup@3.3.0
       magic-string: 0.26.7
       rollup: 3.3.0
+    dev: true
+
+  /@rollup/plugin-typescript/9.0.2_typescript@4.8.4:
+    resolution: {integrity: sha512-/sS93vmHUMjzDUsl5scNQr1mUlNE1QjBBvOhmRwJCH8k2RRhDIm3c977B3wdu3t3Ap17W6dDeXP3hj1P1Un1bA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^2.14.0||^3.0.0
+      tslib: '*'
+      typescript: '>=3.7.0'
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+      tslib:
+        optional: true
+    dependencies:
+      '@rollup/pluginutils': 5.0.2
+      resolve: 1.22.1
+      typescript: 4.8.4
+    dev: true
+
+  /@rollup/pluginutils/5.0.2:
+    resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      '@types/estree': 1.0.0
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
     dev: true
 
   /@rollup/pluginutils/5.0.2_rollup@3.3.0:
@@ -1611,6 +1650,10 @@ packages:
       string.prototype.trimend: 1.0.5
       string.prototype.trimstart: 1.0.5
       unbox-primitive: 1.0.2
+    dev: true
+
+  /es-module-lexer/1.1.0:
+    resolution: {integrity: sha512-fJg+1tiyEeS8figV+fPcPpm8WqJEflG3yPU0NOm5xMvrNkuiy7HzX/Ljng4Y0hAoiw4/3hQTCFYw+ub8+a2pRA==}
     dev: true
 
   /es-shim-unscopables/1.0.0:
@@ -3187,6 +3230,11 @@ packages:
     resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
     dev: true
 
+  /joycon/3.1.1:
+    resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
+    engines: {node: '>=10'}
+    dev: true
+
   /js-sdsl/4.1.5:
     resolution: {integrity: sha512-08bOAKweV2NUC1wqTtf3qZlnpOX/R2DU9ikpjOHs0H+ibQv3zpncVQg6um4uYtRtrwIX8M4Nh3ytK4HGlYAq7Q==}
     dev: true
@@ -3943,6 +3991,22 @@ packages:
       typescript: 4.8.4
     optionalDependencies:
       '@babel/code-frame': 7.18.6
+    dev: true
+
+  /rollup-plugin-esbuild/5.0.0:
+    resolution: {integrity: sha512-1cRIOHAPh8WQgdQQyyvFdeOdxuiyk+zB5zJ5+YOwrZP4cJ0MT3Fs48pQxrZeyZHcn+klFherytILVfE4aYrneg==}
+    engines: {node: '>=14.18.0', npm: '>=8.0.0'}
+    peerDependencies:
+      esbuild: '>=0.10.1'
+      rollup: ^1.20.0 || ^2.0.0 || ^3.0.0
+    dependencies:
+      '@rollup/pluginutils': 5.0.2
+      debug: 4.3.4
+      es-module-lexer: 1.1.0
+      joycon: 3.1.1
+      jsonc-parser: 3.2.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /rollup/2.79.1:

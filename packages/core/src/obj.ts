@@ -103,9 +103,10 @@ export function deepMerge<T extends object = object, S extends object = T>(targe
     objectKeys(source).forEach((key) => {
       if (isObjectMergable(source[key])) {
         // @ts-ignore
-        if (!target[key])
-        // @ts-ignore
-        { target[key] = {}; }
+        if (!target[key]) {
+          // @ts-ignore
+          target[key] = {};
+        }
         // @ts-ignore
         deepMerge(target[key], source[key]);
       } else {
