@@ -68,7 +68,7 @@
   "peerDependencies": {
     "vue": "^2.6 || >=3.2"
   },
-  "packageManager": "pnpm@7.16.0",
+  "packageManager": "pnpm@7.18.1",
   "author": {
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",

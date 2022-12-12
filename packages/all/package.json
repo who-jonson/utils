@@ -56,7 +56,7 @@
     "@whoj/utils-types": "workspace:^",
     "@whoj/utils-vue": "workspace:^"
   },
-  "packageManager": "pnpm@7.16.0",
+  "packageManager": "pnpm@7.18.1",
   "author": {
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",

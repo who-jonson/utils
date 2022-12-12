@@ -20,13 +20,13 @@
     "release": "bumpp package.json packages/*/package.json --commit --push --tag && pnpm -r publish --access public"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^9.0.2",
+    "@rollup/plugin-typescript": "^10.0.1",
     "@testing-library/vue": "^6.6.1",
-    "@types/node": "^18.11.9",
+    "@types/node": "^18.11.13",
     "@types/throttle-debounce": "^5.0.0",
-    "@vitejs/plugin-vue": "^3.2.0",
-    "@vitest/ui": "^0.25.2",
-    "@whoj/eslint-config": "^1.0.2",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vitest/ui": "^0.25.7",
+    "@whoj/eslint-config": "^1.0.3",
     "@whoj/utils": "workspace:^",
     "bumpp": "^8.2.1",
     "c8": "^7.12.0",
@@ -34,7 +34,7 @@
     "core-js": "^3.26.1",
     "cross-env": "^7.0.3",
     "dot-prop": "^7.2.0",
-    "eslint": "8.27.0",
+    "eslint": "8.29.0",
     "eslint-plugin-testing-library": "^5.9.1",
     "eslint-plugin-tsdoc": "^0.2.17",
     "esno": "^0.16.3",
@@ -45,13 +45,13 @@
     "scule": "^1.0.0",
     "throttle-debounce": "^5.0.0",
     "ts-toolbelt": "^9.6.0",
-    "type-fest": "^3.2.0",
-    "typescript": "^4.8.4",
-    "unbuild": "^0.9.4",
+    "type-fest": "^3.3.0",
+    "typescript": "^4.9.4",
+    "unbuild": "^1.0.2",
     "utility-types": "^3.10.0",
-    "vite": "^3.2.3",
+    "vite": "^4.0.1",
     "vite-dts": "^1.0.4",
-    "vitest": "^0.25.2",
+    "vitest": "^0.25.7",
     "vue": "^3.2.45"
   },
   "pnpm": {
@@ -63,7 +63,7 @@
       ]
     }
   },
-  "packageManager": "pnpm@7.16.0",
+  "packageManager": "pnpm@7.18.1",
   "author": {
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",

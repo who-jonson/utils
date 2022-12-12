@@ -2,6 +2,7 @@ export * from './array';
 export * from './c';
 export * from './emit';
 export * from './func';
+export * from './global';
 export * from './guard';
 export * from './is';
 export * from './math';

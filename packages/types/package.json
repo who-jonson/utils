@@ -31,12 +31,12 @@
     "*.d.ts"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup --config rollup.config.ts --configPlugin typescript",
     "stub": "unbuild --stub",
     "prepublishOnly": "pnpm run build",
     "typecheck": "tsc --noEmit"
   },
-  "packageManager": "pnpm@7.16.0",
+  "packageManager": "pnpm@7.18.1",
   "author": {
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",
@@ -56,6 +56,6 @@
   "bugs": "https://github.com/who-jonson/utils/issues",
   "sideEffects": false,
   "devDependencies": {
-    "rollup": "^2.79.1"
+    "rollup": "^3.7.3"
   }
 }
