@@ -1,3 +1,5 @@
+import {Omit} from "utility-types/dist/mapped-types";
+
 /**
  * Boolean or 'true' or 'false'
  *
@@ -150,3 +152,5 @@ export type NestedKeyOf<Obj extends object> =
  * @category Type Alias
  */
 export type ObjectPaths<Obj extends object> = NestedKeyOf<Obj>;
+
+export type Optional<T extends object, K extends keyof T = keyof T> = Omit<T, K> & Partial<Pick<T, K>>;

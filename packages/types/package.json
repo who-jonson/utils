@@ -36,7 +36,7 @@
     "prepublishOnly": "pnpm run build",
     "typecheck": "tsc --noEmit"
   },
-  "packageManager": "pnpm@7.18.1",
+  "packageManager": "pnpm@7.18.2",
   "author": {
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",

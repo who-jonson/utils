@@ -34,6 +34,15 @@
       "types": "./dist/img-fallback.d.ts",
       "require": "./dist/img-fallback.cjs",
       "import": "./dist/img-fallback.mjs"
+    },
+    "./composables": {
+      "types": "./dist/composables.d.ts",
+      "require": "./dist/composables.cjs",
+      "import": "./dist/composables.mjs"
+    },
+    "./composables/*": {
+      "require": "./dist/composables/*.cjs",
+      "import": "./dist/composables/*.mjs"
     }
   },
   "main": "./dist/index.mjs",
@@ -68,7 +77,7 @@
   "peerDependencies": {
     "vue": "^2.6 || >=3.2"
   },
-  "packageManager": "pnpm@7.18.1",
+  "packageManager": "pnpm@7.18.2",
   "author": {
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",
