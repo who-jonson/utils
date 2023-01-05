@@ -9,15 +9,7 @@
     "typescript",
     "utilities"
   ],
-  "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/index.d.ts"
-      ]
-    }
-  },
   "files": [
     "dist",
     "*.d.ts"
@@ -25,7 +17,7 @@
   "scripts": {
     "build": "rollup --config rollup.config.ts --configPlugin typescript",
     "stub": "unbuild --stub",
-    "prepublishOnly": "pnpm run build",
+    "prepublishOnly": "rm -rf dist && pnpm run build",
     "typecheck": "tsc --noEmit"
   },
   "author": {
