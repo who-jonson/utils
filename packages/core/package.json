@@ -1,7 +1,7 @@
 {
   "name": "@whoj/utils-core",
   "description": "Core collection of common JS / TS helpers/utils by @whoj",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "type": "module",
   "license": "MIT",
   "keywords": [
