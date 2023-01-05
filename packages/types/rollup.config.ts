@@ -23,6 +23,20 @@ const plugins = [
   esbuild()
 ];
 
+function buildEntries() {
+  return entries.map(input => ({
+    input,
+    output: [
+      {
+        file: input.replace('src/', 'dist/').replace('.ts', '.js'),
+        format: 'esm'
+      }
+    ],
+    external: [],
+    plugins
+  }));
+}
+
 function dtsBuildEntries() {
   return entries.map(input => ({
     input,
@@ -38,5 +52,6 @@ function dtsBuildEntries() {
 }
 
 export default [
+  ...buildEntries(),
   ...dtsBuildEntries()
 ];
