@@ -5,19 +5,11 @@
   "type": "module",
   "license": "MIT",
   "keywords": [
-    "typescript",
     "ts",
-    "starter"
+    "typescript",
+    "utilities"
   ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
-    }
-  },
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
+  "main": "./dist/index.d.ts",
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
@@ -36,7 +28,6 @@
     "prepublishOnly": "pnpm run build",
     "typecheck": "tsc --noEmit"
   },
-  "packageManager": "pnpm@7.18.2",
   "author": {
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",
@@ -56,6 +47,6 @@
   "bugs": "https://github.com/who-jonson/utils/issues",
   "sideEffects": false,
   "devDependencies": {
-    "rollup": "^3.7.3"
+    "rollup": "^3.9.1"
   }
 }

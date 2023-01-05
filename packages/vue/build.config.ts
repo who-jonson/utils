@@ -12,6 +12,7 @@ export default defineBuildConfig({
     { input: 'src/composables/index', builder: 'rollup', name: 'composables' },
     { input: 'src/img-fallback/index', builder: 'rollup', name: 'img-fallback' }
   ],
+  failOnWarn: false,
   rollup: {
     alias: {
       entries: [

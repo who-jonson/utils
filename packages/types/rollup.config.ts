@@ -20,29 +20,8 @@ const plugins = [
   }),
   json(),
   commonjs(),
-  esbuild({
-    target: 'node14',
-    treeShaking: true
-  })
+  esbuild()
 ];
-
-function buildEntries() {
-  return entries.map(input => ({
-    input,
-    output: [
-      {
-        file: input.replace('src/', 'dist/').replace('.ts', '.mjs'),
-        format: 'esm'
-      },
-      {
-        file: input.replace('src/', 'dist/').replace('.ts', '.cjs'),
-        format: 'cjs'
-      }
-    ],
-    external: [],
-    plugins
-  }));
-}
 
 function dtsBuildEntries() {
   return entries.map(input => ({
@@ -59,6 +38,5 @@ function dtsBuildEntries() {
 }
 
 export default [
-  ...buildEntries(),
   ...dtsBuildEntries()
 ];
