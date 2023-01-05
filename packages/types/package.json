@@ -9,7 +9,7 @@
     "typescript",
     "utilities"
   ],
-  "main": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
