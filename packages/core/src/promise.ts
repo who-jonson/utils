@@ -125,3 +125,24 @@ export function createControlledPromise<T>(): ControlledPromise<T> {
   promise.reject = reject;
   return promise;
 }
+
+/**
+ * Parallel Promise
+ *
+ * @category Promise
+ */
+export function parallel<T, D = any>(tasks: T[], fn: (task: T) => Promise<D>) {
+  return Promise.all(tasks.map(task => fn(task)));
+}
+
+/**
+ * Serial Promise
+ *
+ * @category Promise
+ */
+export function serial<T>(tasks: T[], fn: (task: T, previous: any) => Promise<any>) {
+  return tasks.reduce<Promise<any>>(
+    (promise, task) => promise.then(previous => fn(task, previous)),
+    Promise.resolve(null)
+  );
+}
