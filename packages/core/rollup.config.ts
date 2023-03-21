@@ -32,11 +32,19 @@ function buildEntries() {
     output: [
       {
         file: input.replace('src/', 'dist/').replace('.ts', '.mjs'),
+        sourcemap: true,
         format: 'esm'
       },
       {
         file: input.replace('src/', 'dist/').replace('.ts', '.cjs'),
+        sourcemap: true,
         format: 'cjs'
+      },
+      {
+        file: input.replace('src/', 'dist/').replace('.ts', '.iife.js'),
+        sourcemap: true,
+        format: 'iife',
+        name: 'WhojUtils.Core'
       }
     ],
     external: [],

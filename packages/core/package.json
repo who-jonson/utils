@@ -13,27 +13,31 @@
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "browser": "./dist/index.esm-browser.js"
     }
   },
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "typesVersions": {
-    "*": {
+    "<=4.9": {
       "*": [
         "./dist/index.d.ts"
       ]
     }
   },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "iife": "./dist/index.global.js",
+  "unpkg": "./dist/index.global.js",
+  "jsdelivr": "./dist/index.global.js",
   "files": [
     "dist",
     "*.d.ts"
   ],
   "scripts": {
-    "build": "rollup --config rollup.config.ts --configPlugin typescript",
+    "build": "rollup --config rollup.config.ts --configPlugin typescript && tsx ../../scripts/postbuild.ts --name WhojUtils.Core",
     "stub": "unbuild --stub",
-    "prepublishOnly": "pnpm run build",
+    "prepublishOnly": "rm -rf dist && pnpm run build",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

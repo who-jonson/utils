@@ -13,7 +13,8 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.cjs",
+      "browser": "./dist/index.esm-browser.js"
     },
     "./fusejs": {
       "types": "./dist/fusejs.d.ts",
@@ -45,22 +46,25 @@
       "require": "./dist/composables/*.cjs"
     }
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "typesVersions": {
-    "*": {
+    "<=4.9": {
       "*": [
         "./dist/*",
         "./dist/index.d.ts"
       ]
     }
   },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "iife": "./dist/index.global.js",
+  "unpkg": "./dist/index.global.js",
+  "jsdelivr": "./dist/index.global.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
+    "build": "unbuild && tsx ../../scripts/postbuild.ts --name WhojUtils.Vue --vue",
     "stub": "unbuild --stub",
     "prepublishOnly": "pnpm run build",
     "typecheck": "tsc --noEmit"
@@ -73,7 +77,7 @@
     "vue-demi": "^0.13.11"
   },
   "devDependencies": {
-    "vue": "^3.2.45"
+    "vue": "^3.2.47"
   },
   "peerDependencies": {
     "vue": "^2.6 || >=3.2"

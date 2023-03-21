@@ -3,6 +3,7 @@ import { defineBuildConfig } from 'unbuild';
 export default defineBuildConfig({
   declaration: true,
   clean: true,
+  failOnWarn: false,
   entries: [
     'src/core',
     'src/index',
@@ -20,8 +21,7 @@ export default defineBuildConfig({
     },
     emitCJS: true,
     esbuild: {
-      target: 'node14',
-      treeShaking: true
+      target: 'node14'
     },
     replace: {
       'import.meta.vitest': 'undefined'

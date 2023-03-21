@@ -1,4 +1,3 @@
-export * from '@whoj/utils-core';
-export * from '@whoj/utils-types';
-export * from '@whoj/utils-vue';
-export {};
+export * from './core';
+export * from './types';
+export * from './vue';
