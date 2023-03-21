@@ -12,9 +12,9 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "browser": "./dist/index.esm-browser.js",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
-      "browser": "./dist/index.esm-browser.js"
+      "require": "./dist/index.cjs"
     },
     "./core": {
       "types": "./dist/core.d.ts",
