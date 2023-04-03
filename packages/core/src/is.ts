@@ -1,3 +1,4 @@
+import isGlob from 'is-glob';
 import { toString } from './c';
 
 /**
@@ -108,3 +109,12 @@ export const isBrowser = typeof window !== 'undefined';
  *
  */
 export const hasConsole = typeof console !== 'undefined';
+
+/**
+ * Check if it has glob pattern
+ * @category Is Glob
+ *
+ * @returns - Boolean
+ *
+ */
+export const isGlobPattern = isGlob;

@@ -13,6 +13,9 @@ export { dotCase } from 'dot-case';
 export { pathCase } from 'path-case';
 export { paramCase } from 'param-case';
 
+/**
+ * @category String
+ */
 export function changeCase(str: string, to: 'camel' | 'snake' | 'kebab' | 'pascal') {
   switch (to) {
     case 'camel':

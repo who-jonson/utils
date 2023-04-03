@@ -16,6 +16,9 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.1
         version: 11.0.1
+      '@types/is-glob':
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/node':
         specifier: ^18.15.11
         version: 18.15.11
@@ -976,6 +979,10 @@ packages:
     dependencies:
       '@types/jsonfile': 6.1.1
       '@types/node': 18.15.11
+    dev: true
+
+  /@types/is-glob@4.0.2:
+    resolution: {integrity: sha512-4j5G9Y5jljDSICQ1R2f/Rcyoj6DZmYGneny+p/cDkjep0rkqNg0W73Ty0bVjMUTZgLXHf8oiMjg1XC3CDwCz+g==}
     dev: true
 
   /@types/istanbul-lib-coverage@2.0.4:
