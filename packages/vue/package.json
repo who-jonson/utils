@@ -21,11 +21,6 @@
       "import": "./dist/fusejs.mjs",
       "require": "./dist/fusejs.cjs"
     },
-    "./prop": {
-      "types": "./dist/prop.d.ts",
-      "import": "./dist/prop.mjs",
-      "require": "./dist/prop.cjs"
-    },
     "./ripple": {
       "types": "./dist/ripple.d.ts",
       "import": "./dist/ripple.mjs",
@@ -41,20 +36,20 @@
       "import": "./dist/composables.mjs",
       "require": "./dist/composables.cjs"
     },
-    "./composables/*": {
-      "import": "./dist/composables/*.mjs",
-      "require": "./dist/composables/*.cjs"
-    }
+    "./*": [
+      "./dist/*",
+      "./dist/*.d.ts"
+    ]
   },
   "typesVersions": {
     "<=4.9": {
       "*": [
         "./dist/*",
-        "./dist/index.d.ts"
+        "./*"
       ]
     }
   },
-  "main": "./dist/index.cjs",
+  "main": "./src/index.ts",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "iife": "./dist/index.global.js",
@@ -64,10 +59,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild && tsx ../../scripts/postbuild.ts --name WhojUtils.Vue --vue",
+    "build": "rollup --config ../../rollup.config.js",
     "stub": "unbuild --stub",
-    "prepublishOnly": "pnpm run build",
-    "typecheck": "tsc --noEmit"
+    "prepublishOnly": "rm -rf dist && pnpm run build",
+    "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@whoj/utils-core": "workspace:^",
@@ -95,9 +90,9 @@
     "directory": "packages/vue"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org",
-    "access": "public"
+    "access": "public",
+    "main": "./dist/index.cjs",
+    "registry": "https://registry.npmjs.org"
   },
-  "bugs": "https://github.com/who-jonson/utils/issues",
-  "sideEffects": false
+  "bugs": "https://github.com/who-jonson/utils/issues"
 }

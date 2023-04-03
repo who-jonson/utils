@@ -1,4 +1,4 @@
-import type { DeepMerge } from '@whoj/utils-types';
+import type { DeepMerge, Dictionary, List } from '@whoj/utils-types';
 import { isObject } from './is';
 import { notNullish } from './guard';
 
@@ -180,4 +180,31 @@ export function hasOwnProperty<T>(obj: T, key: PropertyKey) {
     return false;
   }
   return Object.prototype.hasOwnProperty.call(obj, key);
+}
+
+/**
+ *
+ * @category Object
+ *
+ * @typeParam T
+ * @param {Array} pairs
+ */
+export function fromPairs<T>(pairs: List<[PropertyKey, T]>) {
+  return pairs.reduce<Dictionary<T>>((obj, [key, val]) => ({
+    ...obj,
+    [key]: val
+  }), {});
+}
+
+/**
+ *
+ * @category Object
+ *
+ * @typeParam T
+ *
+ * @param {Dictionary} obj
+ * @returns {Array}
+ */
+export function toPairs<T>(obj: Dictionary<T>) {
+  return objectEntries(obj);
 }

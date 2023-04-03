@@ -1,4 +1,3 @@
-import type { Func } from '@whoj/utils-types';
 import { getCurrentInstance, nextTick, onMounted } from 'vue-demi';
 
 /**
@@ -7,12 +6,12 @@ import { getCurrentInstance, nextTick, onMounted } from 'vue-demi';
  * @param func
  * @param sync if set to false, it will run in the nextTick() of Vue
  */
-export function tryOnMounted(func: Func, sync = true) {
+export function tryOnMounted<T extends Function>(func: T, sync = true) {
   if (getCurrentInstance()) {
-    onMounted(func);
+    onMounted(() => func());
   } else if (sync) {
     func();
   } else {
-    nextTick(func);
+    nextTick(() => func());
   }
 }

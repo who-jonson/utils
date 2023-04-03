@@ -1,5 +1,3 @@
-import {Omit} from "utility-types/dist/mapped-types";
-
 /**
  * Boolean or 'true' or 'false'
  *
@@ -47,7 +45,7 @@ export type Arrayable<T> = T | Array<T>;
  *
  * @typeParam D - Type of data the Function return
  */
-export type Func<T = void> = () => T;
+export type Func<T = void, D = T> = (args: T) => D;
 
 /**
  * Infers the element type of array
@@ -141,10 +139,9 @@ export type DeepMerge<F, S> = MergeInsertions<{
  * @category Type Alias
  */
 export type NestedKeyOf<Obj extends object> =
-  {[Key in keyof Obj]: Obj[Key] extends object
-    // @ts-ignore
+  {[Key in keyof Obj & (string | number)]: Obj[Key] extends object
     ? `${Key}` | `${Key}.${NestedKeyOf<Obj[Key]>}` : `${Key}`
-  }[keyof Obj];
+  }[keyof Obj & (string | number)];
 
 /**
  * Alias for NestedKeyOf
@@ -154,3 +151,8 @@ export type NestedKeyOf<Obj extends object> =
 export type ObjectPaths<Obj extends object> = NestedKeyOf<Obj>;
 
 export type Optional<T extends object, K extends keyof T = keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+
+export type List<T> = Array<T>;
+export interface Dictionary<T> {
+  [index: PropertyKey]: T;
+}

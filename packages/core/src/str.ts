@@ -1,3 +1,13 @@
+import type { Func } from '@whoj/utils-types';
+
+const cacheStringFunction = (fn: Func<string>): Func<string> => {
+  const cache = Object.create(null);
+  return (str) => {
+    const hit = cache[str];
+    return hit || (cache[str] = fn(str));
+  };
+};
+
 /**
  * Replace backslash to slash
  *
@@ -6,6 +16,16 @@
 export function slash(str: string) {
   return str.replace(/\\/g, '/');
 }
+
+/**
+ * Replace backslash to slash
+ *
+ * @category String
+ * @param {string} str
+ *
+ * @returns {string}
+ */
+export const capitalize = cacheStringFunction(str => str.charAt(0).toUpperCase() + str.slice(1));
 
 /**
  * Ensure prefix of a string

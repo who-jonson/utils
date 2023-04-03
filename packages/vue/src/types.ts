@@ -7,7 +7,8 @@ import type { ComputedRef, Ref } from 'vue-demi';
  * type Refable<T> = T | Ref<T>
  * ```
  */
-export type Refable<T> = T | Ref<T>;
+export type MaybeRef<T> = T | Ref<T>;
+export type Refable<T> = MaybeRef<T>;
 
 /**
  * Maybe it's a computed ref, or a getter function

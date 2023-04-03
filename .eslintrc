@@ -9,6 +9,9 @@
   "plugins": [
     "eslint-plugin-tsdoc"
   ],
+  "rules": {
+    "import/order": "off"
+  },
   "overrides": [
     {
       "files": [

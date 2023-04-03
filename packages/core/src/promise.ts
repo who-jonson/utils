@@ -43,7 +43,7 @@ export function createSingletonPromise<T>(fn: () => Promise<T>): SingletonPromis
  *
  * @category Promise
  */
-export function sleep(ms: number, callback?: Func<any>) {
+export function sleep(ms: number, callback?: Func) {
   return new Promise<void>(resolve =>
     setTimeout(async () => {
       await callback?.();

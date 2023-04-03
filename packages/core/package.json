@@ -15,16 +15,21 @@
       "browser": "./dist/index.esm-browser.js",
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
-    }
+    },
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
   },
   "typesVersions": {
     "<=4.9": {
       "*": [
-        "./dist/index.d.ts"
+        "./dist/*",
+        "./*"
       ]
     }
   },
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "iife": "./dist/index.global.js",
@@ -35,7 +40,7 @@
     "*.d.ts"
   ],
   "scripts": {
-    "build": "rollup --config rollup.config.ts --configPlugin typescript && tsx ../../scripts/postbuild.ts --name WhojUtils.Core",
+    "build": "rollup --config ../../rollup.config.js",
     "stub": "unbuild --stub",
     "prepublishOnly": "rm -rf dist && pnpm run build",
     "typecheck": "tsc --noEmit"
@@ -56,8 +61,8 @@
     "directory": "packages/core"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org",
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "bugs": "https://github.com/who-jonson/utils/issues",
   "sideEffects": false

@@ -55,9 +55,9 @@
     "*.d.ts"
   ],
   "scripts": {
-    "build": "unbuild && tsx ../../scripts/postbuild.ts --name WhojUtils --vue",
+    "build": "rollup --config ../../rollup.config.js",
     "stub": "unbuild --stub",
-    "prepublishOnly": "pnpm run build",
+    "prepublishOnly": "rm -rf dist && pnpm run build",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

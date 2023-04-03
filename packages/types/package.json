@@ -9,14 +9,31 @@
     "typescript",
     "utilities"
   ],
-  "types": "./dist/index.d.ts",
-  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    },
+    "./*": [
+      "./*",
+      "./*.d.ts"
+    ]
+  },
+  "main": "./src/index.ts",
+  "typesVersions": {
+    "<=4.9": {
+      "*": [
+        "./dist/*",
+        "./*"
+      ]
+    }
+  },
   "files": [
     "dist",
     "*.d.ts"
   ],
   "scripts": {
-    "build": "rollup --config rollup.config.ts --configPlugin typescript",
+    "build": "rollup --config ../../rollup.config.js",
     "stub": "unbuild --stub",
     "prepublishOnly": "rm -rf dist && pnpm run build",
     "typecheck": "tsc --noEmit"
@@ -34,12 +51,14 @@
     "directory": "packages/types"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org",
-    "access": "public"
+    "access": "public",
+    "main": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "registry": "https://registry.npmjs.org"
   },
   "bugs": "https://github.com/who-jonson/utils/issues",
   "sideEffects": false,
   "devDependencies": {
-    "rollup": "^3.20.0"
+    "rollup": "^3.20.2"
   }
 }

@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "noEmitOnError": false,
+    "moduleResolution": "Bundler",
+    "customConditions": ["develop"]
+  },
+  "include": [
+    "packages/**/*.ts",
+    "packages/**/*.vue",
+    "env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/dist",
+    "**/__tests__/**/*",
+    "**/tests/**/*",
+    "**/examples/**/*",
+    "**/*.story.vue",
+    "**/*.test.*",
+    "**/*.spec.*"
+  ]
+}

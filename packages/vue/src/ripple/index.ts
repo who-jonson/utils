@@ -1,6 +1,7 @@
 import { isVue3 } from 'vue-demi';
 import type { Directive, DirectiveBinding, ObjectDirective, Plugin, Ref } from 'vue-demi';
 import { isNumber, objectKeys } from '@whoj/utils-core';
+
 import './style.css';
 
 type DirectiveEl = HTMLButtonElement | HTMLAnchorElement | HTMLElement;

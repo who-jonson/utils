@@ -2,6 +2,7 @@ export * from './refOf';
 export * from './unrefOf';
 export * from './unrefOfEl';
 export * from './useLinkTag';
+export * from './useStyleTag';
 export * from './listenEvent';
 export * from './tryOnMounted';
 export * from './tryOnUnmounted';
