@@ -1,7 +1,7 @@
 {
   "name": "@whoj/utils-monorepo",
   "description": "Collection of common JS / TS helpers/utils by @whoj",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "private": true,
   "license": "MIT",
   "keywords": [
@@ -71,7 +71,7 @@
       "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@^1.4.14"
     },
     "peerDependencyRules": {
-     "ignoreMissing": [
+      "ignoreMissing": [
         "@vue/compiler-sfc",
         "rollup"
       ]
