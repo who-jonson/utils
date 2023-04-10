@@ -49,7 +49,7 @@
       ]
     }
   },
-  "main": "./src/index.ts",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "iife": "./dist/index.global.js",
@@ -91,7 +91,6 @@
   },
   "publishConfig": {
     "access": "public",
-    "main": "./dist/index.cjs",
     "registry": "https://registry.npmjs.org"
   },
   "bugs": "https://github.com/who-jonson/utils/issues"

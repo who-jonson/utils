@@ -21,11 +21,6 @@
       "import": "./dist/core.mjs",
       "require": "./dist/core.cjs"
     },
-    "./types": {
-      "types": "./dist/types.d.ts",
-      "import": "./dist/types.mjs",
-      "require": "./dist/types.cjs"
-    },
     "./vue": {
       "types": "./dist/vue.d.ts",
       "import": "./dist/vue.mjs",

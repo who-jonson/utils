@@ -14,7 +14,7 @@ import externals from 'rollup-plugin-node-externals';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import type { Options as EsbuildOptions } from 'rollup-plugin-esbuild';
 import type { InputOption, OutputOptions, RollupOptions } from 'rollup';
-import { cjsShimPlugin } from './plugins';
+import { cjsShimPlugin, resolveEmptyExports } from './plugins';
 
 const DEFAULT_EXTENSIONS = [
   '.ts',
@@ -160,7 +160,7 @@ export default defineConfig(() => {
   }
 
   // Node (Cjs, Esm) Build
-  const formats = dtsOnly ? ['esm'] as const : ['cjs', 'esm'] as const;
+  const formats = ['cjs', 'esm'] as const;
   config.push({
     ...commonOptions,
     input,
@@ -189,8 +189,7 @@ export default defineConfig(() => {
         compilerOptions: {
           composite: false,
           customConditions: ['develop']
-        },
-        respectExternal: /@whoj\/utils-core$/.test(name)
+        }
       })
     ],
     output: outputFileConfig({
@@ -235,7 +234,10 @@ function outputFileConfig({
     chunkFileNames: isStr ? undefined : ({ isDynamicEntry }) => `_${isDynamicEntry ? 'chunks' : 'shared'}/[name].${ext}`,
     name: isIife ? globalNames[name] : undefined,
     globals: isIife ? Object.assign(globals, GLOBALS) : undefined,
-    file: isStr ? `${input.substring(0, input.lastIndexOf('.')).replace('src/', `${dir}/`)}.${ext}` : undefined
+    file: isStr ? `${input.substring(0, input.lastIndexOf('.')).replace('src/', `${dir}/`)}.${ext}` : undefined,
+    plugins: [
+      resolveEmptyExports()
+    ]
   };
 }
 

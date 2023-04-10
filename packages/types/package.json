@@ -11,15 +11,18 @@
   ],
   "exports": {
     ".": {
+      "develop": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.mjs"
     },
     "./*": [
-      "./*",
-      "./*.d.ts"
+      "./dist/*",
+      "./dist/*.d.ts"
     ]
   },
-  "main": "./src/index.ts",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "typesVersions": {
     "<=4.9": {
       "*": [
@@ -52,8 +55,6 @@
   },
   "publishConfig": {
     "access": "public",
-    "main": "./dist/index.mjs",
-    "types": "./dist/index.d.ts",
     "registry": "https://registry.npmjs.org"
   },
   "bugs": "https://github.com/who-jonson/utils/issues",

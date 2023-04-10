@@ -21,5 +21,5 @@ export function clamp(n: number, min: number, max: number) {
  * @returns The summation of given `args`
  */
 export function sum(...args: number[] | number[][]) {
-  return flattenArrayable(args).reduce((a, b) => a + b, 0);
+  return flattenArrayable<number>(args).reduce((a, b) => a + b, 0);
 }
