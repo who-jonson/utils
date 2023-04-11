@@ -12,9 +12,11 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "browser": "./dist/index.esm-browser.js",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "node": {
+        "import": "./dist/index.mjs",
+        "require": "./dist/index.cjs"
+      },
+      "browser": "./dist/index.esm-browser.js"
     },
     "./core": {
       "types": "./dist/core.d.ts",
@@ -32,6 +34,17 @@
     ]
   },
   "typesVersions": {
+    ">=5.0": {
+      "*": [
+        "dist/index.d.ts"
+      ],
+      "core": [
+        "dist/core.d.ts"
+      ],
+      "vue": [
+        "dist/vue.d.ts"
+      ]
+    },
     "<=4.9": {
       "*": [
         "./dist/*",

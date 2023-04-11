@@ -12,9 +12,11 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "browser": "./dist/index.esm-browser.js",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "node": {
+        "import": "./dist/index.mjs",
+        "require": "./dist/index.cjs"
+      },
+      "browser": "./dist/index.esm-browser.js"
     },
     "./fusejs": {
       "types": "./dist/fusejs.d.ts",
@@ -42,6 +44,23 @@
     ]
   },
   "typesVersions": {
+    ">=5.0": {
+      "*": [
+        "dist/index.d.ts"
+      ],
+      "fusejs": [
+        "dist/fusejs.d.ts"
+      ],
+      "ripple": [
+        "dist/ripple.d.ts"
+      ],
+      "img-fallback": [
+        "dist/img-fallback.d.ts"
+      ],
+      "composables": [
+        "dist/composables.d.ts"
+      ]
+    },
     "<=4.9": {
       "*": [
         "./dist/*",

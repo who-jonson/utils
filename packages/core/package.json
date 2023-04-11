@@ -12,16 +12,23 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "browser": "./dist/index.esm-browser.js",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "node": {
+        "import": "./dist/index.mjs",
+        "require": "./dist/index.cjs"
+      },
+      "browser": "./dist/index.esm-browser.js"
     },
     "./*": [
-      "./*",
-      "./*.d.ts"
+      "./dist/*",
+      "./dist/*.d.ts"
     ]
   },
   "typesVersions": {
+    ">=5.0": {
+      "*": [
+        "dist/index.d.ts"
+      ]
+    },
     "<=4.9": {
       "*": [
         "./dist/*",
