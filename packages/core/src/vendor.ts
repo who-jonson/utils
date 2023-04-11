@@ -3,6 +3,10 @@ import { camelCase, kebabCase, pascalCase, snakeCase } from 'scule';
 export { throttle, debounce } from 'throttle-debounce';
 
 export {
+  getProperty,
+  setProperty,
+  hasProperty,
+  deleteProperty,
   getProperty as getObjProp,
   setProperty as setObjProp,
   hasProperty as hasObjProp,

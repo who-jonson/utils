@@ -1,3 +1,3 @@
 export * from '@whoj/utils-core';
 export * from '@whoj/utils-vue';
-export * from '@whoj/utils-types';
+export type * from '@whoj/utils-types';

@@ -189,7 +189,8 @@ export default defineConfig(() => {
         compilerOptions: {
           composite: false,
           customConditions: ['develop']
-        }
+        },
+        respectExternal: /@whoj\/utils-(core|types)/.test(name)
       })
     ],
     output: outputFileConfig({
