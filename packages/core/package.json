@@ -12,11 +12,8 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "node": {
-        "import": "./dist/index.mjs",
-        "require": "./dist/index.cjs"
-      },
-      "browser": "./dist/index.esm-browser.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./*": [
       "./dist/*",

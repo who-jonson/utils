@@ -10,11 +10,10 @@ import alias from '@rollup/plugin-alias';
 import postcss from 'rollup-plugin-postcss';
 import esbuild from 'rollup-plugin-esbuild';
 import commonjs from '@rollup/plugin-commonjs';
-import externals from 'rollup-plugin-node-externals';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import type { Options as EsbuildOptions } from 'rollup-plugin-esbuild';
 import type { InputOption, OutputOptions, RollupOptions } from 'rollup';
-import { cjsShimPlugin, resolveEmptyExports } from './plugins';
+import { cjsShimPlugin, fixImportHellRollup, resolveEmptyExports } from './plugins';
 
 const DEFAULT_EXTENSIONS = [
   '.ts',
@@ -35,8 +34,8 @@ const GLOBALS = {
 
 const cwd = process.cwd();
 const logger = consola.withTag('@whoj/utils');
-const { dependencies, name, peerDependencies, version } = fs.readJSONSync(path.resolve(cwd, 'package.json'), 'utf8');
-const tsconfig = path.resolve(__dirname, '../tsconfig.build.json');
+export const { dependencies, name, peerDependencies, version } = fs.readJSONSync(path.resolve(cwd, 'package.json'), 'utf8');
+export const tsconfig = path.resolve(__dirname, '../tsconfig.build.json');
 export const banner = `/**
  * @license MIT
  * @module ${name}@${version}
@@ -45,19 +44,22 @@ export const banner = `/**
 `;
 
 const globalNames = {
-  '@whoj/utils': 'WhojUtils',
-  '@whoj/utils-vue': 'WhojUtils.Vue',
-  '@whoj/utils-core': 'WhojUtils.Core'
+  '@whoj/utils': 'Whoj.Utils',
+  '@whoj/utils-vue': 'Whoj.Utils.Vue',
+  '@whoj/utils-core': 'Whoj.Utils.Core'
 };
 
-const plugins = (noExternal = false, opt: EsbuildOptions = {}) => [
+const plugins = (opt: EsbuildOptions = {}) => [
   alias({
     entries: [
       { find: /^node:(.+)$/, replacement: '$1' },
-      { find: /^vue$/, replacement: 'vue-demi' }
+      { find: /^vue$/, replacement: 'vue-demi' },
+      {
+        find: /^@whoj\/utils-(core|types|vue)$/,
+        replacement: path.join(__dirname, '..', 'packages/$1/src')
+      }
     ]
   }),
-  !noExternal && externals(),
   nodeResolve({
     extensions: DEFAULT_EXTENSIONS
   }),
@@ -89,7 +91,8 @@ const plugins = (noExternal = false, opt: EsbuildOptions = {}) => [
   commonjs({
     extensions: DEFAULT_EXTENSIONS
   }),
-  cjsShimPlugin({})
+  cjsShimPlugin({}),
+  fixImportHellRollup()
 ];
 
 export default defineConfig(() => {
@@ -102,7 +105,8 @@ export default defineConfig(() => {
 
   const commonOptions: Omit<RollupOptions, 'output'> = {
     input: 'src/index.ts',
-    external: ['vue', 'vue-demi', 'fuse.js', 'resumablejs'],
+    external: getExternals(),
+    treeshake: true,
     onwarn: (warning, warn) => {
       if (!['EMPTY_BUNDLE', 'UNKNOWN_OPTION'].includes(warning.code!)) {
         warn(warning);
@@ -116,6 +120,7 @@ export default defineConfig(() => {
       // Iife Build
       {
         ...commonOptions,
+        external: ['vue', 'vue-demi'],
         output: {
           ...outputFileConfig({
             input,
@@ -124,15 +129,13 @@ export default defineConfig(() => {
           }),
           globals: {
             'vue': 'Vue',
-            'fuse.js': 'Fuse',
-            'vue-demi': 'VueDemi',
-            'resumablejs': 'Resumable'
+            'vue-demi': 'VueDemi'
           }
         },
-        plugins: plugins(true)
-      },
+        plugins: plugins()
+      }
       // Esm-Browser Build
-      {
+      /* {
         ...commonOptions,
         treeshake: true,
         output: {
@@ -143,8 +146,8 @@ export default defineConfig(() => {
           }),
           externalLiveBindings: false
         },
-        plugins: plugins(true)
-      }
+        plugins: plugins()
+      } */
     );
   }
 
@@ -173,7 +176,7 @@ export default defineConfig(() => {
       }),
       externalLiveBindings: false
     })),
-    plugins: plugins(false, {
+    plugins: plugins({
       platform: 'node'
     }),
     makeAbsoluteExternalsRelative: 'ifRelativeSource'
@@ -232,13 +235,24 @@ function outputFileConfig({
     dir: !isStr ? dir : undefined,
     minifyInternalExports: false,
     entryFileNames: `[name].${ext}`,
-    chunkFileNames: isStr ? undefined : ({ isDynamicEntry }) => `_${isDynamicEntry ? 'chunks' : 'shared'}/[name].${ext}`,
     name: isIife ? globalNames[name] : undefined,
     globals: isIife ? Object.assign(globals, GLOBALS) : undefined,
     file: isStr ? `${input.substring(0, input.lastIndexOf('.')).replace('src/', `${dir}/`)}.${ext}` : undefined,
     plugins: [
       resolveEmptyExports()
-    ]
+    ],
+    manualChunks: name.endsWith('vue') && format !== 'iife' ? vueChunks : undefined,
+    chunkFileNames: isStr
+      ? undefined
+      : ({ isDynamicEntry }) => {
+          if (isDynamicEntry) {
+            return `_chunks/[name].${ext}`;
+          }
+          if (name.endsWith('vue') && format !== 'iife') {
+            return `[name].${ext}`;
+          }
+          return `${name.replace(/@whoj\//, '')}.[hash].${ext}`;
+        }
   };
 }
 
@@ -250,31 +264,43 @@ function makeDtsEntry(input: InputOption): InputOption {
 /**
  * @returns {(RegExp|string)[]}
  */
-export const getExternals = () => ([
-  ...Object.keys({ ...(dependencies || {}), ...(peerDependencies || {}) }),
-  'chalk',
-  'consola',
-  'fs',
-  'ufo',
-  'url',
-  'acorn',
-  'glob',
-  'mlly',
-  'path',
-  'pathe',
-  'process',
-  'fast-glob',
-  'pkg-types',
-  'jsonc-parser',
-  'child_process',
-  'fs-extra',
-  'nuxt3',
-  'vue',
-  'debug',
-  'execa',
-  /node:/,
-  /@vue\//,
-  /@whoj\//,
-  /@vueuse\//
-]);
+export const getExternals = (format: OutputOptions['format'] = 'esm') => {
+  return ['iife', 'umd'].includes(format)
+    ? ['vue', 'vue-demi']
+    : [
+        ...Object.keys({ ...(dependencies || {}), ...(peerDependencies || {}) }),
+        'chalk',
+        'consola',
+        'fs',
+        'ufo',
+        'url',
+        'acorn',
+        'glob',
+        'mlly',
+        'path',
+        'pathe',
+        'process',
+        'fast-glob',
+        'pkg-types',
+        'jsonc-parser',
+        'child_process',
+        'fs-extra',
+        'nuxt3',
+        'vue',
+        'debug',
+        'execa',
+        /node:/,
+        /@vue\//,
+        /@vueuse\//,
+        '@whoj/utils',
+        '@whoj/utils-core',
+        '@whoj/utils-types',
+        '@whoj/utils-vue'
+      ].filter(m => name !== m);
+};
 
+function vueChunks(id: string) {
+  if (/src\/composables/.test(id)) {
+    return `composables/${path.basename(id, '.ts')}`;
+  }
+}

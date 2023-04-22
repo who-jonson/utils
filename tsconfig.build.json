@@ -1,16 +1,14 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
     "composite": true,
     "noEmitOnError": false,
     "moduleResolution": "Bundler",
-    "customConditions": ["develop"]
+    "customConditions": ["develop"],
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "node"
+    ]
   },
-  "include": [
-    "packages/**/*.ts",
-    "packages/**/*.vue",
-    "env.d.ts"
-  ],
   "exclude": [
     "node_modules",
     "**/dist",

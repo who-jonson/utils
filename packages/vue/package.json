@@ -12,11 +12,8 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "node": {
-        "import": "./dist/index.mjs",
-        "require": "./dist/index.cjs"
-      },
-      "browser": "./dist/index.esm-browser.js"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./fusejs": {
       "types": "./dist/fusejs.d.ts",
@@ -88,7 +85,7 @@
     "@whoj/utils-types": "workspace:^",
     "fuse.js": "^6.6.2",
     "resumablejs": "^1.1.0",
-    "vue-demi": "^0.13.11"
+    "vue-demi": "^0.14.0"
   },
   "devDependencies": {
     "vue": "^3.2.47"
@@ -112,5 +109,6 @@
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
-  "bugs": "https://github.com/who-jonson/utils/issues"
+  "bugs": "https://github.com/who-jonson/utils/issues",
+  "sideEffects": false
 }

@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ES2022",
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Node",
+    "customConditions": ["develop"],
     "strict": true,
     "allowJs": true,
     "skipLibCheck": true,
@@ -24,25 +25,16 @@
     ],
     "types": [
       "node",
-      "vite/client",
-      "vitest/globals"
+      "vite/client"
     ]
   },
-  "include": [
-    "packages",
-    "scripts",
-    "test",
-    "**/rollup.*",
-    "**/build.config.*",
-    "**/tsup.config.*",
-    "**/vite.config.*",
-    "**/vitest.config.*",
-    "**/vite.init.*"
-  ],
   "exclude": [
     "**/dist/**",
     "node_modules",
     "**/__tests__/**/*",
     "**/*.md"
+  ],
+  "references": [
+    { "path": "./tsconfig.build.json" }
   ]
 }
