@@ -1,7 +1,7 @@
 {
   "name": "@whoj/utils-types",
   "description": "Typescript utility/helper collection by @whoj",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "type": "module",
   "license": "MIT",
   "keywords": [
