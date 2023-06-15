@@ -18,22 +18,38 @@ export const getWindow = (): Window | undefined => isServer() ? undefined : wind
  */
 export const getDocument = (): Document | undefined => typeof document === 'undefined' ? undefined : document;
 
-const fakeGlobal = {};
+const fakeGlobal = {} as Window;
+
+// ref: https://github.com/tc39/proposal-global
+const _globalThis = (function () {
+  if (typeof globalThis !== 'undefined') {
+    return globalThis;
+  }
+  if (typeof self !== 'undefined') {
+    return self;
+  }
+  if (typeof window !== 'undefined') {
+    return window;
+  }
+  if (typeof global !== 'undefined') {
+    return global;
+  }
+  return fakeGlobal;
+})();
+
+type _Global = typeof _globalThis;
+type _GlobalKey = `${keyof _Global}`;
 
 /**
  * If we're on the server, return the global object, otherwise return the window object
  * @returns The global object.
  */
-export const getGlobal = () => {
-  if (isServer()) {
-    if (typeof globalThis === 'undefined') {
-      return fakeGlobal as Window;
-    }
-    return globalThis as any as Window;
-  } else {
-    return window;
-  }
-};
+export function getGlobal<T extends _GlobalKey>(prop?: T): T extends undefined ? _Global : _Global[T] {
+  // @ts-ignore
+  return !prop
+    ? _globalThis
+    : _globalThis[prop];
+}
 
 const getTopCoordinate = (element: HTMLElement) => element.offsetTop;
 const getBottomCoordinate = (element: HTMLElement) => element.offsetTop + element.offsetHeight;

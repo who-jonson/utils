@@ -85,10 +85,10 @@
     "@whoj/utils-types": "workspace:^",
     "fuse.js": "^6.6.2",
     "resumablejs": "^1.1.0",
-    "vue-demi": "^0.14.0"
+    "vue-demi": "^0.14.5"
   },
   "devDependencies": {
-    "vue": "^3.2.47"
+    "vue": "^3.3.4"
   },
   "peerDependencies": {
     "vue": "^2.6 || >=3.2"
