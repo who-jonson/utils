@@ -191,3 +191,69 @@ export function shuffle<T>(array: T[]): T[] {
   }
   return array;
 }
+
+/**
+ * Convert `Arrayable<T>` to `Array<T>` and flatten object's array by key
+ *
+ * Example:
+ * const payload = [ { child: [{name: 'John Doe'}] }, { child: [ {age: 23} ] } ];
+ * flattenDeepArray(payload, 'child');
+ * Result: [{name: 'John Doe'}, {age: 23}]
+ *
+ * @param array
+ * @type T extends object
+ *
+ * @param key
+ * @type K extends keyof T
+ */
+export function flattenDeepArray<T extends object, K extends keyof T>(
+  array?: Nullable<Arrayable<T | Array<T>>>,
+  key?: K
+): any {
+  const fArray: any[] = [];
+
+  const _myArray = toArray(array);
+  if (!key) {
+    return _myArray;
+  }
+
+  diveDeepArray<T>(
+    _myArray as T[],
+    'children',
+    (a) => {
+      fArray.push(a);
+    });
+  return fArray;
+}
+/**
+ *
+ * Traverse through the nested array by key and call a callback with provided parameters.
+ * Example
+ * const payload = [ { child: [{name: 'John Doe'}] }, { child: [ {age: 23} ] } ];
+ * diveDeepArray(payload, 'child',
+ *    (a) => {
+ *       console.log(a);
+ *     }
+ *  );
+ *
+ * Result:
+ * {name: 'John Doe'}
+ * {age: 23}
+ *
+ *
+ * @param arr
+ * @type T extends object = any
+ * @param key
+ * @type K extends string = string
+ * @param callback
+ * @type (cd: T, Key: K) => void
+ */
+function diveDeepArray<T extends object = any, K extends string = string>(arr: T[], key: K, callback: (cd: T, key: K) => void) {
+  arr.forEach((child: any) => {
+    if (hasOwnProperty(child, key) && Array.isArray(child[key])) {
+      diveDeepArray<T, K>(child[key], key, callback);
+    } else {
+      callback(child, key);
+    }
+  });
+}
