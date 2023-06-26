@@ -1,4 +1,5 @@
 import type { Arrayable, Nullable } from '@whoj/utils-types';
+import { hasOwnProperty } from './obj';
 import { clamp } from './math';
 
 /**
