@@ -44,7 +44,7 @@
     "*.d.ts"
   ],
   "scripts": {
-    "build": "rollup --config ../../rollup.config.js",
+    "build": "rollup --config ../../rollup.config.js && tsx ../../scripts/core-types.ts",
     "stub": "unbuild --stub",
     "prepublishOnly": "rm -rf dist && pnpm run build",
     "typecheck": "tsc --noEmit"
