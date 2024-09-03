@@ -1,21 +1,4 @@
-import { camelCase, kebabCase, pascalCase, snakeCase } from 'scule';
-
-export { throttle, debounce } from 'throttle-debounce';
-
-export {
-  getProperty,
-  setProperty,
-  hasProperty,
-  deleteProperty,
-  getProperty as getObjProp,
-  setProperty as setObjProp,
-  hasProperty as hasObjProp,
-  deleteProperty as deleteObjProp
-} from 'dot-prop';
-
-export { dotCase } from 'dot-case';
-export { pathCase } from 'path-case';
-export { paramCase } from 'param-case';
+import { camelCase, kebabCase, pascalCase, snakeCase, titleCase, trainCase } from 'scule';
 
 /**
  * @category String
@@ -35,4 +18,36 @@ export function changeCase(str: string, to: 'camel' | 'snake' | 'kebab' | 'pasca
   }
 }
 
-export { camelCase, kebabCase, pascalCase, snakeCase };
+export {
+  throttle,
+  debounce
+} from 'throttle-debounce';
+
+export {
+  getProperty,
+  setProperty,
+  hasProperty,
+  deleteProperty,
+  getProperty as getObjProp,
+  setProperty as setObjProp,
+  hasProperty as hasObjProp,
+  deleteProperty as deleteObjProp
+} from 'dot-prop';
+
+export {
+  dotCase,
+  pathCase,
+  capitalCase,
+  constantCase,
+  sentenceCase
+} from 'change-case';
+
+export {
+  camelCase,
+  kebabCase,
+  pascalCase,
+  snakeCase,
+  titleCase,
+  trainCase,
+  kebabCase as paramCase
+};
