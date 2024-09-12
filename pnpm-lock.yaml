@@ -183,16 +183,16 @@ importers:
       '@whoj/utils-types':
         specifier: workspace:^
         version: link:../types
-      vue-demi:
-        specifier: ^0.14.10
-        version: 0.14.10(vue@3.5.0(typescript@5.5.4))
-    devDependencies:
       fuse.js:
         specifier: ^6.6.2
         version: 6.6.2
       resumablejs:
         specifier: ^1.1.0
         version: 1.1.0
+      vue-demi:
+        specifier: ^0.14.10
+        version: 0.14.10(vue@3.5.0(typescript@5.5.4))
+    devDependencies:
       vue:
         specifier: ^3.5.0
         version: 3.5.0(typescript@5.5.4)
