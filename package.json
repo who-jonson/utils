@@ -1,7 +1,7 @@
 {
   "name": "@whoj/utils-monorepo",
   "description": "Collection of common JS / TS helpers/utils by @whoj",
-  "version": "2.0.0-beta.2",
+  "version": "2.0.0",
   "private": true,
   "license": "MIT",
   "keywords": [
