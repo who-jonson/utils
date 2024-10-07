@@ -1,7 +1,7 @@
 {
   "name": "@whoj/utils-types",
   "description": "Typescript utility/helper collection by @whoj",
-  "version": "1.8.0",
+  "version": "2.0.0",
   "type": "module",
   "license": "MIT",
   "keywords": [
@@ -61,6 +61,6 @@
   "bugs": "https://github.com/who-jonson/utils/issues",
   "sideEffects": false,
   "devDependencies": {
-    "rollup": "^3.25.1"
+    "rollup": "^4.21.2"
   }
 }
