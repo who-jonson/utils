@@ -84,7 +84,6 @@
     "@whoj/utils-core": "workspace:^",
     "@whoj/utils-types": "workspace:^",
     "fuse.js": "^6.6.2",
-    "resumablejs": "^1.1.0",
     "vue-demi": "^0.14.10"
   },
   "devDependencies": {
