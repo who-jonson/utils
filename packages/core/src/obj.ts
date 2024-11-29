@@ -28,6 +28,8 @@ import { notNullish } from './guard';
  * objectMap({ a: 1, b: 2 }, (k, v) => k === 'a' ? undefined : [k, v])
  * // { b: 2 }
  * ```
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function objectMap<K extends string, V, NK = K, NV = V>(obj: Record<K, V>, fn: (key: K, value: V) => [NK, NV] | undefined): Record<K, V> {
   return Object.fromEntries(
@@ -47,6 +49,8 @@ export function objectMap<K extends string, V, NK = K, NV = V>(obj: Record<K, V>
  * @param k key to check existence in `obj`
  *
  * @typeParam T
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function isKeyOf<T extends object>(obj: T, k: keyof any): k is keyof T {
   return k in obj;
@@ -60,6 +64,8 @@ export function isKeyOf<T extends object>(obj: T, k: keyof any): k is keyof T {
  * @param obj
  *
  * @typeParam T
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function objectKeys<T extends object>(obj: T) {
   return Object.keys(obj) as Array<keyof T>;
@@ -73,6 +79,8 @@ export function objectKeys<T extends object>(obj: T) {
  * @param obj
  *
  * @typeParam T
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function objectEntries<T extends object>(obj: T) {
   return Object.entries(obj) as Array<[keyof T, T[keyof T]]>;
@@ -88,6 +96,8 @@ export function objectEntries<T extends object>(obj: T) {
  *
  * @typeParam T
  * @typeParam S
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function deepMerge<T extends object = object, S extends object = T>(target: T, ...sources: S[]): DeepMerge<T, S> {
   if (!sources.length) {
@@ -125,6 +135,8 @@ export function deepMerge<T extends object = object, S extends object = T>(targe
  * @category Object
  *
  * @param item
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 function isObjectMergable(item: any): item is Object {
   return isObject(item) && !Array.isArray(item);
@@ -141,6 +153,8 @@ function isObjectMergable(item: any): item is Object {
  *
  * @typeParam O
  * @typeParam T
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function objectPick<O extends object, T extends keyof O>(obj: O, keys: T[], omitUndefined = false) {
   return keys.reduce((n, k) => {
@@ -160,6 +174,8 @@ export function objectPick<O extends object, T extends keyof O>(obj: O, keys: T[
  *
  * @param obj
  * @typeParam T
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function clearUndefined<T extends object>(obj: T): T {
   Object.keys(obj).forEach((key: string) => (obj[key] === undefined ? delete obj[key] : {}));
@@ -174,6 +190,8 @@ export function clearUndefined<T extends object>(obj: T): T {
  * @param obj
  * @param key
  * @typeParam T
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function hasOwnProperty<T>(obj: T, key: PropertyKey) {
   if (obj == null) {
@@ -188,6 +206,8 @@ export function hasOwnProperty<T>(obj: T, key: PropertyKey) {
  *
  * @typeParam T
  * @param {Array} pairs
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function fromPairs<T>(pairs: List<[PropertyKey, T]>) {
   return pairs.reduce<Dictionary<T>>((obj, [key, val]) => ({
@@ -204,6 +224,8 @@ export function fromPairs<T>(pairs: List<[PropertyKey, T]>) {
  *
  * @param {Dictionary} obj
  * @returns {Array}
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function toPairs<T>(obj: Dictionary<T>) {
   return objectEntries(obj);

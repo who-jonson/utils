@@ -1,6 +1,6 @@
 import type { Func } from '@whoj/utils-types';
 
-const cacheStringFunction = (fn: Func<string>): Func<string> => {
+const cacheStringFunction = /*#__NO_SIDE_EFFECTS__*/ (fn: Func<string>): Func<string> => {
   const cache = Object.create(null);
   return (str) => {
     const hit = cache[str];
@@ -12,6 +12,8 @@ const cacheStringFunction = (fn: Func<string>): Func<string> => {
  * Replace backslash to slash
  *
  * @category String
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function slash(str: string) {
   return str.replace(/\\/g, '/');
@@ -24,6 +26,8 @@ export function slash(str: string) {
  * @param {string} str
  *
  * @returns {string}
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export const capitalize = cacheStringFunction(str => str.charAt(0).toUpperCase() + str.slice(1));
 
@@ -31,6 +35,8 @@ export const capitalize = cacheStringFunction(str => str.charAt(0).toUpperCase()
  * Ensure prefix of a string
  *
  * @category String
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function ensurePrefix(prefix: string, str: string) {
   if (!str.startsWith(prefix)) {
@@ -43,6 +49,8 @@ export function ensurePrefix(prefix: string, str: string) {
  * Ensure suffix of a string
  *
  * @category String
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function ensureSuffix(suffix: string, str: string) {
   if (!str.endsWith(suffix)) {
@@ -63,6 +71,8 @@ export function ensureSuffix(suffix: string, str: string) {
  *   'B.'
  * ) // Hello John! My name is B..
  * ```
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function template(str: string, ...args: any[]): string {
   return str.replace(/{(\d+)}/g, (match, key) => {
@@ -84,6 +94,8 @@ export function template(str: string, ...args: any[]): string {
  *
  * It will make 2nd item for the return as empty string, if no separator found!
  * @returns string[]
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function divideStr(str: string, separator: string, position = 1) {
   if (str.includes(separator)) {

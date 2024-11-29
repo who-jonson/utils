@@ -100,7 +100,7 @@ export function useStyleTag(
     isLoaded.value = true;
   };
 
-  const unload = () => {
+  const unload = /*@__NO_SIDE_EFFECTS__*/ () => {
     if (!document || !isLoaded.value) {
       return;
     }

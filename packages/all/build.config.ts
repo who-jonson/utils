@@ -7,7 +7,6 @@ export default defineBuildConfig({
   entries: [
     'src/core',
     'src/index',
-    'src/types',
     'src/vue'
   ],
   rollup: {

@@ -10,7 +10,8 @@
     "eslint-plugin-tsdoc"
   ],
   "rules": {
-    "import/order": "off"
+    "import/order": "off",
+    "spaced-comment": "off"
   },
   "overrides": [
     {

@@ -9,6 +9,7 @@ import { toString } from './c';
  *
  * @returns - Boolean
  *
+ * @__NO_SIDE_EFFECTS__
  */
 export const isDef = <T = any>(val?: T): val is T => typeof val !== 'undefined';
 
@@ -19,6 +20,7 @@ export const isDef = <T = any>(val?: T): val is T => typeof val !== 'undefined';
  * @param val
  * @returns - Boolean
  *
+ * @__NO_SIDE_EFFECTS__
  */
 export const isBoolean = (val: any): val is boolean => typeof val === 'boolean';
 
@@ -30,6 +32,7 @@ export const isBoolean = (val: any): val is boolean => typeof val === 'boolean';
  * @typeParam T
  * @returns - Boolean
  *
+ * @__NO_SIDE_EFFECTS__
  */
 export const isFunction = <T extends Function> (val: any): val is T => typeof val === 'function';
 
@@ -40,6 +43,7 @@ export const isFunction = <T extends Function> (val: any): val is T => typeof va
  * @param val
  * @returns - Boolean
  *
+ * @__NO_SIDE_EFFECTS__
  */
 export const isNumber = (val: any): val is number => typeof val === 'number';
 /**
@@ -49,6 +53,7 @@ export const isNumber = (val: any): val is number => typeof val === 'number';
  * @param val
  * @returns - Boolean
  *
+ * @__NO_SIDE_EFFECTS__
  */
 export const isNumberish = (val: any): val is number => typeof val === 'number' || !isNaN(val);
 
@@ -59,6 +64,7 @@ export const isNumberish = (val: any): val is number => typeof val === 'number' 
  * @param val
  * @returns - Boolean
  *
+ * @__NO_SIDE_EFFECTS__
  */
 export const isString = (val: unknown): val is string => typeof val === 'string';
 
@@ -69,6 +75,7 @@ export const isString = (val: unknown): val is string => typeof val === 'string'
  * @param val
  * @returns - Boolean
  *
+ * @__NO_SIDE_EFFECTS__
  */
 export const isObject = <T extends object>(val: any): val is T => toString(val) === '[object Object]';
 
@@ -79,6 +86,7 @@ export const isObject = <T extends object>(val: any): val is T => toString(val) 
  * @param val
  * @returns - Boolean
  *
+ * @__NO_SIDE_EFFECTS__
  */
 export const isArray = <T = any>(val: any): val is Array<T> => Array.isArray(val);
 
@@ -89,6 +97,7 @@ export const isArray = <T = any>(val: any): val is Array<T> => Array.isArray(val
  * @param val
  * @returns - Boolean
  *
+ * @__NO_SIDE_EFFECTS__
  */
 export const isWindow = (val: any): boolean => typeof window !== 'undefined' && toString(val) === '[object Window]';
 
@@ -98,8 +107,9 @@ export const isWindow = (val: any): boolean => typeof window !== 'undefined' && 
  *
  * @returns - Boolean
  *
+ * @__NO_SIDE_EFFECTS__
  */
-export const isBrowser = typeof window !== 'undefined';
+export const isBrowser = (() => typeof window !== 'undefined')();
 
 /**
  * Check if it has console
@@ -107,8 +117,9 @@ export const isBrowser = typeof window !== 'undefined';
  *
  * @returns - Boolean
  *
+ * @__NO_SIDE_EFFECTS__
  */
-export const hasConsole = typeof console !== 'undefined';
+export const hasConsole = (() => typeof console !== 'undefined')();
 
 /**
  * Check if it has glob pattern
@@ -116,5 +127,6 @@ export const hasConsole = typeof console !== 'undefined';
  *
  * @returns - Boolean
  *
+ * @__NO_SIDE_EFFECTS__
  */
-export const isGlobPattern = isGlob;
+export const isGlobPattern = (pattern?: string | string[] | null, options?: isGlob.Options) => isGlob(pattern, options);

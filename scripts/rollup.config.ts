@@ -67,8 +67,7 @@ const plugins = (opt: EsbuildOptions = {}) => [
     inject: true
   }),
   Vue({
-    isProduction: false,
-    reactivityTransform: true
+    isProduction: false
   }),
   esbuild({
     tsconfig,
@@ -106,7 +105,6 @@ export default defineConfig(() => {
   const commonOptions: Omit<RollupOptions, 'output'> = {
     input: 'src/index.ts',
     external: getExternals(),
-    treeshake: true,
     onwarn: (warning, warn) => {
       if (!['EMPTY_BUNDLE', 'UNKNOWN_OPTION'].includes(warning.code!)) {
         warn(warning);
@@ -131,13 +129,12 @@ export default defineConfig(() => {
             'vue': 'Vue',
             'vue-demi': 'VueDemi'
           }
-        },
+        }, // @ts-ignore
         plugins: plugins()
       }
       // Esm-Browser Build
       /* {
         ...commonOptions,
-        treeshake: true,
         output: {
           ...outputFileConfig({
             input,
@@ -148,6 +145,28 @@ export default defineConfig(() => {
         },
         plugins: plugins()
       } */
+    );
+
+    config.push(
+      // Iife Build (mini)
+      {
+        ...commonOptions,
+        external: ['vue', 'vue-demi'],
+        output: {
+          ...outputFileConfig({
+            input,
+            format: 'iife',
+            ext: 'global.min.js'
+          }),
+          globals: {
+            'vue': 'Vue',
+            'vue-demi': 'VueDemi'
+          }
+        }, // @ts-ignore
+        plugins: plugins({
+          minify: true
+        })
+      }
     );
   }
 
@@ -167,7 +186,6 @@ export default defineConfig(() => {
   config.push({
     ...commonOptions,
     input,
-    treeshake: true,
     output: formats.map(format => ({
       ...outputFileConfig({
         input,
@@ -175,7 +193,7 @@ export default defineConfig(() => {
         ext: format === 'esm' ? 'mjs' : format
       }),
       externalLiveBindings: false
-    })),
+    })), // @ts-ignore
     plugins: plugins({
       platform: 'node'
     }),
@@ -211,7 +229,7 @@ interface MakeOutputConfig {
   input: InputOption;
   format?: 'esm' | 'cjs' | 'iife';
   globals?: OutputOptions['globals'];
-  ext: 'cjs' | 'mjs' | 'd.ts' | 'global.js' | 'esm-browser.js';
+  ext: 'cjs' | 'mjs' | 'd.ts' | 'global.js' | 'global.min.js' | 'esm-browser.js' | 'esm-browser.min.js';
 }
 
 function outputFileConfig({
@@ -233,7 +251,7 @@ function outputFileConfig({
     },
     sourcemap: true,
     dir: !isStr ? dir : undefined,
-    minifyInternalExports: false,
+    minifyInternalExports: ext === 'global.min.js',
     entryFileNames: `[name].${ext}`,
     name: isIife ? globalNames[name] : undefined,
     globals: isIife ? Object.assign(globals, GLOBALS) : undefined,

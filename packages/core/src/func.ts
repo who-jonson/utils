@@ -6,6 +6,8 @@ import type { Func, Nullable } from '@whoj/utils-types';
  * @category Function
  *
  * @param functions
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function batchInvoke(functions: Nullable<Func>[]) {
   functions.forEach(fn => fn && fn());
@@ -17,6 +19,8 @@ export function batchInvoke(functions: Nullable<Func>[]) {
  * @category Function
  *
  * @param fn
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function invoke(fn: Func) {
   return fn();
@@ -41,7 +45,9 @@ export function invoke(fn: Func) {
  *   })
  * }
  * ```
+ *
+ * @__NO_SIDE_EFFECTS__
  */
-export function tap<T, D = T>(val: T, callback: (val: T) => void | D): void | D {
+export function tap<T, D = T>(val: T, callback: (val: T) => D): D {
   return callback(val);
 }

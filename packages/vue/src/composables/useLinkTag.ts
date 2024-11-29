@@ -31,6 +31,7 @@ export interface UseLinkTagOptions extends ConfigurableDocument, Optional<BuiltI
 
 let _id = 0;
 
+/* @__NO_SIDE_EFFECTS__ */
 export function useLinkTag(href: ComputedRefable<string>, onLoaded: (el: HTMLLinkElement) => void = noop, options: UseLinkTagOptions = {}) {
   const {
     as,
@@ -158,7 +159,7 @@ export function useLinkTag(href: ComputedRefable<string>, onLoaded: (el: HTMLLin
     loaded.value = undefined;
   };
 
-  const update = () => {
+  const update = /*@__NO_SIDE_EFFECTS__*/ () => {
     const el = findLinkEl();
     if (el) {
       el.href = unrefOf(href);

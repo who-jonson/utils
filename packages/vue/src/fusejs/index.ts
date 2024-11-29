@@ -104,6 +104,8 @@ export class FuseJS<DataT> {
  * @param list - The list of data to search through.
  * @param [options] - FuseOptions<DataT>
  * @returns A new instance of the FuseJS class.
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function useFuseJs<DataT>(list: MaybeReactive<DataT>, options?: FuseOptions<DataT>): FuseJS<DataT> {
   return new FuseJS<DataT>(list, options);

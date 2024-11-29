@@ -3,6 +3,8 @@
  *
  * @category Guards
  * @example array.filter(notNullish)
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function notNullish<T>(v: T | null | undefined): v is NonNullable<T> {
   return v != null;
@@ -13,6 +15,8 @@ export function notNullish<T>(v: T | null | undefined): v is NonNullable<T> {
  *
  * @category Guards
  * @example array.filter(noNull)
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function noNull<T>(v: T | null): v is Exclude<T, null> {
   return v !== null;
@@ -23,6 +27,8 @@ export function noNull<T>(v: T | null): v is Exclude<T, null> {
  *
  * @category Guards
  * @example array.filter(notUndefined)
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function notUndefined<T>(v: T): v is Exclude<T, undefined> {
   return v !== undefined;
@@ -33,6 +39,8 @@ export function notUndefined<T>(v: T): v is Exclude<T, undefined> {
  *
  * @category Guards
  * @example array.filter(isTruthy)
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function isTruthy<T>(v: T): v is NonNullable<T> {
   return Boolean(v);

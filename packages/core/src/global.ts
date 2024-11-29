@@ -1,27 +1,36 @@
 /**
  * If the type of window is undefined, then we're on the server.
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export const isServer = () => typeof window === 'undefined';
 
 /**
  * If the window object exists, then we're in the browser, otherwise we're in Node.
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export const isClient = () => !isServer();
 
 /**
  * If we're on the server, return undefined, otherwise return the window object.
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export const getWindow = (): Window | undefined => isServer() ? undefined : window;
 
 /**
  * If document is defined, return document, otherwise return undefined.
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export const getDocument = (): Document | undefined => typeof document === 'undefined' ? undefined : document;
 
-const fakeGlobal = {} as Window;
+const fakeGlobal = /* @__PURE__ */ {} as Window;
 
 // ref: https://github.com/tc39/proposal-global
-const _globalThis = (function () {
+// @__NO_SIDE_EFFECTS__
+const _globalThis = /* @__PURE__ */ (function () {
   if (typeof globalThis !== 'undefined') {
     return globalThis;
   }
@@ -43,6 +52,8 @@ type _GlobalKey = `${keyof _Global}`;
 /**
  * If we're on the server, return the global object, otherwise return the window object
  * @returns The global object.
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function getGlobal<T extends _GlobalKey>(prop?: T): T extends undefined ? _Global : _Global[T] {
   // @ts-ignore
@@ -51,11 +62,11 @@ export function getGlobal<T extends _GlobalKey>(prop?: T): T extends undefined ?
     : _globalThis[prop];
 }
 
-const getTopCoordinate = (element: HTMLElement) => element.offsetTop;
-const getBottomCoordinate = (element: HTMLElement) => element.offsetTop + element.offsetHeight;
-const getCenterCoordinate = (element: HTMLElement) => element.offsetTop + element.offsetHeight / 2;
+const getTopCoordinate = /*#__NO_SIDE_EFFECTS__*/ (element: HTMLElement) => element.offsetTop;
+const getBottomCoordinate = /*#__NO_SIDE_EFFECTS__*/ (element: HTMLElement) => element.offsetTop + element.offsetHeight;
+const getCenterCoordinate = /*#__NO_SIDE_EFFECTS__*/ (element: HTMLElement) => element.offsetTop + element.offsetHeight / 2;
 
-const getScrollTop = (element: HTMLElement, scrollTarget: HTMLElement, verticalAlignment?: 'start' | 'end' | 'center' | 'any') => {
+const getScrollTop = /*#__NO_SIDE_EFFECTS__*/ (element: HTMLElement, scrollTarget: HTMLElement, verticalAlignment?: 'start' | 'end' | 'center' | 'any') => {
   const viewHeight = scrollTarget.offsetHeight;
   const currentPosition = scrollTarget.scrollTop;
   const top = getTopCoordinate(element) - scrollTarget.offsetTop;
@@ -87,6 +98,8 @@ const getScrollTop = (element: HTMLElement, scrollTarget: HTMLElement, verticalA
 
 /**
  * @param options.scrollTarget - element that will be scrolled
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export const scrollToElement = /* @__PURE__ */ (element: HTMLElement, options: {
   scrollTarget?: HTMLElement,

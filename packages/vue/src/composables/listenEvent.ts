@@ -21,6 +21,8 @@ interface BasicEventListener<E = Event> {
  * @param event
  * @param listener
  * @param options
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function listenEvent<E extends keyof WindowEventMap>(event: Arrayable<E>, listener: Arrayable<(this: Window, ev: WindowEventMap[E]) => any>, options?: boolean | AddEventListenerOptions): Func;
 export function listenEvent<E extends keyof WindowEventMap>(target: Window, event: Arrayable<E>, listener: Arrayable<(this: Window, ev: WindowEventMap[E]) => any>, options?: boolean | AddEventListenerOptions): Func;

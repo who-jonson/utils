@@ -54,7 +54,7 @@ function makeImgFallbackDir<ImgT extends HTMLImageElement, ImgV extends ImgFallb
 }
 
 /* Creating a directive that can be used in the template. */
-export const vImgFallback = makeImgFallbackDir<HTMLImageElement>();
+export const vImgFallback = /* @__PURE__ */ makeImgFallbackDir<HTMLImageElement>();
 
 // TODO: Add Composable
 // export function useImgFallback<ImgT extends HTMLImageElement>(el: ImgT | Ref<ImgT>, options?: ImgFallbackOptions) {
@@ -62,8 +62,6 @@ export const vImgFallback = makeImgFallbackDir<HTMLImageElement>();
 // }
 
 /* A plugin that can be used in Vue. */
-export const ImgFallback: Plugin = {
-  install(app, options?: ImgFallbackOptions) {
-    app.directive('img-fallback', makeImgFallbackDir<HTMLImageElement, ImgFallbackOptions>(options));
-  }
+export const ImgFallback: Plugin<[ImgFallbackOptions | undefined]> = /*@__NO_SIDE_EFFECTS__*/ (app, options) => {
+  app.directive('img-fallback', makeImgFallbackDir<HTMLImageElement, ImgFallbackOptions>(options));
 };

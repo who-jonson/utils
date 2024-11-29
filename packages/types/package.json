@@ -61,6 +61,6 @@
   "bugs": "https://github.com/who-jonson/utils/issues",
   "sideEffects": false,
   "devDependencies": {
-    "rollup": "^4.21.2"
+    "rollup": "^4.27.4"
   }
 }

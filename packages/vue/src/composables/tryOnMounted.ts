@@ -5,6 +5,8 @@ import { getCurrentInstance, nextTick, onMounted } from 'vue-demi';
  *
  * @param func
  * @param sync if set to false, it will run in the nextTick() of Vue
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function tryOnMounted<T extends Function>(func: T, sync = true) {
   if (getCurrentInstance()) {

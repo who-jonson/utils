@@ -1,9 +1,11 @@
 export type EventType = string | symbol;
 export type Handler<T = unknown> = (event: T) => void;
 
-/*
-* @class Emitter
-**/
+/**
+ * @class Emitter
+ *
+ * @__NO_SIDE_EFFECTS__
+ */
 export class Emitter<Events extends Record<EventType, unknown>> {
   private readonly _t: EventTarget | DocumentFragment;
 

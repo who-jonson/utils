@@ -17,6 +17,8 @@ export interface SingletonPromiseReturn<T> {
  * Create singleton promise function
  *
  * @category Promise
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function createSingletonPromise<T>(fn: () => Promise<T>): SingletonPromiseReturn<T> {
   let _promise: Promise<T> | undefined;
@@ -42,6 +44,8 @@ export function createSingletonPromise<T>(fn: () => Promise<T>): SingletonPromis
  * Promised `setTimeout`
  *
  * @category Promise
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function sleep(ms: number, callback?: Func) {
   return new Promise<void>(resolve =>
@@ -67,6 +71,8 @@ export function sleep(ms: number, callback?: Func) {
  * // in anther context:
  * await lock.wait() // it will wait all tasking finished
  * ```
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function createPromiseLock() {
   const locks: Promise<any>[] = [];
@@ -114,6 +120,8 @@ export interface ControlledPromise<T = void> extends Promise<T> {
  * // in anther context:
  * promise.resolve(data)
  * ```
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function createControlledPromise<T>(): ControlledPromise<T> {
   let resolve: any, reject: any;
@@ -130,19 +138,34 @@ export function createControlledPromise<T>(): ControlledPromise<T> {
  * Parallel Promise
  *
  * @category Promise
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function parallel<T, D = any>(tasks: T[], fn: (task: T) => Promise<D>) {
   return Promise.all(tasks.map(task => fn(task)));
 }
 
 /**
+ * Safe Parallel Promise
+ *
+ * @category Promise
+ *
+ * @__NO_SIDE_EFFECTS__
+ */
+export function parallelSafe<T, D = any>(tasks: T[], fn: (task: T) => Promise<D>) {
+  return Promise.allSettled(tasks.map(task => fn(task)));
+}
+
+/**
  * Serial Promise
  *
  * @category Promise
+ *
+ * @__NO_SIDE_EFFECTS__
  */
-export function serial<T>(tasks: T[], fn: (task: T, previous: any) => Promise<any>) {
-  return tasks.reduce<Promise<any>>(
+export function serial<T, D = any>(tasks: T[], fn: (task: T, previous: any) => Promise<D>) {
+  return tasks.reduce<Promise<D>>(
     (promise, task) => promise.then(previous => fn(task, previous)),
-    Promise.resolve(null)
+    Promise.resolve<any>(null)
   );
 }

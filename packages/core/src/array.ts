@@ -6,6 +6,8 @@ import { clamp } from './math';
  * Convert `Arrayable<T>` to `Array<T>`
  *
  * @category Array
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function toArray<T>(array?: Nullable<Arrayable<T>>): Array<T> {
   array = array || [];
@@ -19,6 +21,8 @@ export function toArray<T>(array?: Nullable<Arrayable<T>>): Array<T> {
  * Convert `Arrayable<T>` to `Array<T>` and flatten it
  *
  * @category Array
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function flattenArrayable<T>(array?: Nullable<Arrayable<T | Array<T>>>): Array<T> {
   return toArray(array).flat(1) as Array<T>;
@@ -28,6 +32,8 @@ export function flattenArrayable<T>(array?: Nullable<Arrayable<T | Array<T>>>): 
  * Use rest arguments to merge arrays
  *
  * @category Array
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function mergeArrayable<T>(...args: Nullable<Arrayable<T>>[]): Array<T> {
   return args.flatMap(i => toArray(i));
@@ -40,6 +46,8 @@ export type PartitionFilter<T> = (i: T, idx: number, arr: readonly T[]) => any;
  *
  * @category Array
  * @example const [odd, even] = partition([1, 2, 3, 4], i => i % 2 != 0)
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function partition<T>(array: readonly T[], f1: PartitionFilter<T>): [T[], T[]];
 export function partition<T>(array: readonly T[], f1: PartitionFilter<T>, f2: PartitionFilter<T>): [T[], T[], T[]];
@@ -68,6 +76,8 @@ export function partition<T>(array: readonly T[], ...filters: PartitionFilter<T>
  * Unique an Array
  *
  * @category Array
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function uniq<T>(array: readonly T[]): T[] {
   return Array.from(new Set(array));
@@ -77,6 +87,8 @@ export function uniq<T>(array: readonly T[]): T[] {
  * Get last item
  *
  * @category Array
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function last(array: readonly []): undefined;
 export function last<T>(array: readonly T[]): T;
@@ -88,6 +100,8 @@ export function last<T>(array: readonly T[]): T | undefined {
  * Remove an item from Array
  *
  * @category Array
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function remove<T>(array: T[], value: T) {
   if (!array) {
@@ -105,6 +119,8 @@ export function remove<T>(array: T[], value: T) {
  * Get nth item of Array. Negative for backward
  *
  * @category Array
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function at(array: readonly [], index: number): undefined;
 export function at<T>(array: readonly T[], index: number): T;
@@ -125,6 +141,8 @@ export function at<T>(array: readonly T[] | [], index: number): T | undefined {
  * Generate a range array of numbers. The `stop` is exclusive.
  *
  * @category Array
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function range(stop: number): number[];
 export function range(start: number, stop: number, step?: number): number[];
@@ -156,6 +174,8 @@ export function range(...args: any): number[] {
  * @param arr
  * @param from
  * @param to
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function move<T>(arr: T[], from: number, to: number) {
   arr.splice(to, 0, arr.splice(from, 1)[0]);
@@ -166,6 +186,8 @@ export function move<T>(arr: T[], from: number, to: number) {
  * Clamp a number to the index ranage of an array
  *
  * @category Array
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function clampArrayRange(n: number, arr: readonly unknown[]) {
   return clamp(n, 0, arr.length - 1);
@@ -175,6 +197,8 @@ export function clampArrayRange(n: number, arr: readonly unknown[]) {
  * Get random items from an array
  *
  * @category Array
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function sample<T>(arr: T[], count: number) {
   return Array.from({ length: count }, _ => arr[Math.round(Math.random() * (arr.length - 1))]);
@@ -184,6 +208,8 @@ export function sample<T>(arr: T[], count: number) {
  * Shuffle an array. This function mutates the array.
  *
  * @category Array
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function shuffle<T>(array: T[]): T[] {
   for (let i = array.length - 1; i > 0; i--) {
@@ -206,6 +232,8 @@ export function shuffle<T>(array: T[]): T[] {
  *
  * @param key
  * @type K extends keyof T
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function flattenDeepArray<T extends object, K extends keyof T>(
   array?: Nullable<Arrayable<T | Array<T>>>,
@@ -248,6 +276,8 @@ export function flattenDeepArray<T extends object, K extends keyof T>(
  * @type K extends string = string
  * @param callback
  * @type (cd: T, Key: K) => void
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 function diveDeepArray<T extends object = any, K extends string = string>(arr: T[], key: K, callback: (cd: T, key: K) => void) {
   arr.forEach((child: any) => {

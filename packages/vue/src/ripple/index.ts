@@ -215,7 +215,7 @@ function makeRippleDir<T extends DirectiveEl>(options: RippleOptions = {}): Dire
 }
 
 /* Creating a directive that can be used in a Vue component. */
-export const vRipple = makeRippleDir<DirectiveEl>();
+export const vRipple = /* @__PURE__ */ makeRippleDir<DirectiveEl>();
 
 /**
  * It takes an element, an optional event name, and an optional options object, and then calls the rippleHandler function
@@ -223,6 +223,8 @@ export const vRipple = makeRippleDir<DirectiveEl>();
  * @param {DirectiveEl | Ref<DirectiveEl>} el - The element to apply the ripple effect to.
  * @param event - The event that triggers the ripple effect.
  * @param {RippleOptions} [options] - RippleOptions
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function useRipple<K extends DirectiveProps['event']>(el: DirectiveEl | Ref<DirectiveEl>, event?: K, options?: RippleOptions) {
   const element = el instanceof HTMLElement ? el : el.value;
@@ -230,8 +232,7 @@ export function useRipple<K extends DirectiveProps['event']>(el: DirectiveEl | R
 }
 
 /* Creating a plugin that can be used in a Vue component. */
-export const Ripple: Plugin = {
-  install(app, options?: RippleOptions) {
-    app.directive('ripple', makeRippleDir<DirectiveEl>(options));
-  }
+/* @__NO_SIDE_EFFECTS__ */
+export const Ripple: Plugin<[RippleOptions | undefined]> = (app, options) => {
+  app.directive('ripple', makeRippleDir<DirectiveEl>(options));
 };

@@ -2,17 +2,19 @@ import { camelCase, kebabCase, pascalCase, snakeCase, titleCase, trainCase } fro
 
 /**
  * @category String
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function changeCase(str: string, to: 'camel' | 'snake' | 'kebab' | 'pascal') {
   switch (to) {
     case 'camel':
-      return camelCase(str);
+      return /*@__PURE__*/ camelCase(str);
     case 'kebab':
-      return kebabCase(str);
+      return /*@__PURE__*/ kebabCase(str);
     case 'pascal':
-      return pascalCase(str);
+      return /*@__PURE__*/ pascalCase(str);
     case 'snake':
-      return snakeCase(str);
+      return /*@__PURE__*/ snakeCase(str);
     default:
       return str;
   }

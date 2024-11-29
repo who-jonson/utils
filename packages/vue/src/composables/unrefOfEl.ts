@@ -13,6 +13,8 @@ export type UnRefElementReturn<T extends NullableElement = NullableElement> = T 
  * Get the dom element of a ref of element or Vue component instance
  *
  * @param elRef
+ *
+ * @__NO_SIDE_EFFECTS__
  */
 export function unrefElement<T extends NullableElement>(elRef: ComputedRefableElement<T>): UnRefElementReturn<T> {
   const plain = unrefOf(elRef);
