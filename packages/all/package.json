@@ -1,7 +1,7 @@
 {
   "name": "@whoj/utils",
   "description": "All collection of common JS / TS helpers/utils by @whoj",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "type": "module",
   "license": "MIT",
   "keywords": [
