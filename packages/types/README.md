@@ -14,10 +14,29 @@
 
 ### Install
 
-```bash
-npm i @whoj/utils-types # OR pnpm add @whoj/utils-types
+<!-- automd:pm-install name="@whoj/utils-types" -->
+
+```sh
+# ✨ Auto-detect
+npx nypm install @whoj/utils-types
+
+# npm
+npm install @whoj/utils-types
+
+# yarn
+yarn add @whoj/utils-types
+
+# pnpm
+pnpm install @whoj/utils-types
+
+# bun
+bun install @whoj/utils-types
+
+# deno
+deno install @whoj/utils-types
 ```
 
+<!-- /automd -->
 
 
 [MIT](../../LICENSE) License © 2022 [Jonson B.](https://github.com/who-jonson)

@@ -14,9 +14,29 @@
 
 ### Install
 
-```bash
-npm i @whoj/utils-vue # OR pnpm add @whoj/utils-vue
+<!-- automd:pm-install name="@whoj/utils-vue" -->
+
+```sh
+# ✨ Auto-detect
+npx nypm install @whoj/utils-vue
+
+# npm
+npm install @whoj/utils-vue
+
+# yarn
+yarn add @whoj/utils-vue
+
+# pnpm
+pnpm install @whoj/utils-vue
+
+# bun
+bun install @whoj/utils-vue
+
+# deno
+deno install @whoj/utils-vue
 ```
+
+<!-- /automd -->
 
 ### @whoj/utils-vue/fusejs
 

@@ -47,7 +47,8 @@
     "build": "rollup --config ../../rollup.config.js && tsx ../../scripts/core-types.ts",
     "stub": "unbuild --stub",
     "prepublishOnly": "rm -rf dist && pnpm run build",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "update:doc": "npx automd@latest"
   },
   "dependencies": {
     "@whoj/utils-types": "workspace:^",

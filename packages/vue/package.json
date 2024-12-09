@@ -78,7 +78,8 @@
     "build": "rollup --config ../../rollup.config.js",
     "stub": "unbuild --stub",
     "prepublishOnly": "rm -rf dist && pnpm run build",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "update:doc": "npx automd@latest"
   },
   "dependencies": {
     "@whoj/utils-core": "workspace:^",
