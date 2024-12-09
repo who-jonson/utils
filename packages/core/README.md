@@ -214,11 +214,62 @@ Sum any amount of number
 
 ### Object
 
-<!-- automd:jsdocs src="./src/object" -->
+<!-- automd:jsdocs src="./src/obj" -->
 
-<!-- ⚠️  (jsdocs) Cannot find module '/Users/John/Projects/@whoj/utils/packages/core/src/object'
-Require stack:
-- /Users/John/Projects/@whoj/utils/packages/core/_index.js -->
+### `clearUndefined(obj)`
+
+Clear undefined fields from an object. It mutates the object
+
+### `deepMerge(target)`
+
+Deep merge :P
+
+### `fromPairs(pairs)`
+
+### `isKeyOf(obj, k)`
+
+Type guard for any key, `k`. Marks `k` as a key of `T` if `k` is in `obj`.
+
+### `objectEntries(obj)`
+
+Strict typed `Object.entries`
+
+### `objectKeys(obj)`
+
+Strict typed `Object.keys`
+
+### `objectMap(obj, fn)`
+
+Map key/value pairs for an object, and construct a new one
+
+**Example:**
+
+```
+objectMap({ a: 1, b: 2 }, (k, v) => [k.toString().toUpperCase(), v.toString()])
+// { A: '1', B: '2' }
+```
+Swap key/value:
+
+**Example:**
+
+```
+objectMap({ a: 1, b: 2 }, (k, v) => [v, k])
+// { 1: 'a', 2: 'b' }
+```
+Filter keys:
+
+**Example:**
+
+```
+objectMap({ a: 1, b: 2 }, (k, v) => k === 'a' ? undefined : [k, v])
+// { b: 2 }
+```
+
+### `objectPick(obj, keys, omitUndefined)`
+
+Create a new subset object by giving keys
+
+### `toPairs(obj)`
 
 <!-- /automd -->
 
