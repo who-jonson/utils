@@ -1,4 +1,4 @@
-import isGlob from 'is-glob';
+import * as isGlob from 'is-glob';
 import { toString } from './c';
 
 /**
