@@ -51,7 +51,7 @@
     "update:doc": "npx automd@latest"
   },
   "dependencies": {
-    "@whoj/utils-types": "workspace:^",
+    "@whoj/utils-types": "workspace:*",
     "change-case": "^5.4.4",
     "dot-prop": "^9.0.0",
     "is-glob": "^4.0.3",

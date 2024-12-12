@@ -63,12 +63,13 @@
     "build": "rollup --config ../../rollup.config.js",
     "stub": "unbuild --stub",
     "prepublishOnly": "rm -rf dist && pnpm run build",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "testpack": "pnpm pack"
   },
   "dependencies": {
-    "@whoj/utils-core": "workspace:^",
-    "@whoj/utils-types": "workspace:^",
-    "@whoj/utils-vue": "workspace:^"
+    "@whoj/utils-core": "workspace:*",
+    "@whoj/utils-types": "workspace:*",
+    "@whoj/utils-vue": "workspace:*"
   },
   "author": {
     "name": "Jonson B.",

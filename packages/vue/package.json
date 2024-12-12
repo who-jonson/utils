@@ -82,8 +82,8 @@
     "update:doc": "npx automd@latest"
   },
   "dependencies": {
-    "@whoj/utils-core": "workspace:^",
-    "@whoj/utils-types": "workspace:^",
+    "@whoj/utils-core": "workspace:*",
+    "@whoj/utils-types": "workspace:*",
     "vue-demi": "^0.14.10"
   },
   "devDependencies": {
