@@ -63,8 +63,7 @@
     "build": "rollup --config ../../rollup.config.js",
     "stub": "unbuild --stub",
     "prepublishOnly": "rm -rf dist && pnpm run build",
-    "typecheck": "tsc --noEmit",
-    "testpack": "pnpm pack"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@whoj/utils-core": "workspace:*",
