@@ -154,19 +154,22 @@ importers:
   packages/all:
     dependencies:
       '@whoj/utils-core':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../core
       '@whoj/utils-types':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../types
       '@whoj/utils-vue':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../vue
 
   packages/core:
     dependencies:
+      '@types/is-glob':
+        specifier: ^4.0.4
+        version: 4.0.4
       '@whoj/utils-types':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../types
       change-case:
         specifier: ^5.4.4
@@ -174,6 +177,9 @@ importers:
       dot-prop:
         specifier: ^9.0.0
         version: 9.0.0
+      is-glob:
+        specifier: ^4.0.3
+        version: 4.0.3
       scule:
         specifier: ^1.3.0
         version: 1.3.0
@@ -190,10 +196,10 @@ importers:
   packages/vue:
     dependencies:
       '@whoj/utils-core':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../core
       '@whoj/utils-types':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../types
       fuse.js:
         specifier: ^6.6.2
