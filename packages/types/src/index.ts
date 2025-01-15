@@ -157,3 +157,14 @@ export type List<T> = Array<T>;
 export interface Dictionary<T> {
   [index: PropertyKey]: T;
 }
+
+export type {
+  CamelCase,
+  PascalCase,
+  KebabCase,
+  SnakeCase,
+  SplitByCase,
+  TrainCase,
+  JoinByCase,
+  FlatCase
+} from 'scule';

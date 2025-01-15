@@ -44,7 +44,7 @@
     "*.d.ts"
   ],
   "scripts": {
-    "build": "rollup --config ../../rollup.config.js && tsx ../../scripts/core-types.ts",
+    "build": "rollup --config ../../rollup.config.js",
     "stub": "unbuild --stub",
     "prepublishOnly": "rm -rf dist && pnpm run build",
     "typecheck": "tsc --noEmit",
@@ -54,12 +54,8 @@
     "@whoj/utils-types": "workspace:*",
     "change-case": "^5.4.4",
     "dot-prop": "^9.0.0",
-    "is-glob": "^4.0.3",
     "scule": "^1.3.0",
     "throttle-debounce": "^5.0.2"
-  },
-  "peerDependencies": {
-    "@types/is-glob": "^4.0.4"
   },
   "author": {
     "name": "Jonson B.",

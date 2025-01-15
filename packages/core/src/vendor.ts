@@ -1,4 +1,4 @@
-import { camelCase, kebabCase, pascalCase, snakeCase, titleCase, trainCase } from 'scule';
+import { camelCase, kebabCase, pascalCase, snakeCase } from 'scule';
 
 /**
  * @category String
@@ -21,11 +21,8 @@ export function changeCase(str: string, to: 'camel' | 'snake' | 'kebab' | 'pasca
 }
 
 export {
-  throttle,
-  debounce
-} from 'throttle-debounce';
-
-export {
+  deepKeys,
+  escapePath,
   getProperty,
   setProperty,
   hasProperty,
@@ -51,5 +48,12 @@ export {
   snakeCase,
   titleCase,
   trainCase,
+  isUppercase,
+  upperFirst,
+  lowerFirst,
+  flatCase,
+  splitByCase,
   kebabCase as paramCase
-};
+} from 'scule';
+
+export * from 'throttle-debounce';
