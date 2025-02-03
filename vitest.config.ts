@@ -1,8 +1,5 @@
-import { fileURLToPath } from 'node:url';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vitest/config';
-
-const rootDir = fileURLToPath(new URL('./', import.meta.url));
 
 export default defineConfig({
   plugins: [
@@ -25,9 +22,6 @@ export default defineConfig({
     globals: true,
     setupFiles: [
       // './__tests__/utils/global-variables.ts'
-    ],
-    transformMode: {
-      web: [/\.[jt]sx$/]
-    }
+    ]
   }
 });

@@ -34,6 +34,7 @@ export const isBoolean = (val: any): val is boolean => typeof val === 'boolean';
  *
  * @__NO_SIDE_EFFECTS__
  */
+
 export const isFunction = <T extends Function> (val: any): val is T => typeof val === 'function';
 
 /**
@@ -55,7 +56,7 @@ export const isNumber = (val: any): val is number => typeof val === 'number';
  *
  * @__NO_SIDE_EFFECTS__
  */
-export const isNumberish = (val: any): val is number => typeof val === 'number' || !isNaN(val);
+export const isNumberish = (val: any): val is number => typeof val === 'number' || !Number.isNaN(val);
 
 /**
  * Check if value is String

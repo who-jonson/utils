@@ -83,7 +83,8 @@ export function createPromiseLock() {
       locks.push(p);
       try {
         return await p;
-      } finally {
+      }
+      finally {
         remove(locks, p);
       }
     },
@@ -103,8 +104,8 @@ export function createPromiseLock() {
  * Promise with `resolve` and `reject` methods of itself
  */
 export interface ControlledPromise<T = void> extends Promise<T> {
-  resolve(value: T | PromiseLike<T>): void;
-  reject(reason?: any): void;
+  resolve: (value: T | PromiseLike<T>) => void;
+  reject: (reason?: any) => void;
 }
 
 /**

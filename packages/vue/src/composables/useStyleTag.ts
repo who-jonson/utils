@@ -1,6 +1,6 @@
 // Forked from https://github.com/vueuse/vueuse/blob/main/packages/core/useStyleTag/index.ts
 import type { Ref } from 'vue-demi';
-import { readonly, ref, watch } from 'vue-demi';
+import { ref, watch, readonly } from 'vue-demi';
 import { tryOnMounted } from './tryOnMounted';
 import { tryOnScopeDispose } from './tryOnScopeDispose';
 import type { MaybeRef } from '../types';
@@ -61,7 +61,8 @@ export function useStyleTag(
   const isLoaded = ref(false);
 
   const {
-    document = defaultDocument, immediate = true,
+    document = defaultDocument,
+    immediate = true,
     manual = false,
     id = `whoj.utils-vue_style_tag_${++_id}`
   } = options;

@@ -1,4 +1,4 @@
-import { getCurrentScope, onScopeDispose } from 'vue-demi';
+import { onScopeDispose, getCurrentScope } from 'vue-demi';
 import type { Func } from '@whoj/utils-types';
 
 /**

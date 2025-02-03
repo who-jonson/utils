@@ -1,6 +1,6 @@
-import { computed, ref } from 'vue-demi';
-import type { ComputedRef, Ref } from 'vue-demi';
-import type { ComputedRefable, Refable } from '../types';
+import { ref, computed } from 'vue-demi';
+import type { Ref, ComputedRef } from 'vue-demi';
+import type { Refable, ComputedRefable } from '../types';
 
 /**
  * Get value/ref/getter as `ref` or `computed`.

@@ -1,4 +1,4 @@
-import { getCurrentInstance, nextTick, onMounted } from 'vue-demi';
+import { nextTick, onMounted, getCurrentInstance } from 'vue-demi';
 
 /**
  * Call onMounted() if it's inside a component lifecycle, if not, just call the function
@@ -11,9 +11,11 @@ import { getCurrentInstance, nextTick, onMounted } from 'vue-demi';
 export function tryOnMounted<T extends Function>(func: T, sync = true) {
   if (getCurrentInstance()) {
     onMounted(() => func());
-  } else if (sync) {
+  }
+  else if (sync) {
     func();
-  } else {
+  }
+  else {
     nextTick(() => func());
   }
 }

@@ -7,11 +7,11 @@
  * @__NO_SIDE_EFFECTS__
  *
  */
-export const assert = (condition: boolean, message: string): asserts condition => {
+export function assert(condition: boolean, message: string): asserts condition {
   if (!condition) {
     throw new Error(message);
   }
-};
+}
 
 /**
  * Convert to String
@@ -30,4 +30,4 @@ export const toString = (val: any) => Object.prototype.toString.call(val);
  *
  * @__NO_SIDE_EFFECTS__
  */
-export const noop = () => {};
+export function noop() {}

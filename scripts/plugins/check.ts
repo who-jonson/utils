@@ -1,8 +1,8 @@
-import path from 'path';
+import path from 'node:path';
 import type { Plugin } from 'rollup';
 import { createUnplugin } from 'unplugin';
-import { appendFileSync, existsSync } from 'fs';
-import { lstat, readFile, readdir, writeFile } from 'fs/promises';
+import { existsSync, appendFileSync } from 'node:fs';
+import { lstat, readdir, readFile, writeFile } from 'node:fs/promises';
 
 export function resolveEmptyExports(_opts?: any): Plugin {
   return {
@@ -21,15 +21,15 @@ export function resolveEmptyExports(_opts?: any): Plugin {
   };
 }
 
-const transform = async (content: string) => {
+function transform(content: string) {
   return content
-    .replace(/import '.*';/gm, '')
-    .replace(/import ".*";/gm, '')
+    .replace(/import '.*';/g, '')
+    .replace(/import ".*";/g, '')
     .replace(/^require\('.*'\);/gm, '')
     .replace(/^require\(".*"\);/gm, '')
     .replace(/\n\s*\n/g, '\n');
-};
-const processFiles = async (dir: string) => {
+}
+async function processFiles(dir: string) {
   if (!existsSync(dir)) {
     return;
   }
@@ -47,7 +47,7 @@ const processFiles = async (dir: string) => {
 
       const content = await readFile(currentPath, 'utf8');
 
-      const result = await transform(content);
+      const result = transform(content);
 
       if (!result) {
         return;
@@ -55,7 +55,7 @@ const processFiles = async (dir: string) => {
 
       await writeFile(currentPath, result);
     });
-};
+}
 
 export const fixImportHell = createUnplugin(({ dir }: { dir?: (outDir: string) => string } = {}) => {
   let outDir = '';

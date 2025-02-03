@@ -1,4 +1,4 @@
-import { camelCase, kebabCase, pascalCase, snakeCase } from 'scule';
+import { camelCase, kebabCase, snakeCase, pascalCase } from 'scule';
 
 /**
  * @category String
@@ -20,18 +20,7 @@ export function changeCase(str: string, to: 'camel' | 'snake' | 'kebab' | 'pasca
   }
 }
 
-export {
-  deepKeys,
-  escapePath,
-  getProperty,
-  setProperty,
-  hasProperty,
-  deleteProperty,
-  getProperty as getObjProp,
-  setProperty as setObjProp,
-  hasProperty as hasObjProp,
-  deleteProperty as deleteObjProp
-} from 'dot-prop';
+export * from 'throttle-debounce';
 
 export {
   dotCase,
@@ -42,18 +31,29 @@ export {
 } from 'change-case';
 
 export {
+  flatCase,
   camelCase,
   kebabCase,
-  pascalCase,
   snakeCase,
   titleCase,
   trainCase,
-  isUppercase,
-  upperFirst,
   lowerFirst,
-  flatCase,
+  pascalCase,
+  upperFirst,
+  isUppercase,
   splitByCase,
   kebabCase as paramCase
 } from 'scule';
 
-export * from 'throttle-debounce';
+export {
+  deepKeys,
+  escapePath,
+  getProperty,
+  hasProperty,
+  setProperty,
+  deleteProperty,
+  getProperty as getObjProp,
+  hasProperty as hasObjProp,
+  setProperty as setObjProp,
+  deleteProperty as deleteObjProp
+} from 'dot-prop';

@@ -1,6 +1,6 @@
-import type { Arrayable, Nullable } from '@whoj/utils-types';
-import { hasOwnProperty } from './obj';
+import type { Nullable, Arrayable } from '@whoj/utils-types';
 import { clamp } from './math';
+import { hasOwnProperty } from './obj';
 
 /**
  * Convert `Arrayable<T>` to `Array<T>`
@@ -56,7 +56,7 @@ export function partition<T>(array: readonly T[], f1: PartitionFilter<T>, f2: Pa
 export function partition<T>(array: readonly T[], f1: PartitionFilter<T>, f2: PartitionFilter<T>, f3: PartitionFilter<T>, f4: PartitionFilter<T>, f5: PartitionFilter<T>): [T[], T[], T[], T[], T[], T[]];
 export function partition<T>(array: readonly T[], f1: PartitionFilter<T>, f2: PartitionFilter<T>, f3: PartitionFilter<T>, f4: PartitionFilter<T>, f5: PartitionFilter<T>, f6: PartitionFilter<T>): [T[], T[], T[], T[], T[], T[], T[]];
 export function partition<T>(array: readonly T[], ...filters: PartitionFilter<T>[]): any {
-  const result: T[][] = new Array(filters.length + 1).fill(null).map(() => []);
+  const result: T[][] = Array.from({ length: filters.length + 1 }).fill(null).map(() => []);
 
   array.forEach((e, idx, arr) => {
     let i = 0;
@@ -153,7 +153,8 @@ export function range(...args: any): number[] {
     start = 0;
     step = 1;
     ([stop] = args);
-  } else {
+  }
+  else {
     ([start, stop, step = 1] = args);
   }
 
@@ -251,7 +252,8 @@ export function flattenDeepArray<T extends object, K extends keyof T>(
     'children',
     (a) => {
       fArray.push(a);
-    });
+    }
+  );
   return fArray;
 }
 /**
@@ -283,7 +285,8 @@ function diveDeepArray<T extends object = any, K extends string = string>(arr: T
   arr.forEach((child: any) => {
     if (hasOwnProperty(child, key) && Array.isArray(child[key])) {
       diveDeepArray<T, K>(child[key], key, callback);
-    } else {
+    }
+    else {
       callback(child, key);
     }
   });

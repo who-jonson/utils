@@ -1,13 +1,14 @@
 <script lang="ts" setup>
-import { defineProp, prop, vImgFallback, vRipple } from '../../packages/vue/src';
-interface PropT {
-  name: string
-}
+// import { prop, vRipple, defineProp, vImgFallback } from '../../packages/vue/src';
 
-const props = defineProps({
-  test: prop.boolean.isRequired,
-  testT: defineProp<PropT>(Object)
-});
+// interface PropT {
+//   name: string;
+// }
+
+// const props = defineProps({
+//   test: prop.boolean.isRequired,
+//   testT: defineProp<PropT>(Object)
+// });
 </script>
 
 <template>

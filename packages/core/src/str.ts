@@ -1,12 +1,12 @@
 import type { Func } from '@whoj/utils-types';
 
-const cacheStringFunction = /*#__NO_SIDE_EFFECTS__*/ (fn: Func<string>): Func<string> => {
+function cacheStringFunction(fn: Func<string>): Func<string> {
   const cache = Object.create(null);
   return (str) => {
     const hit = cache[str];
     return hit || (cache[str] = fn(str));
   };
-};
+}
 
 /**
  * Replace backslash to slash
@@ -75,7 +75,7 @@ export function ensureSuffix(suffix: string, str: string) {
  * @__NO_SIDE_EFFECTS__
  */
 export function template(str: string, ...args: any[]): string {
-  return str.replace(/{(\d+)}/g, (match, key) => {
+  return str.replace(/\{(\d+)\}/g, (match, key) => {
     const index = Number(key);
     if (Number.isNaN(index)) {
       return match;
@@ -90,7 +90,7 @@ export function template(str: string, ...args: any[]): string {
  * You may define a position if string includes the separator multiple times
  * @param {string} str - The string to be divided.
  * @param {string} separator - The separator to use to divide the string.
- * @param {number} [position=1] - The position of the separator.
+ * @param {number} [position] - The position of the separator.
  *
  * It will make 2nd item for the return as empty string, if no separator found!
  * @returns string[]

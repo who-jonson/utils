@@ -19,23 +19,23 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "update:doc": "pnpm -r run update:doc",
-    "release": "bumpp package.json packages/*/package.json --commit --push --tag && pnpm -r publish --access public"
+    "release": "bumpp package.json packages/*/package.json && pnpm -r publish --access public"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^12.1.2",
     "@testing-library/vue": "^8.1.0",
     "@types/fs-extra": "^11.0.4",
     "@types/is-glob": "^4.0.4",
-    "@types/node": "^22.10.6",
+    "@types/node": "^22.13.0",
     "@types/throttle-debounce": "^5.0.2",
     "@vitejs/plugin-vue": "^5.2.1",
-    "@vitest/ui": "^2.1.8",
-    "@whoj/eslint-config": "^1.5.0",
+    "@vitest/ui": "^3.0.5",
+    "@whoj/eslint-config": "^2.0.0",
     "@whoj/utils": "workspace:^",
     "@whoj/utils-core": "workspace:^",
     "@whoj/utils-types": "workspace:^",
     "@whoj/utils-vue": "workspace:^",
-    "bumpp": "^9.10.1",
+    "bumpp": "^10.0.1",
     "c8": "^10.1.3",
     "change-case": "^5.4.4",
     "core-js": "^3.40.0",
@@ -43,38 +43,33 @@
     "dot-prop": "^9.0.0",
     "esbuild": "^0.24.2",
     "esbuild-register": "^3.6.0",
-    "eslint": "8.49.0",
-    "eslint-plugin-testing-library": "^6.5.0",
-    "eslint-plugin-tsdoc": "^0.2.17",
+    "eslint": "^9.19.0",
+    "eslint-plugin-testing-library": "^7.1.1",
     "esno": "^4.8.0",
     "fast-glob": "^3.3.3",
     "is-glob": "^4.0.3",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.5.1",
     "rimraf": "^6.0.1",
-    "rollup": "^4.30.1",
+    "rollup": "^4.34.1",
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-esbuild": "^6.1.1",
     "rollup-plugin-node-externals": "^8.0.0",
     "rollup-plugin-postcss": "^4.0.2",
     "scule": "^1.3.0",
     "throttle-debounce": "^5.0.2",
-    "tsup": "^8.3.5",
+    "tsup": "^8.3.6",
     "typescript": "^5.5.4",
     "unbuild": "^3.3.1",
     "unplugin": "2.1.2",
-    "vite": "^6.0.7",
+    "vite": "^6.0.11",
     "vite-plugin-dts": "^4.5.0",
-    "vitest": "^2.1.8",
+    "vitest": "^3.0.5",
     "vue": "^3.5.13",
     "vue-demi": "^0.14.10",
     "vue-tsc": "^2.2.0"
   },
   "pnpm": {
-    "allowedDeprecatedVersions": {
-      "eslint": "*",
-      "stable": "*"
-    },
     "overrides": {
       "vue-demi": "$vue-demi",
       "typescript": "$typescript"
@@ -84,9 +79,14 @@
         "@vue/compiler-sfc",
         "rollup"
       ]
-    }
+    },
+    "onlyBuiltDependencies": [
+      "core-js",
+      "esbuild",
+      "vue-demi"
+    ]
   },
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@10.2.0",
   "author": {
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",

@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import glob from 'fast-glob';
@@ -49,50 +49,52 @@ const globalNames = {
   '@whoj/utils-core': 'Whoj.Utils.Core'
 };
 
-const plugins = (opt: EsbuildOptions = {}) => [
-  alias({
-    entries: [
-      { find: /^node:(.+)$/, replacement: '$1' },
-      { find: /^vue$/, replacement: 'vue-demi' },
-      {
-        find: /^@whoj\/utils-(core|types|vue)$/,
-        replacement: path.join(__dirname, '..', 'packages/$1/src')
-      }
-    ]
-  }),
-  nodeResolve({
-    extensions: DEFAULT_EXTENSIONS
-  }),
-  postcss({
-    inject: true
-  }),
-  Vue({
-    isProduction: false
-  }),
-  esbuild({
-    tsconfig,
-    target: 'esnext',
-    legalComments: 'eof',
-    define: {
-      'import.meta.vitest': 'undefined',
-      'import.meta.DEV': JSON.stringify(!!process.env.DEV),
-      'import.meta.env.PROD': JSON.stringify(!!process.env.PROD)
-    },
-    loaders: {
-      '.ts': 'ts',
-      '.js': 'js',
-      '.tsx': 'tsx',
-      '.jsx': 'jsx',
-      '.vue': 'ts'
-    },
-    ...opt
-  }),
-  commonjs({
-    extensions: DEFAULT_EXTENSIONS
-  }),
-  cjsShimPlugin({}),
-  fixImportHellRollup()
-];
+function plugins(opt: EsbuildOptions = {}) {
+  return [
+    alias({
+      entries: [
+        { find: /^node:(.+)$/, replacement: '$1' },
+        { find: /^vue$/, replacement: 'vue-demi' },
+        {
+          find: /^@whoj\/utils-(core|types|vue)$/,
+          replacement: path.join(__dirname, '..', 'packages/$1/src')
+        }
+      ]
+    }),
+    nodeResolve({
+      extensions: DEFAULT_EXTENSIONS
+    }),
+    postcss({
+      inject: true
+    }),
+    Vue({
+      isProduction: false
+    }),
+    esbuild({
+      tsconfig,
+      target: 'esnext',
+      legalComments: 'eof',
+      define: {
+        'import.meta.vitest': 'undefined',
+        'import.meta.DEV': JSON.stringify(!!process.env.DEV),
+        'import.meta.env.PROD': JSON.stringify(!!process.env.PROD)
+      },
+      loaders: {
+        '.ts': 'ts',
+        '.js': 'js',
+        '.tsx': 'tsx',
+        '.jsx': 'jsx',
+        '.vue': 'ts'
+      },
+      ...opt
+    }),
+    commonjs({
+      extensions: DEFAULT_EXTENSIONS
+    }),
+    cjsShimPlugin({}),
+    fixImportHellRollup()
+  ];
+}
 
 export default defineConfig(() => {
   logger.log(`${chalk.yellowBright('Bundling:')} -->> ${chalk.cyanBright.italic(name)} -->>  ${chalk.greenBright.bold(globalNames[name] || '')}`);
@@ -170,11 +172,12 @@ export default defineConfig(() => {
     );
   }
 
-  if (!/@whoj\/utils-(core|types)/.test(name)) {
+  if (!/@whoj\/utils-(?:core|types)/.test(name)) {
     input = glob.sync(
       name.endsWith('vue')
         ? ['src/index.ts', 'src/*/index.ts']
-        : 'src/*.ts', { cwd, absolute: false }
+        : 'src/*.ts',
+      { cwd, absolute: false }
     ).reduce<{ [entryAlias: string]: string }>((obj, entry) => ({
       ...obj,
       [entry.substring(0, entry.lastIndexOf('.')).replace(/src\//, '')]: entry
@@ -211,7 +214,7 @@ export default defineConfig(() => {
           composite: false,
           customConditions: ['develop']
         },
-        respectExternal: /@whoj\/utils-(core|types)/.test(name)
+        respectExternal: /@whoj\/utils-(?:core|types)/.test(name)
       })
     ],
     output: outputFileConfig({
@@ -282,7 +285,7 @@ function makeDtsEntry(input: InputOption): InputOption {
 /**
  * @returns {(RegExp|string)[]}
  */
-export const getExternals = (format: OutputOptions['format'] = 'esm') => {
+export function getExternals(format: OutputOptions['format'] = 'esm') {
   return ['iife', 'umd'].includes(format)
     ? ['vue', 'vue-demi']
     : [
@@ -315,7 +318,7 @@ export const getExternals = (format: OutputOptions['format'] = 'esm') => {
         '@whoj/utils-types',
         '@whoj/utils-vue'
       ].filter(m => name !== m);
-};
+}
 
 function vueChunks(id: string) {
   if (/src\/composables/.test(id)) {

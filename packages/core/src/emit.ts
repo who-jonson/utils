@@ -12,7 +12,9 @@ export class Emitter<Events extends Record<EventType, unknown>> {
   constructor() {
     try {
       this._t = new EventTarget();
-    } catch (e) {
+    }
+    // eslint-disable-next-line unused-imports/no-unused-vars
+    catch (e) {
       this._t = document?.createDocumentFragment();
     }
   }

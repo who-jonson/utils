@@ -140,7 +140,7 @@ export type DeepMerge<F, S> = MergeInsertions<{
  * @category Type Alias
  */
 export type NestedKeyOf<Obj extends object> =
-  {[Key in keyof Obj & (string | number)]: Obj[Key] extends object
+  { [Key in keyof Obj & (string | number)]: Obj[Key] extends object
     ? `${Key}` | `${Key}.${NestedKeyOf<Obj[Key]>}` : `${Key}`
   }[keyof Obj & (string | number)];
 
@@ -159,12 +159,12 @@ export interface Dictionary<T> {
 }
 
 export type {
+  FlatCase,
   CamelCase,
-  PascalCase,
   KebabCase,
   SnakeCase,
-  SplitByCase,
   TrainCase,
+  PascalCase,
   JoinByCase,
-  FlatCase
+  SplitByCase
 } from 'scule';

@@ -1,5 +1,5 @@
 import type { ComponentPublicInstance } from 'vue-demi';
-import type { ComputedRefable, Refable } from '../types';
+import type { Refable, ComputedRefable } from '../types';
 import { unrefOf } from './unrefOf';
 
 export type VueInstance = ComponentPublicInstance;

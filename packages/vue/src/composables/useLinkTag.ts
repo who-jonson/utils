@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue-demi';
 import type { Optional } from '@whoj/utils-types';
-import { getDocument, noop, objectEntries } from '@whoj/utils-core';
+import { noop, getDocument, objectEntries } from '@whoj/utils-core';
 import type { ComputedRefable } from '../types';
 import { unrefOf } from './unrefOf';
 import { listenEvent } from './listenEvent';
@@ -104,7 +104,8 @@ export function useLinkTag(href: ComputedRefable<string>, onLoaded: (el: HTMLLin
 
       // Enables shouldAppend
       shouldAppend = true;
-    } else if (el.hasAttribute('data-loaded')) {
+    }
+    else if (el.hasAttribute('data-loaded')) {
       resolveWithElement(el);
     }
 
@@ -151,7 +152,8 @@ export function useLinkTag(href: ComputedRefable<string>, onLoaded: (el: HTMLLin
 
     const el = findLinkEl();
     if (el) {
-      objectEntries(_evtListeners).forEach(([name, unregister]) => {
+      // eslint-disable-next-line ts/no-unused-vars
+      objectEntries(_evtListeners).forEach(([_, unregister]) => {
         unregister();
       });
       document.head.removeChild(el);

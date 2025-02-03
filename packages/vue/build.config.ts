@@ -54,8 +54,7 @@ export default defineBuildConfig({
           inject: true
         }),
         Vue({
-          isProduction: false,
-          reactivityTransform: true
+          isProduction: false
         })
       ]);
       const { output } = options;
@@ -66,7 +65,7 @@ export default defineBuildConfig({
         // @ts-ignore
         entry.generatedCode.constBindings = true;
         entry.externalLiveBindings = true;
-        entry.chunkFileNames = ({ isDynamicEntry }) => `_${isDynamicEntry ? 'chunks' : 'shared'}/[name].${/(es|esm|module)/.test(entry.format!) ? 'mjs' : 'cjs'}`;
+        entry.chunkFileNames = ({ isDynamicEntry }) => `_${isDynamicEntry ? 'chunks' : 'shared'}/[name].${/es|module/.test(entry.format!) ? 'mjs' : 'cjs'}`;
       }
     }
   }

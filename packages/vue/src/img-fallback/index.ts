@@ -1,5 +1,5 @@
 import { isVue3 } from 'vue-demi';
-import type { DirectiveBinding, ObjectDirective, Plugin } from 'vue-demi';
+import type { Plugin, ObjectDirective, DirectiveBinding } from 'vue-demi';
 import { isObject, isString } from '@whoj/utils-core';
 import { loadingImg } from './assets';
 
@@ -31,7 +31,8 @@ function makeImgFallbackDir<ImgT extends HTMLImageElement, ImgV extends ImgFallb
       if (isString(value)) {
         // @ts-ignore
         loading = error = value;
-      } else if (isObject<ImgFallbackOptions>(value)) {
+      }
+      else if (isObject<ImgFallbackOptions>(value)) {
         // @ts-ignore
         loading = value.loading || defaultLoading;
         // @ts-ignore

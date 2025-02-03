@@ -1,6 +1,6 @@
 import { watch } from 'vue-demi';
-import { isString, noop } from '@whoj/utils-core';
-import type { Arrayable, Func } from '@whoj/utils-types';
+import { noop, isString } from '@whoj/utils-core';
+import type { Func, Arrayable } from '@whoj/utils-types';
 import type { ComputedRefable } from '../types';
 import { defaultWindow } from '../_configurable';
 import type { RefableElement } from './unrefOfEl';
@@ -8,8 +8,8 @@ import { unrefElement } from './unrefOfEl';
 import { tryOnScopeDispose } from './tryOnScopeDispose';
 
 interface InferEventTarget<Events> {
-  addEventListener(event: Events, fn?: any, options?: any): any;
-  removeEventListener(event: Events, fn?: any, options?: any): any;
+  addEventListener: (event: Events, fn?: any, options?: any) => any;
+  removeEventListener: (event: Events, fn?: any, options?: any) => any;
 }
 
 interface BasicEventListener<E = Event> {
@@ -38,7 +38,8 @@ export function listenEvent(...args: any[]) {
   if (isString(args[0]) || Array.isArray(args[0])) {
     [events, listeners, options] = args;
     target = defaultWindow;
-  } else {
+  }
+  else {
     [target, events, listeners, options] = args;
   }
 

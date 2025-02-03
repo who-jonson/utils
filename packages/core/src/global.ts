@@ -34,13 +34,17 @@ const _globalThis = /* @__PURE__ */ (function () {
   if (typeof globalThis !== 'undefined') {
     return globalThis;
   }
+  // eslint-disable-next-line no-restricted-globals
   if (typeof self !== 'undefined') {
+    // eslint-disable-next-line no-restricted-globals
     return self;
   }
   if (typeof window !== 'undefined') {
     return window;
   }
+  // eslint-disable-next-line no-restricted-globals
   if (typeof global !== 'undefined') {
+    // eslint-disable-next-line no-restricted-globals
     return global;
   }
   return fakeGlobal;
@@ -66,7 +70,10 @@ const getTopCoordinate = /*#__NO_SIDE_EFFECTS__*/ (element: HTMLElement) => elem
 const getBottomCoordinate = /*#__NO_SIDE_EFFECTS__*/ (element: HTMLElement) => element.offsetTop + element.offsetHeight;
 const getCenterCoordinate = /*#__NO_SIDE_EFFECTS__*/ (element: HTMLElement) => element.offsetTop + element.offsetHeight / 2;
 
-const getScrollTop = /*#__NO_SIDE_EFFECTS__*/ (element: HTMLElement, scrollTarget: HTMLElement, verticalAlignment?: 'start' | 'end' | 'center' | 'any') => {
+/**
+ * @__NO_SIDE_EFFECTS__
+ */
+function getScrollTop(element: HTMLElement, scrollTarget: HTMLElement, verticalAlignment?: 'start' | 'end' | 'center' | 'any') {
   const viewHeight = scrollTarget.offsetHeight;
   const currentPosition = scrollTarget.scrollTop;
   const top = getTopCoordinate(element) - scrollTarget.offsetTop;
@@ -94,22 +101,20 @@ const getScrollTop = /*#__NO_SIDE_EFFECTS__*/ (element: HTMLElement, scrollTarge
       return bottom - viewHeight;
     }
   }
-};
+}
 
 /**
- * @param options.scrollTarget - element that will be scrolled
- *
  * @__NO_SIDE_EFFECTS__
  */
-export const scrollToElement = /* @__PURE__ */ (element: HTMLElement, options: {
-  scrollTarget?: HTMLElement,
-  verticalAlignment?: 'start' | 'end' | 'center' | 'any',
-  smooth?: boolean
+export function scrollToElement(element: HTMLElement, options: {
+  scrollTarget?: HTMLElement;
+  verticalAlignment?: 'start' | 'end' | 'center' | 'any';
+  smooth?: boolean;
 } = {
   scrollTarget: element.parentElement!,
   verticalAlignment: 'any',
   smooth: false
-}) => {
+}) {
   const scrollTarget = options.scrollTarget || element.parentElement!;
 
   const top = getScrollTop(element, scrollTarget, options.verticalAlignment);
@@ -122,4 +127,4 @@ export const scrollToElement = /* @__PURE__ */ (element: HTMLElement, options: {
     top,
     behavior: options.smooth ? 'smooth' : 'auto'
   });
-};
+}

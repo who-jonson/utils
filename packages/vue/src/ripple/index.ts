@@ -1,6 +1,6 @@
 import { isVue3 } from 'vue-demi';
-import type { Directive, DirectiveBinding, ObjectDirective, Plugin, Ref } from 'vue-demi';
 import { isNumber, objectKeys } from '@whoj/utils-core';
+import type { Ref, Plugin, Directive, ObjectDirective, DirectiveBinding } from 'vue-demi';
 
 import './style.css';
 
@@ -53,7 +53,8 @@ function setProps(modifiers: any, props: DirectiveProps) {
   modifiers.forEach((item) => {
     if (!isNumber(item)) {
       props.event = item;
-    } else {
+    }
+    else {
       props.transition = item;
     }
   });
@@ -76,6 +77,7 @@ function rippleHandler(el: DirectiveEl, modifiers: DirectiveModifiers, options?:
   setProps(objectKeys(modifiers), props);
 
   el.addEventListener(props.event, (event) => {
+    // eslint-disable-next-line ts/no-use-before-define
     rippleEl(event, el);
   });
 
@@ -84,7 +86,7 @@ function rippleHandler(el: DirectiveEl, modifiers: DirectiveModifiers, options?:
 
   const rippleEl = function (event, el: DirectiveEl) {
     const target = el;
-    const targetBorder = parseInt((getComputedStyle(target).borderWidth).replace('px', ''));
+    const targetBorder = Number.parseInt((getComputedStyle(target).borderWidth).replace('px', ''));
     const clientX = event.clientX || event.touches[0].clientX;
     const clientY = event.clientY || event.touches[0].clientY;
 
@@ -177,6 +179,7 @@ function rippleHandler(el: DirectiveEl, modifiers: DirectiveModifiers, options?:
       setTimeout(() => {
         let clearPosition = true;
 
+        // @ts-ignore
         for (const child of target.childNodes) {
           // @ts-ignore
           if (child.className === 'ripple-container') {
@@ -187,7 +190,8 @@ function rippleHandler(el: DirectiveEl, modifiers: DirectiveModifiers, options?:
         if (clearPosition) {
           if (storedTargetPosition !== 'static') {
             target.style.position = storedTargetPosition;
-          } else {
+          }
+          else {
             target.style.position = '';
           }
         }
@@ -198,7 +202,8 @@ function rippleHandler(el: DirectiveEl, modifiers: DirectiveModifiers, options?:
       el.addEventListener('mouseup', clearRipple, false);
       el.addEventListener('mouseleave', clearRipple, false);
       el.addEventListener('dragstart', clearRipple, false);
-    } else {
+    }
+    else {
       clearRipple();
     }
   };

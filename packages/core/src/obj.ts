@@ -1,4 +1,4 @@
-import type { DeepMerge, Dictionary, List } from '@whoj/utils-types';
+import type { List, DeepMerge, Dictionary } from '@whoj/utils-types';
 import { isObject } from './is';
 import { notNullish } from './guard';
 
@@ -119,7 +119,8 @@ export function deepMerge<T extends object = object, S extends object = T>(targe
         }
         // @ts-ignore
         deepMerge(target[key], source[key]);
-      } else {
+      }
+      else {
         // @ts-ignore
         target[key] = source[key];
       }
@@ -138,7 +139,7 @@ export function deepMerge<T extends object = object, S extends object = T>(targe
  *
  * @__NO_SIDE_EFFECTS__
  */
-function isObjectMergable(item: any): item is Object {
+function isObjectMergable(item: any): item is object {
   return isObject(item) && !Array.isArray(item);
 }
 

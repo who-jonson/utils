@@ -1,7 +1,10 @@
 import minimist from 'minimist';
-import { type RollupOptions, rollup } from 'rollup';
-import { type UserConfig, build as vite } from 'vite';
-import { type BuildConfig, build as unBuild } from 'unbuild';
+import { rollup } from 'rollup';
+import type { RollupOptions } from 'rollup';
+import { build as vite } from 'vite';
+import type { UserConfig } from 'vite';
+import { build as unBuild } from 'unbuild';
+import type { BuildConfig } from 'unbuild';
 
 type BuilderType = 'rollup' | 'vite' | 'unbuild';
 
@@ -62,9 +65,11 @@ async function run<T extends BuilderType>(options: WhojBuild<T>, config: Builder
   const builder = getBuilder(options.builder);
   if (builder === 'rollup') {
     return rollupBuild({ ...options, builder }, config);
-  } else if (builder === 'vite') {
+  }
+  else if (builder === 'vite') {
     return viteBuild({ ...options, builder }, config);
-  } else {
+  }
+  else {
     return unbuild({ ...options, builder }, config);
   }
 }

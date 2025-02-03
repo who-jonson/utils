@@ -1,6 +1,6 @@
 import Fuse from 'fuse.js';
-import { computed, ref, watch } from 'vue-demi';
-import type { ComputedRef, Ref } from 'vue-demi';
+import { ref, watch, computed } from 'vue-demi';
+import type { Ref, ComputedRef } from 'vue-demi';
 
 export type FuseOptions<T> = Fuse.IFuseOptions<T>;
 
@@ -79,7 +79,8 @@ export class FuseJS<DataT> {
     let locArr: Array<DataT> = [];
     if (Array.isArray(list)) {
       locArr = list;
-    } else if (list) {
+    }
+    else if (list) {
       locArr = list.value ?? [];
       watch(list, () => {
         this.loadItems(list.value ?? []);
