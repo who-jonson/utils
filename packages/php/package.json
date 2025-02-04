@@ -1,0 +1,53 @@
+{
+  "name": "@whoj/utils-php",
+  "description": "Collection of common PHP/Laravel helpers by @whoj",
+  "version": "2.2.0",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "php",
+    "laravel",
+    "encrypt/decrypt"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "*.d.ts"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "stub": "unbuild --stub",
+    "prepublishOnly": "rm -rf dist && pnpm run build",
+    "typecheck": "tsc --noEmit",
+    "update:doc": "npx automd@latest"
+  },
+  "dependencies": {
+    "@whoj/utils-core": "workspace:*"
+  },
+  "peerDependencies": {
+    "php-serialize": "^5.0.1"
+  },
+  "author": {
+    "name": "Jonson B.",
+    "email": "www.jbc.bd@gmail.com",
+    "url": "https://who-jonson.github.io"
+  },
+  "funding": "https://github.com/sponsors/who-jonson",
+  "homepage": "https://github.com/who-jonson/utils#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/who-jonson/utils.git",
+    "directory": "packages/php"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "bugs": "https://github.com/who-jonson/utils/issues",
+  "sideEffects": false
+}

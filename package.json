@@ -33,6 +33,7 @@
     "@whoj/eslint-config": "^2.0.0",
     "@whoj/utils": "workspace:^",
     "@whoj/utils-core": "workspace:^",
+    "@whoj/utils-php": "workspace:^",
     "@whoj/utils-types": "workspace:^",
     "@whoj/utils-vue": "workspace:^",
     "bumpp": "^10.0.1",

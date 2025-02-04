@@ -21,7 +21,8 @@ export default whoj(
         'ts/no-unused-vars': 'warn',
         'ts/no-explicit-any': 'off',
         'ts/no-empty-object-type': 'off',
-        'ts/no-unused-expressions': 'off'
+        'ts/no-unused-expressions': 'off',
+        'ts/method-signature-style': 'off'
       }
     },
 
@@ -54,6 +55,7 @@ export default whoj(
       'quotes': ['error', 'single'],
       'style/comma-dangle': ['error', 'never'],
       'style/spaced-comment': 'off',
+      'node/prefer-global/buffer': ['off'],
       'node/prefer-global/process': ['off'],
 
       'jsdoc/require-returns-check': ['off'],

@@ -45,6 +45,9 @@ importers:
       '@whoj/utils-core':
         specifier: workspace:^
         version: link:packages/core
+      '@whoj/utils-php':
+        specifier: workspace:^
+        version: link:packages/php
       '@whoj/utils-types':
         specifier: workspace:^
         version: link:packages/types
@@ -180,6 +183,15 @@ importers:
       throttle-debounce:
         specifier: ^5.0.2
         version: 5.0.2
+
+  packages/php:
+    dependencies:
+      '@whoj/utils-core':
+        specifier: workspace:*
+        version: link:../core
+      php-serialize:
+        specifier: ^5.0.1
+        version: 5.0.1
 
   packages/types:
     devDependencies:
@@ -2964,6 +2976,10 @@ packages:
 
   perfect-debounce@1.0.0:
     resolution: {integrity: sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA==}
+
+  php-serialize@5.0.1:
+    resolution: {integrity: sha512-+uxULDruX7uwGZmC1HjcvQMg6APyK1wzWXnaRR0Vxb7Vk4YMn5/Chp9tm+ccNqmXOtfZ/oZVbR8GZnPnojltDw==}
+    engines: {node: '>= 8'}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -7389,6 +7405,8 @@ snapshots:
   pathval@2.0.0: {}
 
   perfect-debounce@1.0.0: {}
+
+  php-serialize@5.0.1: {}
 
   picocolors@1.1.1: {}
 
