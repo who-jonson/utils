@@ -1,5 +1,3 @@
-import { flattenArrayable } from '.';
-
 /**
  * Clamp any number
  *
@@ -13,17 +11,4 @@ import { flattenArrayable } from '.';
  */
 export function clamp(n: number, min: number, max: number) {
   return Math.min(max, Math.max(min, n));
-}
-
-/**
- * Sum any amount of number
- *
- * @param args - Numbers you need to sum
- *
- * @returns The summation of given `args`
- *
- * @__NO_SIDE_EFFECTS__
- */
-export function sum(...args: number[] | number[][]) {
-  return flattenArrayable<number>(args).reduce((a, b) => a + b, 0);
 }

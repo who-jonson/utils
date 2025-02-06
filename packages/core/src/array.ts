@@ -291,3 +291,16 @@ function diveDeepArray<T extends object = any, K extends string = string>(arr: T
     }
   });
 }
+
+/**
+ * Sum any amount of number
+ *
+ * @param args - Numbers you need to sum
+ *
+ * @returns The summation of given `args`
+ *
+ * @__NO_SIDE_EFFECTS__
+ */
+export function sum(...args: number[] | number[][]) {
+  return flattenArrayable<number>(args).reduce((a, b) => a + b, 0);
+}

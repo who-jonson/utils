@@ -81,6 +81,42 @@ export const isString = (val: unknown): val is string => typeof val === 'string'
 export const isObject = <T extends object>(val: any): val is T => toString(val) === '[object Object]';
 
 /**
+ * Check if value is Promise
+ * @category Is Type
+ *
+ * @param value
+ * @returns - Boolean
+ *
+ * @__NO_SIDE_EFFECTS__
+ */
+export function isPromise<T = any>(value: any): value is Promise<T> {
+  return (
+    value instanceof Promise
+    || (
+      value !== null
+      && typeof value === 'object'
+      && typeof value.then === 'function'
+      && typeof value.catch === 'function'
+    )
+  );
+}
+
+/**
+ * Check if value is Thenable
+ * @category Is Type
+ *
+ * @param value
+ * @returns - Boolean
+ *
+ * @__NO_SIDE_EFFECTS__
+ */
+export function isThenable<T = any>(value: any): value is PromiseLike<T> {
+  return value !== null
+    && (typeof value === 'object' || typeof value === 'function')
+    && typeof value.then === 'function';
+}
+
+/**
  * Check if is Array
  * @category Is Type
  *
@@ -130,4 +166,13 @@ export const hasConsole = (() => typeof console !== 'undefined')();
  *
  * @__NO_SIDE_EFFECTS__
  */
-export const isGlobPattern = (pattern?: string | string[] | null, options?: isGlob.Options) => isGlob(pattern, options);
+export function isGlobPattern(pattern?: string | string[] | null, options?: {
+  /**
+   * When `false` the behavior is less strict in determining if a pattern is a glob. Meaning that some patterns
+   * that would return false may return true. This is done so that matching libraries like micromatch
+   * have a chance at determining if the pattern is a glob or not.
+   */
+  strict?: boolean | undefined;
+}): boolean {
+  return isGlob(pattern, options);
+}
