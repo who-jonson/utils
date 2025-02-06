@@ -11,43 +11,39 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "types": "./dist/index.d.ts"
     },
     "./core": {
-      "types": "./dist/core.d.ts",
-      "import": "./dist/core.mjs",
-      "require": "./dist/core.cjs"
+      "import": {
+        "types": "./dist/core.d.mts",
+        "default": "./dist/core.mjs"
+      },
+      "require": {
+        "types": "./dist/core.d.cts",
+        "default": "./dist/core.cjs"
+      },
+      "types": "./dist/core.d.ts"
     },
     "./vue": {
-      "types": "./dist/vue.d.ts",
-      "import": "./dist/vue.mjs",
-      "require": "./dist/vue.cjs"
+      "import": {
+        "types": "./dist/vue.d.mts",
+        "default": "./dist/vue.mjs"
+      },
+      "require": {
+        "types": "./dist/vue.d.cts",
+        "default": "./dist/vue.cjs"
+      },
+      "types": "./dist/vue.d.ts"
     },
-    "./*": [
-      "./dist/*",
-      "./dist/*.d.ts"
-    ]
-  },
-  "typesVersions": {
-    ">=5.0": {
-      "*": [
-        "dist/index.d.ts"
-      ],
-      "core": [
-        "dist/core.d.ts"
-      ],
-      "vue": [
-        "dist/vue.d.ts"
-      ]
-    },
-    "<=4.9": {
-      "*": [
-        "./dist/*",
-        "./*"
-      ]
-    }
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -56,8 +52,7 @@
   "unpkg": "./dist/index.global.js",
   "jsdelivr": "./dist/index.global.js",
   "files": [
-    "dist",
-    "*.d.ts"
+    "dist"
   ],
   "scripts": {
     "build": "rollup --config ../../rollup.config.js",
@@ -75,7 +70,6 @@
     "email": "www.jbc.bd@gmail.com",
     "url": "https://who-jonson.github.io"
   },
-  "funding": "https://github.com/sponsors/who-jonson",
   "homepage": "https://github.com/who-jonson/utils#readme",
   "repository": {
     "type": "git",

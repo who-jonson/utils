@@ -5,6 +5,7 @@ export * from './str';
 export * from './emit';
 export * from './func';
 export * from './math';
+export * from './cache';
 export * from './array';
 export * from './guard';
 export * from './timer';

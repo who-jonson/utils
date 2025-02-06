@@ -10,31 +10,21 @@
     "utilities"
   ],
   "exports": {
-    "types": "./dist/index.d.ts",
-    "node": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    }
+    "import": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "require": {
+      "types": "./dist/index.d.cts",
+      "default": "./dist/index.cjs"
+    },
+    "types": "./dist/index.d.ts"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "typesVersions": {
-    ">=5.0": {
-      "*": [
-        "dist/index.d.ts"
-      ]
-    },
-    "<=4.9": {
-      "*": [
-        "./dist/*",
-        "./*"
-      ]
-    }
-  },
   "files": [
-    "dist",
-    "*.d.ts"
+    "dist"
   ],
   "scripts": {
     "build": "rollup --config ../../rollup.config.js",
@@ -48,8 +38,7 @@
     "email": "www.jbc.bd@gmail.com",
     "url": "https://who-jonson.github.io"
   },
-  "funding": "https://github.com/sponsors/who-jonson",
-  "homepage": "https://github.com/who-jonson/utils#readme",
+  "homepage": "https://github.com/who-jonson/utils/blob/master/packages/types",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/who-jonson/utils.git",
@@ -62,6 +51,6 @@
   "bugs": "https://github.com/who-jonson/utils/issues",
   "sideEffects": false,
   "devDependencies": {
-    "rollup": "^4.34.1"
+    "rollup": "^4.34.4"
   }
 }

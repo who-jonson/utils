@@ -11,59 +11,64 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "types": "./dist/index.d.ts"
     },
     "./fusejs": {
-      "types": "./dist/fusejs.d.ts",
-      "import": "./dist/fusejs.mjs",
-      "require": "./dist/fusejs.cjs"
+      "import": {
+        "types": "./dist/fusejs.d.mts",
+        "default": "./dist/fusejs.mjs"
+      },
+      "require": {
+        "types": "./dist/fusejs.d.cts",
+        "default": "./dist/fusejs.cjs"
+      },
+      "types": "./dist/fusejs.d.ts"
     },
     "./ripple": {
-      "types": "./dist/ripple.d.ts",
-      "import": "./dist/ripple.mjs",
-      "require": "./dist/ripple.cjs"
+      "import": {
+        "types": "./dist/ripple.d.mts",
+        "default": "./dist/ripple.mjs"
+      },
+      "require": {
+        "types": "./dist/ripple.d.cts",
+        "default": "./dist/ripple.cjs"
+      },
+      "types": "./dist/ripple.d.ts"
     },
     "./img-fallback": {
-      "types": "./dist/img-fallback.d.ts",
-      "import": "./dist/img-fallback.mjs",
-      "require": "./dist/img-fallback.cjs"
+      "import": {
+        "types": "./dist/img-fallback.d.mts",
+        "default": "./dist/img-fallback.mjs"
+      },
+      "require": {
+        "types": "./dist/img-fallback.d.cts",
+        "default": "./dist/img-fallback.cjs"
+      },
+      "types": "./dist/img-fallback.d.ts"
     },
     "./composables": {
-      "types": "./dist/composables.d.ts",
-      "import": "./dist/composables.mjs",
-      "require": "./dist/composables.cjs"
+      "import": {
+        "types": "./dist/composables.d.mts",
+        "default": "./dist/composables.mjs"
+      },
+      "require": {
+        "types": "./dist/composables.d.cts",
+        "default": "./dist/composables.cjs"
+      },
+      "types": "./dist/composables.d.ts"
     },
     "./*": [
       "./dist/*",
       "./dist/*.d.ts"
     ]
-  },
-  "typesVersions": {
-    ">=5.0": {
-      "*": [
-        "dist/index.d.ts"
-      ],
-      "fusejs": [
-        "dist/fusejs.d.ts"
-      ],
-      "ripple": [
-        "dist/ripple.d.ts"
-      ],
-      "img-fallback": [
-        "dist/img-fallback.d.ts"
-      ],
-      "composables": [
-        "dist/composables.d.ts"
-      ]
-    },
-    "<=4.9": {
-      "*": [
-        "./dist/*",
-        "./*"
-      ]
-    }
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -98,8 +103,7 @@
     "email": "www.jbc.bd@gmail.com",
     "url": "https://who-jonson.github.io"
   },
-  "funding": "https://github.com/sponsors/who-jonson",
-  "homepage": "https://github.com/who-jonson/utils#readme",
+  "homepage": "https://github.com/who-jonson/utils/blob/master/packages/vue",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/who-jonson/utils.git",

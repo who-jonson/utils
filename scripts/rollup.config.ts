@@ -45,6 +45,7 @@ export const banner = `/**
 
 const globalNames = {
   '@whoj/utils': 'Whoj.Utils',
+  '@whoj/utils-php': 'Whoj.Utils.Php',
   '@whoj/utils-vue': 'Whoj.Utils.Vue',
   '@whoj/utils-core': 'Whoj.Utils.Core'
 };
@@ -56,7 +57,7 @@ function plugins(opt: EsbuildOptions = {}) {
         { find: /^node:(.+)$/, replacement: '$1' },
         { find: /^vue$/, replacement: 'vue-demi' },
         {
-          find: /^@whoj\/utils-(core|types|vue)$/,
+          find: /^@whoj\/utils-(core|types|php|vue)$/,
           replacement: path.join(__dirname, '..', 'packages/$1/src')
         }
       ]
@@ -115,7 +116,7 @@ export default defineConfig(() => {
   };
   const config: RollupOptions[] = [];
 
-  if (!dtsOnly) {
+  if (!dtsOnly && !name.endsWith('php')) {
     config.push(
       // Iife Build
       {
@@ -172,12 +173,14 @@ export default defineConfig(() => {
     );
   }
 
-  if (!/@whoj\/utils-(?:core|types)/.test(name)) {
+  if (!/@whoj\/utils-types/.test(name)) {
     input = glob.sync(
-      name.endsWith('vue')
-        ? ['src/index.ts', 'src/*/index.ts']
-        : 'src/*.ts',
-      { cwd, absolute: false }
+      name.endsWith('php')
+        ? ['src/index.ts', 'src/{laravel,serializers}/*.ts']
+        : name.endsWith('vue')
+          ? ['src/index.ts', 'src/*/index.ts']
+          : 'src/*.ts',
+      { cwd, absolute: false, ignore: ['**/*.test.*'] }
     ).reduce<{ [entryAlias: string]: string }>((obj, entry) => ({
       ...obj,
       [entry.substring(0, entry.lastIndexOf('.')).replace(/src\//, '')]: entry
@@ -217,11 +220,11 @@ export default defineConfig(() => {
         respectExternal: /@whoj\/utils-(?:core|types)/.test(name)
       })
     ],
-    output: outputFileConfig({
+    output: (['d.ts', 'd.cts', 'd.mts'] as const).map(ext => outputFileConfig({
       input,
-      ext: 'd.ts',
-      format: 'esm'
-    })
+      ext,
+      format: ext !== 'd.cts' ? 'esm' : 'cjs'
+    }))
   });
 
   return config;
@@ -232,7 +235,7 @@ interface MakeOutputConfig {
   input: InputOption;
   format?: 'esm' | 'cjs' | 'iife';
   globals?: OutputOptions['globals'];
-  ext: 'cjs' | 'mjs' | 'd.ts' | 'global.js' | 'global.min.js' | 'esm-browser.js' | 'esm-browser.min.js';
+  ext: 'cjs' | 'mjs' | 'd.ts' | 'd.cts' | 'd.mts' | 'global.js' | 'global.min.js' | 'esm-browser.js' | 'esm-browser.min.js';
 }
 
 function outputFileConfig({
@@ -252,7 +255,6 @@ function outputFileConfig({
     generatedCode: {
       constBindings: true
     },
-    sourcemap: true,
     dir: !isStr ? dir : undefined,
     minifyInternalExports: ext === 'global.min.js',
     entryFileNames: `[name].${ext}`,
@@ -265,14 +267,15 @@ function outputFileConfig({
     manualChunks: name.endsWith('vue') && format !== 'iife' ? vueChunks : undefined,
     chunkFileNames: isStr
       ? undefined
-      : ({ isDynamicEntry }) => {
-          if (isDynamicEntry) {
-            return `_chunks/[name].${ext}`;
-          }
+      : () => {
+          // if (isEntry) {
+          //   return `_chunks/[name].${ext}`;
+          // }
           if (name.endsWith('vue') && format !== 'iife') {
             return `[name].${ext}`;
           }
-          return `${name.replace(/@whoj\//, '')}.[hash].${ext}`;
+          return `_/[name].${ext}`;
+          // return `${name.replace(/@whoj\//, '')}.[hash].${ext}`;
         }
   };
 }
@@ -282,9 +285,6 @@ function makeDtsEntry(input: InputOption): InputOption {
   return input;
 }
 
-/**
- * @returns {(RegExp|string)[]}
- */
 export function getExternals(format: OutputOptions['format'] = 'esm') {
   return ['iife', 'umd'].includes(format)
     ? ['vue', 'vue-demi']
@@ -316,6 +316,7 @@ export function getExternals(format: OutputOptions['format'] = 'esm') {
         '@whoj/utils',
         '@whoj/utils-core',
         '@whoj/utils-types',
+        '@whoj/utils-php',
         '@whoj/utils-vue'
       ].filter(m => name !== m);
 }

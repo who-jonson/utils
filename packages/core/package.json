@@ -11,27 +11,28 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "types": "./dist/index.d.ts"
     },
-    "./*": [
-      "./dist/*",
-      "./dist/*.d.ts"
-    ]
-  },
-  "typesVersions": {
-    ">=5.0": {
-      "*": [
-        "dist/index.d.ts"
-      ]
+    "./*": {
+      "import": {
+        "types": "./dist/*.d.mts",
+        "default": "./dist/*.mjs"
+      },
+      "require": {
+        "types": "./dist/*.d.cts",
+        "default": "./dist/*.cjs"
+      },
+      "types": "./dist/*.d.ts"
     },
-    "<=4.9": {
-      "*": [
-        "./dist/*",
-        "./*"
-      ]
-    }
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -40,8 +41,7 @@
   "unpkg": "./dist/index.global.js",
   "jsdelivr": "./dist/index.global.js",
   "files": [
-    "dist",
-    "*.d.ts"
+    "dist"
   ],
   "scripts": {
     "build": "rollup --config ../../rollup.config.js",
@@ -51,19 +51,18 @@
     "update:doc": "npx automd@latest"
   },
   "dependencies": {
-    "@whoj/utils-types": "workspace:*",
+    "@whoj/utils-types": "workspace:*"
+  },
+  "peerDependencies": {
     "change-case": "^5.4.4",
-    "dot-prop": "^9.0.0",
-    "scule": "^1.3.0",
-    "throttle-debounce": "^5.0.2"
+    "scule": "^1.3.0"
   },
   "author": {
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",
     "url": "https://who-jonson.github.io"
   },
-  "funding": "https://github.com/sponsors/who-jonson",
-  "homepage": "https://github.com/who-jonson/utils#readme",
+  "homepage": "https://github.com/who-jonson/utils/blob/master/packages/core",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/who-jonson/utils.git",
