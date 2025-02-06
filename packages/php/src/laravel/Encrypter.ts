@@ -2,9 +2,10 @@ import { Serializer } from './Serializer';
 import type { Class } from '@whoj/utils-types';
 import { PhpSerializer } from '../serializers/phpSerializer';
 import { JsonSerializer } from '../serializers/jsonSerializer';
-import { isString, isObject, objectKeys } from '@whoj/utils-core';
+import { isString, isObject } from '@whoj/utils-core';
 import type { StringEncrypter, Encrypter as EncrypterContract } from './contracts';
-import { EncryptException, DecryptException, InvalidArgException } from './exceptions';
+import { DecryptException, InvalidArgException } from './exceptions';
+import type { Cipher, Decipher, CipherGCM, DecipherGCM, CipherGCMTypes } from 'node:crypto';
 import { createHmac, randomBytes, createCipheriv, timingSafeEqual, createDecipheriv } from 'node:crypto';
 
 interface JsonPayload {
@@ -18,132 +19,162 @@ interface EncrypterOptions {
   serializeMode?: 'php' | 'json';
 }
 
+export type SupportedCipher = typeof supportedCiphers[number];
+
+const supportedCiphers = [
+  'aes-128-cbc',
+  'aes-256-cbc',
+  'aes-128-gcm',
+  'aes-256-gcm'
+] as const;
+
 export class Encrypter implements EncrypterContract, StringEncrypter {
+  private static readonly supportedCiphers = supportedCiphers;
+
   private readonly key: Buffer;
+  private readonly isGcm: boolean;
   private previousKeys: Array<Buffer> = [];
+  private hashAlgorithm: string = 'sha256';
 
   protected serializer: Serializer;
 
-  private static supportedCiphers = {
-    'aes-128-cbc': { size: 16, aead: false },
-    'aes-256-cbc': { size: 32, aead: false },
-    'aes-128-gcm': { size: 16, aead: true },
-    'aes-256-gcm': { size: 32, aead: true }
-  } as const;
-
   constructor(
-    key: string | Buffer,
-    protected readonly cipher: keyof typeof Encrypter.supportedCiphers = 'aes-128-cbc',
+    key: string,
+    protected readonly cipher: SupportedCipher = 'aes-256-cbc',
     protected options: EncrypterOptions = { serializeMode: 'php' }
   ) {
-    this.key = this.keyBuffer(key);
+    this.key = this.keyBuffer(key, cipher);
+    this.isGcm = cipher.toLowerCase().endsWith('-gcm');
     this.setSerializer();
   }
 
-  public static supported(key: Buffer, cipher: string): boolean {
-    const cipherInfo = Encrypter.supportedCiphers[cipher.toLowerCase()];
+  public encrypt(value: any, serializeData: boolean = true): string {
+    const data = serializeData ? this.serializer.serialize(value) : value.toString();
+    const iv = randomBytes(this.getIvLength(this.cipher));
 
-    return !cipherInfo
-      ? false
-      : Buffer.byteLength(key) === cipherInfo.size;
-  }
-
-  public static generateKey(cipher: string): Buffer {
-    return randomBytes(Encrypter.supportedCiphers[cipher.toLowerCase()]?.size ?? 32);
-  }
-
-  public encrypt(value: any, serialize: boolean = true): string {
-    if (serialize) {
-      value = this.serializer.serialize(value);
-    }
-    const iv = randomBytes(this.getIvLength());
     const cipher = createCipheriv(
+      this.cipher,
+      this.key,
+      iv,
+      this.isGcm // @ts-ignore
+        ? { authTagLength: 16 }
+        : undefined
+    );
+
+    let encrypted = cipher.update(data, 'utf8', 'base64');
+    encrypted += cipher.final('base64');
+
+    const payload: Record<string, string> = {
+      iv: iv.toString('base64'),
+      value: encrypted
+    };
+
+    if (this.isGcm) {
+      payload.tag = cipher.getAuthTag().toString('base64');
+    }
+    else {
+      payload.mac = this.calculateMac(payload.iv, encrypted);
+    }
+
+    return Buffer.from(JSON.stringify(payload)).toString('base64');
+  }
+
+  public decrypt<T = any, S extends boolean = true, Ret = S extends true ? T : string>(
+    payload: string,
+    unserializeData: S = true as S
+  ): Ret {
+    const json = Buffer.from(payload, 'base64').toString('utf8');
+    const data = JSON.parse(json);
+
+    const { iv: ivBase64, value: encryptedValue } = data;
+    const iv = Buffer.from(ivBase64, 'base64');
+    const encrypted = Buffer.from(encryptedValue, 'base64');
+
+    if (this.isGcm) {
+      if (!data.tag)
+        throw new DecryptException('Authentication tag missing for GCM mode');
+      const tag = Buffer.from(data.tag, 'base64');
+      return this.decryptGcm<Ret>(encrypted, iv, tag, unserializeData);
+    }
+
+    if (!data.mac)
+      throw new DecryptException('MAC missing for CBC mode');
+    this.verifyMac(data.mac, ivBase64, encryptedValue);
+    return this.decryptCbc<Ret>(encrypted, iv, unserializeData);
+  }
+
+  private decryptGcm<T>(encrypted: Buffer, iv: Buffer, tag: Buffer, unserializeData: boolean): T {
+    const decipher = createDecipheriv(
       this.cipher,
       this.key,
       iv, // @ts-ignore
       { authTagLength: 16 }
     );
-    const encrypted = Buffer.concat([
-      cipher.update(value, 'utf8'),
-      cipher.final()
-    ]).toString('base64');
-    const tag = cipher.getAuthTag();
+    decipher.setAuthTag(tag);
 
-    if (!encrypted) {
-      throw new EncryptException('Could not encrypt the data!');
+    let decrypted = decipher.update(encrypted);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    return unserializeData
+      ? this.serializer.unserialize<T>(decrypted.toString('utf8'))
+      : decrypted.toString('utf8') as T;
+  }
+
+  private decryptCbc<T>(encrypted: Buffer, iv: Buffer, unserializeData: boolean): T {
+    const decipher = createDecipheriv(this.cipher, this.key, iv);
+    let decrypted = decipher.update(encrypted);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    return unserializeData
+      ? this.serializer.unserialize<T>(decrypted.toString('utf8'))
+      : decrypted.toString('utf8') as T;
+  }
+
+  private verifyMac(mac: string, iv: string, encryptedValue: string): void {
+    const expectedMac = this.calculateMac(iv, encryptedValue);
+    const receivedMacBuffer = Buffer.from(mac, 'hex');
+    const expectedMacBuffer = Buffer.from(expectedMac, 'hex');
+
+    if (!timingSafeEqual(expectedMacBuffer, receivedMacBuffer)) {
+      throw new DecryptException('MAC mismatch');
+    }
+  }
+
+  private calculateMac(iv: string, encryptedValue: string): string {
+    const hmac = createHmac('sha256', this.key);
+    hmac.update(iv + encryptedValue);
+    return hmac.digest('hex');
+  }
+
+  public static supported(key: string, cipher: string): boolean {
+    const cipherLower = cipher.toLowerCase();
+    if (!Encrypter.supportedCiphers.includes(cipherLower as SupportedCipher)) {
+      return false;
     }
 
-    const mac = Encrypter.supportedCiphers[this.cipher.toLowerCase()].aead
-      ? ''
-      : this.hash(iv.toString('base64'), encrypted, this.key);
+    let keyBuffer: Buffer;
+    if (key.startsWith('base64:')) {
+      keyBuffer = Buffer.from(key.slice(7), 'base64');
+    }
+    else {
+      keyBuffer = Buffer.from(key);
+    }
 
-    const payload = JSON.stringify({
-      iv: iv.toString('base64'),
-      value: encrypted,
-      mac,
-      tag: tag?.toString('base64')
-    } satisfies JsonPayload);
+    const requiredLength = cipherLower.includes('128') ? 16 : 32;
+    return keyBuffer.length === requiredLength;
+  }
 
-    return Buffer.from(payload).toString('base64');
+  public static generateKey(cipher: string = 'aes-256-cbc'): string {
+    const cipherLower = cipher.toLowerCase();
+    if (!Encrypter.supportedCiphers.includes(cipherLower as SupportedCipher)) {
+      throw new InvalidArgException(`Unsupported cipher: ${cipher}`);
+    }
+
+    const length = cipherLower.includes('128') ? 16 : 32;
+    const key = randomBytes(length);
+    return `base64:${key.toString('base64')}`;
   }
 
   public encryptString(value: string) {
     return this.encrypt(value, false);
-  }
-
-  public decrypt<T = any, S extends boolean = true>(
-    payload: string,
-    unserialize: S = true as S
-  ): S extends true ? T : string {
-    const decodedPayload = this.getJsonPayload(payload);
-    const iv = Buffer.from(decodedPayload.iv, 'base64');
-    const tag = decodedPayload.tag
-      ? Buffer.from(decodedPayload.tag, 'base64')
-      : undefined;
-    const shouldValidateMac = this.shouldValidateMac();
-    let foundValidMac = false;
-    let decrypted: string | false = false;
-
-    for (const key of this.getAllKeys) {
-      if (shouldValidateMac) {
-        foundValidMac ||= this.validMacForKey(decodedPayload, key);
-        if (!foundValidMac) {
-          continue;
-        }
-      }
-
-      const decipher = createDecipheriv(
-        this.cipher,
-        key,
-        iv, // @ts-ignore
-        { authTagLength: 16 }
-      );
-
-      if (tag)
-        decipher.setAuthTag(tag);
-      try {
-        decrypted = Buffer.concat([
-          decipher.update(decodedPayload.value, 'base64'),
-          decipher.final()
-        ]).toString('utf8');
-        break;
-      }
-      catch {
-        decrypted = false;
-      }
-    }
-
-    if (shouldValidateMac && !foundValidMac) {
-      throw new DecryptException('The MAC is invalid.');
-    }
-
-    if (decrypted === false) {
-      throw new DecryptException('Could not decrypt the data!');
-    }
-
-    return !unserialize
-      ? decrypted as any
-      : this.serializer.unserialize<T>(decrypted);
   }
 
   public decryptString(value: string) {
@@ -171,28 +202,42 @@ export class Encrypter implements EncrypterContract, StringEncrypter {
     return this;
   }
 
-  private keyBuffer(key: string | Buffer): Buffer {
-    if (isString(key)) {
-      if (key.startsWith('base64:')) {
-        key = key.substring(7);
-        key = Buffer.from(key, 'base64');
-      }
-      else {
-        key = Buffer.from(key);
-      }
+  private keyBuffer(key: string, cipher: SupportedCipher = this.cipher): Buffer {
+    const cipherLower = cipher.toLowerCase();
+    if (!Encrypter.supportedCiphers.includes(cipherLower as SupportedCipher)) {
+      throw new InvalidArgException(`Unsupported cipher or incorrect key length. Supported ciphers are: ${Encrypter.supportedCiphers.join(', ')}.`);
+    }
+    let keyBuffer: Buffer;
+    if (key.startsWith('base64:')) {
+      keyBuffer = Buffer.from(key.slice(7), 'base64');
+    }
+    else {
+      keyBuffer = Buffer.from(key);
     }
 
-    if (!Encrypter.supported(key, this.cipher)) {
-      const ciphers = objectKeys(Encrypter.supportedCiphers).join(', ');
-      throw new InvalidArgException(`Unsupported cipher or incorrect key length. Supported ciphers are: ${ciphers}.`);
+    const requiredLength = cipherLower.includes('128') ? 16 : 32;
+    if (keyBuffer.length !== requiredLength) {
+      throw new InvalidArgException(`Invalid key length for cipher ${cipher}. Expected ${requiredLength} bytes.`);
     }
 
-    return key;
+    return keyBuffer;
   }
 
-  protected hash(iv: string, value: string, key: string | Buffer): string {
-    return createHmac('sha256', key)
-      .update(iv + value)
+  private hash(
+    iv: string | Buffer,
+    value: string | Buffer,
+    key: Buffer = this.key,
+    authTag?: string | Buffer
+  ): string {
+    // In GCM mode, include the auth tag in MAC calculation
+    const dataToHash = Buffer.concat(
+      !authTag
+        ? [Buffer.from(iv), Buffer.from(value)]
+        : [Buffer.from(iv), Buffer.from(value), Buffer.from(authTag)]
+    );
+
+    return createHmac(this.hashAlgorithm, key)
+      .update(dataToHash)
       .digest('hex');
   }
 
@@ -220,40 +265,13 @@ export class Encrypter implements EncrypterContract, StringEncrypter {
     if (!isObject<JsonPayload>(payload)) {
       return false;
     }
-    for (const item of ['iv', 'value', 'mac']) {
-      if (!isString(payload[item])) {
-        return false;
-      }
-    }
-    if (payload.tag && !isString(payload.tag)) {
-      return false;
-    }
-    return Buffer.from(payload.iv, 'base64').length === this.getIvLength();
-  }
 
-  protected validMac(payload: JsonPayload): boolean {
-    return this.validMacForKey(payload, this.key);
-  }
-
-  protected validMacForKey(payload: JsonPayload, key: Buffer): boolean {
-    const expected = Buffer.from(payload.mac, 'hex');
-    const actual = Buffer.from(this.hash(payload.iv, payload.value, key), 'hex');
-
-    return expected.length === actual.length && timingSafeEqual(expected, actual);
-  }
-
-  protected ensureTagIsValid(tag: string): void {
-    if (Encrypter.supportedCiphers[this.cipher.toLowerCase()].aead && tag.length !== 16) {
-      throw new DecryptException('Could not decrypt the data.');
+    const { iv, value, mac, tag } = payload;
+    if (!iv || !value || !mac) {
+      throw new InvalidArgException('Invalid payload structure.');
     }
 
-    if (!Encrypter.supportedCiphers[this.cipher.toLowerCase()].aead) {
-      throw new DecryptException('Unable to use tag because the cipher algorithm does not support AEAD.');
-    }
-  }
-
-  protected shouldValidateMac(): boolean {
-    return !Encrypter.supportedCiphers[this.cipher.toLowerCase()].aead;
+    return !(tag && !isString(tag));
   }
 
   get getKey() {
@@ -268,7 +286,7 @@ export class Encrypter implements EncrypterContract, StringEncrypter {
     return this.previousKeys;
   }
 
-  public setPreviousKeys(keys: Array<string | Buffer>): this {
+  public setPreviousKeys(keys: Array<string>): this {
     this.previousKeys = keys.map(
       key => this.keyBuffer(key)
     ).filter(Boolean);
@@ -276,7 +294,84 @@ export class Encrypter implements EncrypterContract, StringEncrypter {
     return this;
   }
 
-  protected getIvLength(): number {
-    return Encrypter.supportedCiphers[this.cipher.toLowerCase()].size;
+  protected getIvLength(cipher: SupportedCipher = this.cipher): number {
+    // GCM recommends 12-byte IV
+    return cipher.includes('gcm') ? 12 : 16;
+  }
+
+  protected createIV<Alg extends (string | CipherGCMTypes), D extends boolean = false>(
+    cipher: Alg = this.cipher as Alg,
+    key: Buffer,
+    iv: Buffer,
+    decipher: D = false as D
+  ): D extends true
+      ? Alg extends CipherGCMTypes ? DecipherGCM : Decipher
+      : Alg extends CipherGCMTypes ? CipherGCM : Cipher {
+    // @ts-ignore
+    return !decipher
+      ? createCipheriv(cipher, key, iv)
+      : createDecipheriv(cipher, key, iv);
   }
 }
+
+// public decrypt<T = any, S extends boolean = true>(
+//     payload: string,
+//     unserialize: S = true as S
+//   ): S extends true ? T : string {
+//     const decodedPayload = this.getJsonPayload(payload);
+//     const iv = Buffer.from(decodedPayload.iv, 'base64');
+//     const encryptedData = Buffer.from(decodedPayload.value, 'base64');
+//
+//     let tag;
+//     if (this.cipher.includes('gcm')) {
+//       if (!decodedPayload.tag) {
+//         throw new DecryptException('Missing authentication tag.');
+//       }
+//       tag = Buffer.from(decodedPayload.tag, 'base64');
+//     }
+//
+//     let foundValidMac = false;
+//     let decrypted: Buffer | false = false;
+//
+//     for (const key of this.getAllKeys) {
+//       // Verify MAC
+//       const calculatedMac = this.cipher.includes('gcm')
+//         ? this.hash(iv, encryptedData, key, tag)
+//         : this.hash(iv, encryptedData, key);
+//
+//       foundValidMac ||= this.verifyMac(
+//         Buffer.from(decodedPayload.mac, 'hex'),
+//         Buffer.from(calculatedMac, 'hex')
+//       );
+//       if (!foundValidMac) {
+//         continue;
+//       }
+//
+//       const decipher = this.createIV(this.cipher, key, iv, true);
+//       if (tag) {
+//         (decipher as DecipherGCM).setAuthTag(tag);
+//       }
+//       try {
+//         decrypted = Buffer.concat([
+//           decipher.update(encryptedData),
+//           decipher.final()
+//         ]);
+//         break;
+//       }
+//       catch {
+//         decrypted = false;
+//       }
+//     }
+//
+//     if (!foundValidMac) {
+//       throw new DecryptException('The MAC is invalid.');
+//     }
+//
+//     if (decrypted === false) {
+//       throw new DecryptException('Could not decrypt the data!');
+//     }
+//
+//     return !unserialize
+//       ? decrypted as any
+//       : this.serializer.unserialize<T>(decrypted.toString('utf8'));
+//   }

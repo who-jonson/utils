@@ -10,17 +10,60 @@
     "encrypt/decrypt"
   ],
   "exports": {
-    ".": "./dist/index.js",
-    "./*": "./dist/*.js"
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      },
+      "types": "./dist/index.d.ts"
+    },
+    "./laravel": {
+      "import": {
+        "types": "./dist/laravel/index.d.mts",
+        "default": "./dist/laravel/index.mjs"
+      },
+      "require": {
+        "types": "./dist/laravel/index.d.cts",
+        "default": "./dist/laravel/index.cjs"
+      },
+      "types": "./dist/laravel/index.d.ts"
+    },
+    "./laravel/*": {
+      "import": {
+        "types": "./dist/laravel/*.d.mts",
+        "default": "./dist/laravel/*.mjs"
+      },
+      "require": {
+        "types": "./dist/laravel/*.d.cts",
+        "default": "./dist/laravel/*.cjs"
+      },
+      "types": "./dist/laravel/*.d.ts"
+    },
+    "./serializer/*": {
+      "import": {
+        "types": "./dist/serializer/*.d.mts",
+        "default": "./dist/serializer/*.mjs"
+      },
+      "require": {
+        "types": "./dist/serializer/*.d.cts",
+        "default": "./dist/serializer/*.cjs"
+      },
+      "types": "./dist/serializer/*.d.ts"
+    },
+    "./package.json": "./package.json"
   },
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist",
-    "*.d.ts"
+    "dist"
   ],
   "scripts": {
-    "build": "unbuild",
+    "build": "rollup --config ../../rollup.config.js",
     "stub": "unbuild --stub",
     "prepublishOnly": "rm -rf dist && pnpm run build",
     "typecheck": "tsc --noEmit",
@@ -37,8 +80,7 @@
     "email": "www.jbc.bd@gmail.com",
     "url": "https://who-jonson.github.io"
   },
-  "funding": "https://github.com/sponsors/who-jonson",
-  "homepage": "https://github.com/who-jonson/utils#readme",
+  "homepage": "https://github.com/who-jonson/utils/blob/master/packages/php",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/who-jonson/utils.git",
