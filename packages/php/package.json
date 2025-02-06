@@ -1,7 +1,7 @@
 {
   "name": "@whoj/utils-php",
   "description": "Collection of common PHP/Laravel helpers by @whoj",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "type": "module",
   "license": "MIT",
   "keywords": [
