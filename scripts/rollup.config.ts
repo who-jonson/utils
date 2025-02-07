@@ -227,6 +227,27 @@ export default defineConfig(() => {
     }))
   });
 
+  // DTS Build Config
+  config.push({
+    ...commonOptions,
+    input: makeDtsEntry('src/index.ts'),
+    plugins: [
+      Dts({
+        tsconfig,
+        compilerOptions: {
+          composite: false,
+          customConditions: ['develop']
+        },
+        respectExternal: /@whoj\/utils-(?:core|types)/.test(name)
+      })
+    ],
+    output: outputFileConfig({
+      input,
+      ext: 'd.ts',
+      format: 'esm'
+    })
+  });
+
   return config;
 });
 
