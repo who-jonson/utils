@@ -1,17 +1,5 @@
 export interface Encrypter {
   /**
-   * Encrypt the given value.
-   *
-   * @param {any} value
-   * @param {boolean|undefined} serialize
-   *
-   * @return string
-   *
-   * @throws {EncryptException}
-   */
-  encrypt(value: any, serialize?: boolean): string;
-
-  /**
    * Decrypt the given value.
    *
    * @param {any} value
@@ -24,11 +12,16 @@ export interface Encrypter {
   decrypt<T = any, S extends boolean = true>(value: any, unserialize?: S): S extends true ? T : string;
 
   /**
-   * Get the encryption key that the encrypter is currently using.
+   * Encrypt the given value.
    *
-   * @returns {Buffer}
+   * @param {any} value
+   * @param {boolean|undefined} serialize
+   *
+   * @return string
+   *
+   * @throws {EncryptException}
    */
-  get getKey(): Buffer;
+  encrypt(value: any, serialize?: boolean): string;
 
   /**
    * Get the current encryption key and all previous encryption keys.
@@ -36,6 +29,13 @@ export interface Encrypter {
    * @returns {Array<Buffer>}
    */
   get getAllKeys(): Array<Buffer>;
+
+  /**
+   * Get the encryption key that the encrypter is currently using.
+   *
+   * @returns {Buffer}
+   */
+  get getKey(): Buffer;
 
   /**
    * Get the previous encryption keys.
@@ -47,17 +47,6 @@ export interface Encrypter {
 
 export interface StringEncrypter {
   /**
-   * Encrypt the given string.
-   *
-   * @param {any} value
-   *
-   * @return string
-   *
-   * @throws {EncryptException}
-   */
-  encryptString(value: string): string;
-
-  /**
    * Decrypt the given string.
    *
    * @param {any} value
@@ -67,6 +56,17 @@ export interface StringEncrypter {
    * @throws {DecryptException}
    */
   decryptString(value: string): string;
+
+  /**
+   * Encrypt the given string.
+   *
+   * @param {any} value
+   *
+   * @return string
+   *
+   * @throws {EncryptException}
+   */
+  encryptString(value: string): string;
 }
 
 export interface Serializer {

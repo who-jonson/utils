@@ -4,7 +4,7 @@ export {};
  *
  * @category Type Alias
  */
-export type Booleanish = boolean | 'true' | 'false';
+export type Booleanish = 'true' | boolean | 'false';
 
 /**
  * Number or String (Numeric)
@@ -100,14 +100,14 @@ export type JsonArray = JsonValue[];
  *
  * @category Type Alias
  */
-export type JsonPrimitive = string | number | boolean | null;
+export type JsonPrimitive = null | string | number | boolean;
 
 /**
  * Matches any valid JSON value.
  *
  * @category Type Alias
  */
-export type JsonValue = JsonPrimitive | JsonObject | JsonArray;
+export type JsonValue = JsonArray | JsonObject | JsonPrimitive;
 
 /**
  * Merging
@@ -125,7 +125,7 @@ export type MergeInsertions<T> =
  * @category Type Alias
  */
 export type DeepMerge<F, S> = MergeInsertions<{
-  [K in keyof F | keyof S]: K extends keyof S & keyof F
+  [K in keyof F | keyof S]: K extends keyof F & keyof S
     ? DeepMerge<F[K], S[K]>
     : K extends keyof S
       ? S[K]

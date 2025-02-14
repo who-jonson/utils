@@ -1,5 +1,7 @@
-import { ref, computed } from 'vue-demi';
 import type { Ref, ComputedRef } from 'vue-demi';
+
+import { ref, computed } from 'vue-demi';
+
 import type { Refable, ComputedRefable } from '../types';
 
 /**

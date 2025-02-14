@@ -1,4 +1,5 @@
 import type { Func } from '@whoj/utils-types';
+
 import { onUnmounted, getCurrentInstance } from 'vue-demi';
 
 /**

@@ -1,4 +1,5 @@
 import type { Func } from '@whoj/utils-types';
+
 import { remove } from './array';
 
 /**
@@ -21,7 +22,7 @@ export interface SingletonPromiseReturn<T> {
  * @__NO_SIDE_EFFECTS__
  */
 export function createSingletonPromise<T>(fn: () => Promise<T>): SingletonPromiseReturn<T> {
-  let _promise: Promise<T> | undefined;
+  let _promise: undefined | Promise<T>;
 
   function wrapper() {
     if (!_promise) {
@@ -78,6 +79,12 @@ export function createPromiseLock() {
   const locks: Promise<any>[] = [];
 
   return {
+    clear() {
+      locks.length = 0;
+    },
+    isWaiting() {
+      return Boolean(locks.length);
+    },
     async run<T = void>(fn: () => Promise<T>): Promise<T> {
       const p = fn();
       locks.push(p);
@@ -90,12 +97,6 @@ export function createPromiseLock() {
     },
     async wait(): Promise<void> {
       await Promise.allSettled(locks);
-    },
-    isWaiting() {
-      return Boolean(locks.length);
-    },
-    clear() {
-      locks.length = 0;
     }
   };
 }
@@ -104,8 +105,8 @@ export function createPromiseLock() {
  * Promise with `resolve` and `reject` methods of itself
  */
 export interface ControlledPromise<T = void> extends Promise<T> {
-  resolve: (value: T | PromiseLike<T>) => void;
   reject: (reason?: any) => void;
+  resolve: (value: T | PromiseLike<T>) => void;
 }
 
 /**
@@ -125,7 +126,7 @@ export interface ControlledPromise<T = void> extends Promise<T> {
  * @__NO_SIDE_EFFECTS__
  */
 export function createControlledPromise<T>(): ControlledPromise<T> {
-  let resolve: any, reject: any;
+  let reject: any, resolve: any;
   const promise = new Promise<T>((_resolve, _reject) => {
     resolve = _resolve;
     reject = _reject;

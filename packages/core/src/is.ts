@@ -1,4 +1,5 @@
 import isGlob from 'is-glob';
+
 import { toString } from './c';
 
 /**
@@ -166,7 +167,7 @@ export const hasConsole = (() => typeof console !== 'undefined')();
  *
  * @__NO_SIDE_EFFECTS__
  */
-export function isGlobPattern(pattern?: string | string[] | null, options?: {
+export function isGlobPattern(pattern?: null | string | string[], options?: {
   /**
    * When `false` the behavior is less strict in determining if a pattern is a glob. Meaning that some patterns
    * that would return false may return true. This is done so that matching libraries like micromatch

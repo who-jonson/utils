@@ -1,4 +1,5 @@
 import { isString } from '@whoj/utils-core';
+
 import type { Serializer } from '../laravel/contracts';
 
 export class JsonSerializer implements Serializer {

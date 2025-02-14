@@ -1,12 +1,13 @@
+import type { Ref, ComputedRef } from 'vue-demi';
+
 import Fuse from 'fuse.js';
 import { ref, watch, computed } from 'vue-demi';
-import type { Ref, ComputedRef } from 'vue-demi';
 
 export type FuseOptions<T> = Fuse.IFuseOptions<T>;
 
 export type FuseResult<T> = Fuse.FuseResult<T>;
 
-export type MaybeReactive<DataT> = ComputedRef<Array<DataT>> | Array<DataT> | Ref<Array<DataT>> | Ref<null> | Ref<null | Array<DataT>>;
+export type MaybeReactive<DataT> = Ref<null> | Array<DataT> | Ref<Array<DataT>> | Ref<null | Array<DataT>> | ComputedRef<Array<DataT>>;
 
 export class FuseJS<DataT> {
   /**

@@ -1,6 +1,8 @@
-import type { Serializer } from '../laravel/contracts';
-import { EncryptException } from '../laravel/exceptions';
 import { serialize, unserialize, isSerialized } from 'php-serialize';
+
+import type { Serializer } from '../laravel/contracts';
+
+import { EncryptException } from '../laravel/exceptions';
 
 export class PhpSerializer implements Serializer {
   /**

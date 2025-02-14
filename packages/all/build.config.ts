@@ -1,14 +1,14 @@
 import { defineBuildConfig } from 'unbuild';
 
 export default defineBuildConfig({
-  declaration: true,
   clean: true,
-  failOnWarn: false,
+  declaration: true,
   entries: [
     'src/core',
     'src/index',
     'src/vue'
   ],
+  failOnWarn: false,
   rollup: {
     alias: {
       entries: [

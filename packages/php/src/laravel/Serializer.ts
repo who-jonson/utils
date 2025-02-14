@@ -1,7 +1,10 @@
 import type { Class } from '@whoj/utils-types';
+
 import { tap, isFunction } from '@whoj/utils-core';
-import { InvalidArgException } from './exceptions';
+
 import type { Serializer as SerializerInterface } from './contracts';
+
+import { InvalidArgException } from './exceptions';
 
 export class Serializer implements SerializerInterface {
   constructor(private readonly driver: InstanceType<Class<SerializerInterface>>) {}

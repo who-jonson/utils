@@ -1,4 +1,5 @@
 import type { Nullable, Arrayable } from '@whoj/utils-types';
+
 import { clamp } from './math';
 import { hasOwnProperty } from './obj';
 
@@ -124,7 +125,7 @@ export function remove<T>(array: T[], value: T) {
  */
 export function at(array: readonly [], index: number): undefined;
 export function at<T>(array: readonly T[], index: number): T;
-export function at<T>(array: readonly T[] | [], index: number): T | undefined {
+export function at<T>(array: [] | readonly T[], index: number): T | undefined {
   const len = array.length;
   if (!len) {
     return undefined;
@@ -147,7 +148,7 @@ export function at<T>(array: readonly T[] | [], index: number): T | undefined {
 export function range(stop: number): number[];
 export function range(start: number, stop: number, step?: number): number[];
 export function range(...args: any): number[] {
-  let start: number, stop: number, step: number;
+  let stop: number, step: number, start: number;
 
   if (args.length === 1) {
     start = 0;

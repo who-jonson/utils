@@ -5,7 +5,7 @@
  * @category Class
  */
 export default class Timer {
-  private timerId: NodeJS.Timeout | number;
+  private timerId: number | NodeJS.Timeout;
   private startedAt: number;
   private interval: number;
   /**

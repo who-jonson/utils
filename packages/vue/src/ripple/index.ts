@@ -1,25 +1,26 @@
+import type { Ref, Plugin, Directive, ObjectDirective, DirectiveBinding } from 'vue-demi';
+
 import { isVue3 } from 'vue-demi';
 import { isNumber, objectKeys } from '@whoj/utils-core';
-import type { Ref, Plugin, Directive, ObjectDirective, DirectiveBinding } from 'vue-demi';
 
 import './style.css';
 
-type DirectiveEl = HTMLButtonElement | HTMLAnchorElement | HTMLElement;
+type DirectiveEl = HTMLElement | HTMLButtonElement | HTMLAnchorElement;
 
 type DirectiveModifiers = Record<string, boolean>;
 
 export interface RippleOptions {
   /**
    *
-   * @default `true`
-   */
-  enable?: boolean;
-
-  /**
-   *
    * @default `rgba(0, 0, 0, 0.35)`
    */
   color?: string;
+
+  /**
+   *
+   * @default `true`
+   */
+  enable?: boolean;
 
   /**
    *
@@ -238,6 +239,6 @@ export function useRipple<K extends DirectiveProps['event']>(el: DirectiveEl | R
 
 /* Creating a plugin that can be used in a Vue component. */
 /* @__NO_SIDE_EFFECTS__ */
-export const Ripple: Plugin<[RippleOptions | undefined]> = (app, options) => {
+export const Ripple: Plugin<[undefined | RippleOptions]> = (app, options) => {
   app.directive('ripple', makeRippleDir<DirectiveEl>(options));
 };

@@ -11,10 +11,10 @@ export function changeCase(str: string, to: 'camel' | 'snake' | 'kebab' | 'pasca
       return /*@__PURE__*/ camelCase(str);
     case 'kebab':
       return /*@__PURE__*/ kebabCase(str);
-    case 'pascal':
-      return /*@__PURE__*/ pascalCase(str);
     case 'snake':
       return /*@__PURE__*/ snakeCase(str);
+    case 'pascal':
+      return /*@__PURE__*/ pascalCase(str);
     default:
       return str;
   }

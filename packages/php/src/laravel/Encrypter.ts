@@ -1,18 +1,21 @@
-import { Serializer } from './Serializer';
 import type { Class } from '@whoj/utils-types';
+import type { Cipher, Decipher, CipherGCM, DecipherGCM, CipherGCMTypes } from 'node:crypto';
+
+import { isString, isObject } from '@whoj/utils-core';
+import { createHmac, randomBytes, createCipheriv, timingSafeEqual, createDecipheriv } from 'node:crypto';
+
+import type { StringEncrypter, Encrypter as EncrypterContract } from './contracts';
+
+import { Serializer } from './Serializer';
 import { PhpSerializer } from '../serializers/phpSerializer';
 import { JsonSerializer } from '../serializers/jsonSerializer';
-import { isString, isObject } from '@whoj/utils-core';
-import type { StringEncrypter, Encrypter as EncrypterContract } from './contracts';
 import { DecryptException, InvalidArgException } from './exceptions';
-import type { Cipher, Decipher, CipherGCM, DecipherGCM, CipherGCMTypes } from 'node:crypto';
-import { createHmac, randomBytes, createCipheriv, timingSafeEqual, createDecipheriv } from 'node:crypto';
 
 interface JsonPayload {
   iv: string;
-  value: string;
   mac: string;
   tag?: string;
+  value: string;
 }
 
 interface EncrypterOptions {
@@ -266,7 +269,7 @@ export class Encrypter implements EncrypterContract, StringEncrypter {
       return false;
     }
 
-    const { iv, value, mac, tag } = payload;
+    const { iv, mac, tag, value } = payload;
     if (!iv || !value || !mac) {
       throw new InvalidArgException('Invalid payload structure.');
     }
@@ -313,65 +316,3 @@ export class Encrypter implements EncrypterContract, StringEncrypter {
       : createDecipheriv(cipher, key, iv);
   }
 }
-
-// public decrypt<T = any, S extends boolean = true>(
-//     payload: string,
-//     unserialize: S = true as S
-//   ): S extends true ? T : string {
-//     const decodedPayload = this.getJsonPayload(payload);
-//     const iv = Buffer.from(decodedPayload.iv, 'base64');
-//     const encryptedData = Buffer.from(decodedPayload.value, 'base64');
-//
-//     let tag;
-//     if (this.cipher.includes('gcm')) {
-//       if (!decodedPayload.tag) {
-//         throw new DecryptException('Missing authentication tag.');
-//       }
-//       tag = Buffer.from(decodedPayload.tag, 'base64');
-//     }
-//
-//     let foundValidMac = false;
-//     let decrypted: Buffer | false = false;
-//
-//     for (const key of this.getAllKeys) {
-//       // Verify MAC
-//       const calculatedMac = this.cipher.includes('gcm')
-//         ? this.hash(iv, encryptedData, key, tag)
-//         : this.hash(iv, encryptedData, key);
-//
-//       foundValidMac ||= this.verifyMac(
-//         Buffer.from(decodedPayload.mac, 'hex'),
-//         Buffer.from(calculatedMac, 'hex')
-//       );
-//       if (!foundValidMac) {
-//         continue;
-//       }
-//
-//       const decipher = this.createIV(this.cipher, key, iv, true);
-//       if (tag) {
-//         (decipher as DecipherGCM).setAuthTag(tag);
-//       }
-//       try {
-//         decrypted = Buffer.concat([
-//           decipher.update(encryptedData),
-//           decipher.final()
-//         ]);
-//         break;
-//       }
-//       catch {
-//         decrypted = false;
-//       }
-//     }
-//
-//     if (!foundValidMac) {
-//       throw new DecryptException('The MAC is invalid.');
-//     }
-//
-//     if (decrypted === false) {
-//       throw new DecryptException('Could not decrypt the data!');
-//     }
-//
-//     return !unserialize
-//       ? decrypted as any
-//       : this.serializer.unserialize<T>(decrypted.toString('utf8'));
-//   }

@@ -1,4 +1,5 @@
 import type { List, DeepMerge, Dictionary } from '@whoj/utils-types';
+
 import { isObject } from './is';
 import { notNullish } from './guard';
 

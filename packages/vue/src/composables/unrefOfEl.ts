@@ -1,9 +1,11 @@
 import type { ComponentPublicInstance } from 'vue-demi';
+
 import type { Refable, ComputedRefable } from '../types';
+
 import { unrefOf } from './unrefOf';
 
 export type VueInstance = ComponentPublicInstance;
-export type NullableElement = HTMLElement | SVGElement | VueInstance | undefined | null;
+export type NullableElement = null | undefined | SVGElement | HTMLElement | VueInstance;
 export type RefableElement<T extends NullableElement = NullableElement> = Refable<T>;
 export type ComputedRefableElement<T extends NullableElement = NullableElement> = ComputedRefable<T>;
 

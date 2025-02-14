@@ -73,7 +73,7 @@ const getCenterCoordinate = /*#__NO_SIDE_EFFECTS__*/ (element: HTMLElement) => e
 /**
  * @__NO_SIDE_EFFECTS__
  */
-function getScrollTop(element: HTMLElement, scrollTarget: HTMLElement, verticalAlignment?: 'start' | 'end' | 'center' | 'any') {
+function getScrollTop(element: HTMLElement, scrollTarget: HTMLElement, verticalAlignment?: 'end' | 'any' | 'start' | 'center') {
   const viewHeight = scrollTarget.offsetHeight;
   const currentPosition = scrollTarget.scrollTop;
   const top = getTopCoordinate(element) - scrollTarget.offsetTop;
@@ -107,13 +107,13 @@ function getScrollTop(element: HTMLElement, scrollTarget: HTMLElement, verticalA
  * @__NO_SIDE_EFFECTS__
  */
 export function scrollToElement(element: HTMLElement, options: {
-  scrollTarget?: HTMLElement;
-  verticalAlignment?: 'start' | 'end' | 'center' | 'any';
   smooth?: boolean;
+  scrollTarget?: HTMLElement;
+  verticalAlignment?: 'end' | 'any' | 'start' | 'center';
 } = {
   scrollTarget: element.parentElement!,
-  verticalAlignment: 'any',
-  smooth: false
+  smooth: false,
+  verticalAlignment: 'any'
 }) {
   const scrollTarget = options.scrollTarget || element.parentElement!;
 
@@ -124,7 +124,7 @@ export function scrollToElement(element: HTMLElement, options: {
   }
 
   scrollTarget.scroll({
-    top,
-    behavior: options.smooth ? 'smooth' : 'auto'
+    behavior: options.smooth ? 'smooth' : 'auto',
+    top
   });
 }

@@ -1,51 +1,21 @@
-import Vue from '@vitejs/plugin-vue';
 import type { Plugin } from 'rollup';
+
+import Vue from '@vitejs/plugin-vue';
 import { defineBuildConfig } from 'unbuild';
 import Postcss from 'rollup-plugin-postcss';
 import { flattenArrayable } from '@whoj/utils-core';
 
 export default defineBuildConfig({
-  declaration: true,
   clean: true,
+  declaration: true,
   entries: [
-    { input: 'src/index', builder: 'rollup', name: 'index' },
-    { input: 'src/fusejs/index', builder: 'rollup', name: 'fusejs' },
-    { input: 'src/ripple/index', builder: 'rollup', name: 'ripple' },
-    { input: 'src/composables/index', builder: 'rollup', name: 'composables' },
-    { input: 'src/img-fallback/index', builder: 'rollup', name: 'img-fallback' }
+    { builder: 'rollup', input: 'src/index', name: 'index' },
+    { builder: 'rollup', input: 'src/fusejs/index', name: 'fusejs' },
+    { builder: 'rollup', input: 'src/ripple/index', name: 'ripple' },
+    { builder: 'rollup', input: 'src/composables/index', name: 'composables' },
+    { builder: 'rollup', input: 'src/img-fallback/index', name: 'img-fallback' }
   ],
   failOnWarn: false,
-  rollup: {
-    alias: {
-      entries: [
-        { find: /^node:(.+)$/, replacement: '$1' }
-      ]
-    },
-    dts: {
-      tsconfig: '../../tsconfig.build.json',
-      compilerOptions: {
-        composite: false,
-        customConditions: ['develop']
-      }
-    },
-    emitCJS: true,
-    cjsBridge: true,
-    commonjs: {
-      include: [/node_modules/]
-    },
-    esbuild: {
-      target: 'esnext',
-      treeShaking: true,
-      platform: 'node',
-      legalComments: 'eof'
-    },
-    replace: {
-      'import.meta.vitest': 'undefined'
-    },
-    resolve: {
-      preferBuiltins: true
-    }
-  },
   hooks: {
     'rollup:options': async (ctx, options) => {
       options.plugins = (options.plugins || []) as unknown as Plugin[];
@@ -67,6 +37,37 @@ export default defineBuildConfig({
         entry.externalLiveBindings = true;
         entry.chunkFileNames = ({ isDynamicEntry }) => `_${isDynamicEntry ? 'chunks' : 'shared'}/[name].${/es|module/.test(entry.format!) ? 'mjs' : 'cjs'}`;
       }
+    }
+  },
+  rollup: {
+    alias: {
+      entries: [
+        { find: /^node:(.+)$/, replacement: '$1' }
+      ]
+    },
+    cjsBridge: true,
+    commonjs: {
+      include: [/node_modules/]
+    },
+    dts: {
+      compilerOptions: {
+        composite: false,
+        customConditions: ['develop']
+      },
+      tsconfig: '../../tsconfig.build.json'
+    },
+    emitCJS: true,
+    esbuild: {
+      legalComments: 'eof',
+      platform: 'node',
+      target: 'esnext',
+      treeShaking: true
+    },
+    replace: {
+      'import.meta.vitest': 'undefined'
+    },
+    resolve: {
+      preferBuiltins: true
     }
   }
 });

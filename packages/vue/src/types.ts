@@ -26,4 +26,4 @@ export type ReadonlyRefable<T> = (() => T) | ComputedRef<T>;
  * type ComputedRefable<T> = (() => T) | T | Ref<T> | ComputedRef<T>
  * ```
  */
-export type ComputedRefable<T> = ReadonlyRefable<T> | Refable<T>;
+export type ComputedRefable<T> = Refable<T> | ReadonlyRefable<T>;

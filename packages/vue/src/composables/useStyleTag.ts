@@ -1,17 +1,22 @@
 // Forked from https://github.com/vueuse/vueuse/blob/main/packages/core/useStyleTag/index.ts
 import type { Ref } from 'vue-demi';
+
 import { ref, watch, readonly } from 'vue-demi';
-import { tryOnMounted } from './tryOnMounted';
-import { tryOnScopeDispose } from './tryOnScopeDispose';
+
 import type { MaybeRef } from '../types';
-import { defaultDocument } from '../_configurable';
 import type { ConfigurableDocument } from '../_configurable';
+
+import { tryOnMounted } from './tryOnMounted';
+import { defaultDocument } from '../_configurable';
+import { tryOnScopeDispose } from './tryOnScopeDispose';
 
 export interface UseStyleTagOptions extends ConfigurableDocument {
   /**
-   * Media query for styles to apply
+   * DOM id of the style tag
+   *
+   * @default auto-incremented
    */
-  media?: string;
+  id?: string;
 
   /**
    * Load the style immediately
@@ -28,19 +33,17 @@ export interface UseStyleTagOptions extends ConfigurableDocument {
   manual?: boolean;
 
   /**
-   * DOM id of the style tag
-   *
-   * @default auto-incremented
+   * Media query for styles to apply
    */
-  id?: string;
+  media?: string;
 }
 
 export interface UseStyleTagReturn {
-  id: string;
   css: Ref<string>;
+  id: string;
+  isLoaded: Readonly<Ref<boolean>>;
   load: () => void;
   unload: () => void;
-  isLoaded: Readonly<Ref<boolean>>;
 }
 
 let _id = 0;
@@ -62,9 +65,9 @@ export function useStyleTag(
 
   const {
     document = defaultDocument,
+    id = `whoj.utils-vue_style_tag_${++_id}`,
     immediate = true,
-    manual = false,
-    id = `whoj.utils-vue_style_tag_${++_id}`
+    manual = false
   } = options;
 
   const cssRef = ref(css);
@@ -119,10 +122,10 @@ export function useStyleTag(
   }
 
   return {
-    id,
     css: cssRef,
-    unload,
+    id,
+    isLoaded: readonly(isLoaded),
     load,
-    isLoaded: readonly(isLoaded)
+    unload
   };
 }

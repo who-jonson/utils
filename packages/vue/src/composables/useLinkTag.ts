@@ -1,7 +1,10 @@
-import { ref, watch } from 'vue-demi';
 import type { Optional } from '@whoj/utils-types';
+
+import { ref, watch } from 'vue-demi';
 import { noop, getDocument, objectEntries } from '@whoj/utils-core';
+
 import type { ComputedRefable } from '../types';
+
 import { unrefOf } from './unrefOf';
 import { listenEvent } from './listenEvent';
 import { tryOnMounted } from './tryOnMounted';
@@ -13,6 +16,12 @@ interface ConfigurableDocument {
 }
 
 export interface UseLinkTagOptions extends ConfigurableDocument, Optional<BuiltInLinkElAttrs> {
+  attrs?: Record<string, string>;
+
+  blocking?: 'render';
+
+  crossOrigin?: 'anonymous' | 'use-credentials';
+
   // id of the link tag
   id?: string;
 
@@ -20,13 +29,7 @@ export interface UseLinkTagOptions extends ConfigurableDocument, Optional<BuiltI
 
   manual?: boolean;
 
-  blocking?: 'render';
-
-  crossOrigin?: 'anonymous' | 'use-credentials';
-
-  referrerPolicy?: 'no-referrer' | 'no-referrer-when-downgrade' | 'origin' | 'origin-when-cross-origin' | 'unsafe-url';
-
-  attrs?: Record<string, string>;
+  referrerPolicy?: 'origin' | 'unsafe-url' | 'no-referrer' | 'origin-when-cross-origin' | 'no-referrer-when-downgrade';
 }
 
 let _id = 0;
@@ -35,29 +38,29 @@ let _id = 0;
 export function useLinkTag(href: ComputedRefable<string>, onLoaded: (el: HTMLLinkElement) => void = noop, options: UseLinkTagOptions = {}) {
   const {
     as,
-    media,
-    crossOrigin,
-    referrerPolicy,
+    attrs = {},
     blocking,
+    crossOrigin,
+    document = getDocument(),
+    id = `use_link_tag_${++_id}`,
     immediate = true,
     manual = false,
-    attrs = {},
-    type = 'text/css',
+    media,
+    referrerPolicy,
     rel = 'stylesheet',
-    id = `use_link_tag_${++_id}`,
-    document = getDocument()
+    type = 'text/css'
   } = options;
 
   const linkTag = ref<HTMLLinkElement>();
   const loaded = ref<boolean>();
 
-  let _promise: Promise<HTMLLinkElement | boolean> | null = null;
+  let _promise: null | Promise<boolean | HTMLLinkElement> = null;
 
   const _evtListeners: Record<string, () => void> = {};
 
   const findLinkEl = () => document!.querySelector<HTMLLinkElement>(`link[id="${id}"]`);
 
-  const loadLink = (waitForLoad: boolean): Promise<HTMLLinkElement | boolean> => new Promise((resolve, reject) => {
+  const loadLink = (waitForLoad: boolean): Promise<boolean | HTMLLinkElement> => new Promise((resolve, reject) => {
     const resolveWithElement = (el: HTMLLinkElement) => {
       linkTag.value = el;
       resolve(el);
@@ -131,7 +134,7 @@ export function useLinkTag(href: ComputedRefable<string>, onLoaded: (el: HTMLLin
     }
   });
 
-  const load = (waitForLoad = true): Promise<HTMLLinkElement | boolean> => {
+  const load = (waitForLoad = true): Promise<boolean | HTMLLinkElement> => {
     if (!_promise) {
       _promise = loadLink(waitForLoad);
     }
@@ -179,10 +182,10 @@ export function useLinkTag(href: ComputedRefable<string>, onLoaded: (el: HTMLLin
   watch(
     () => unrefOf(href),
     update,
-    { immediate: true, flush: 'post' }
+    { flush: 'post', immediate: true }
   );
 
-  return { linkTag, loaded, load, unload };
+  return { linkTag, load, loaded, unload };
 }
 
 export type UseLinkTagReturn = ReturnType<typeof useLinkTag>;

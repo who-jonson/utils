@@ -7,7 +7,7 @@ class Exception<DataT = unknown> extends Error {
   data?: DataT;
   cause?: unknown;
 
-  constructor(message: string, opts: Partial<Pick<Exception<DataT>, 'message' | 'statusCode' | 'statusMessage' | 'data' | 'fatal' | 'cause'>> = {}) {
+  constructor(message: string, opts: Partial<Pick<Exception<DataT>, 'data' | 'fatal' | 'cause' | 'message' | 'statusCode' | 'statusMessage'>> = {}) {
     // @ts-ignore https://v8.dev/features/error-cause
     super(message, opts);
 
@@ -18,7 +18,7 @@ class Exception<DataT = unknown> extends Error {
   }
 
   toJSON() {
-    const obj: Pick<Exception<DataT>, 'message' | 'statusCode' | 'statusMessage' | 'data'> = {
+    const obj: Pick<Exception<DataT>, 'data' | 'message' | 'statusCode' | 'statusMessage'> = {
       message: this.message,
       statusCode: Exception.sanitizeStatusCode(this.statusCode, 500)
     };

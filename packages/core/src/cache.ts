@@ -26,13 +26,6 @@ interface SetOptions {
 
 interface GetOptions {
   /**
-   * Update the age of items on cache.get(), renewing their TTL
-   *
-   * @default false
-   */
-  updateAgeOnGet?: boolean;
-
-  /**
    * In the event that an item's expiration timer hasn't yet fired,
    * and an attempt is made to get() it, then return undefined and
    * delete it, rather than returning the cached value.
@@ -49,6 +42,13 @@ interface GetOptions {
    * Set new TTL, applied only when `updateAgeOnGet` is true
    */
   ttl?: number;
+
+  /**
+   * Update the age of items on cache.get(), renewing their TTL
+   *
+   * @default false
+   */
+  updateAgeOnGet?: boolean;
 }
 
 const perf
@@ -130,7 +130,7 @@ export class TTLCache<K, V> implements Iterable<[K, V]> {
   dispose: ((
     value: V,
     key: K,
-    reason: 'evict' | 'set' | 'delete' | 'stale'
+    reason: 'set' | 'evict' | 'stale' | 'delete'
   ) => void) = (_, __, ___) => {};
 
   // {[expirationTime]: [keys]}
@@ -145,9 +145,9 @@ export class TTLCache<K, V> implements Iterable<[K, V]> {
 
   constructor(
     {
+      dispose,
       max,
       ttl,
-      dispose,
       ...opts
     }: Partial<
       Pick<TTLCache<K, V>, 'ttl' | 'max' | 'dispose' | 'noUpdateTTL' | 'checkAgeOnGet' | 'updateAgeOnGet' | 'noDisposeOnSet'>
@@ -261,9 +261,9 @@ export class TTLCache<K, V> implements Iterable<[K, V]> {
     key: K,
     val: V,
     {
-      ttl = this.ttl,
+      noDisposeOnSet = this.noDisposeOnSet,
       noUpdateTTL = this.noUpdateTTL,
-      noDisposeOnSet = this.noDisposeOnSet
+      ttl = this.ttl
     }: SetOptions = {}
   ): this {
     if (!isPosIntOrInf(ttl)) {
@@ -310,9 +310,9 @@ export class TTLCache<K, V> implements Iterable<[K, V]> {
   get<T = V>(
     key: K,
     {
-      updateAgeOnGet = this.updateAgeOnGet,
+      checkAgeOnGet = this.checkAgeOnGet,
       ttl = this.ttl,
-      checkAgeOnGet = this.checkAgeOnGet
+      updateAgeOnGet = this.updateAgeOnGet
     }: GetOptions = {}
   ): T | undefined {
     const val = this.data.get(key);
@@ -480,11 +480,11 @@ const cachedFunctions = /* @__PURE__ */ new TTLCache<string, any>({ ttl: 2 * 60 
 export function createCachedFunction<T extends ((...args: any[]) => any)>(
   fn: T,
   {
-    ttl,
-    updateAgeOnGet,
     checkAgeOnGet,
     noDisposeOnSet,
-    noUpdateTTL
+    noUpdateTTL,
+    ttl,
+    updateAgeOnGet
   }: Partial<ConstructorParameters<typeof TTLCache>[0]> = {}
 ): T {
   return new Proxy(fn, {
@@ -493,7 +493,7 @@ export function createCachedFunction<T extends ((...args: any[]) => any)>(
       if (cachedFunctions.has(cacheKey)) {
         return cachedFunctions.get(
           cacheKey,
-          { ttl, updateAgeOnGet, checkAgeOnGet }
+          { checkAgeOnGet, ttl, updateAgeOnGet }
         );
       }
 
