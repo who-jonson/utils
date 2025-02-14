@@ -39,4 +39,4 @@ deno install @whoj/utils-types
 <!-- /automd -->
 
 
-[MIT](../../LICENSE) License © 2022 [Jonson B.](https://github.com/who-jonson)
+[MIT](../../LICENSE) License © 2020-PRESENT [Jonson B.](https://github.com/who-jonson)

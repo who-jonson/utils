@@ -7,8 +7,23 @@
   <a href="#">
     <img src="https://badgen.net/npm/types/@whoj/utils-core?color=blue&icon=typescript&label=" alt="Typings">
   </a>
-  <a href="https://github.com/who-jonson/utils-core/blob/master/LICENSE">
-    <img src="https://badgen.net/npm/license/@whoj/utils-core" alt="License">
+  <a href="https://bundlephobia.com/package/@whoj/utils-core">
+    <img src="https://badgen.net/bundlephobia/tree-shaking/@whoj/utils-core" alt="tree-shaking support">
+  </a>
+  <a href="https://bundlephobia.com/package/@whoj/utils-core">
+    <img src="https://badgen.net/bundlephobia/minzip/@whoj/utils-core?label=minzipped" alt="minified + gzip">
+  </a>
+  <a href="https://bundlephobia.com/package/@whoj/utils-core">
+    <img src="https://badgen.net/bundlephobia/dependency-count/@whoj/utils-core?label=Dependency" alt="dependency count">
+  </a>
+  <a href="https://bundlephobia.com/package/@whoj/utils-core">
+    <img src="https://badgen.net/packagephobia/install/@whoj/utils-core" alt="install size">
+  </a>
+  <a href="https://bundlephobia.com/package/@whoj/utils-core">
+    <img src="https://badgen.net/packagephobia/publish/@whoj/utils-core" alt="publish size">
+  </a>
+  <a href="https://github.com/who-jonson/utils/blob/master/LICENSE">
+    <img src="https://badgen.net/npm/license/@whoj/utils-core?label=License" alt="License">
   </a>
 </p>
 
@@ -445,4 +460,4 @@ Check if window defined
 <!-- /automd -->
 
 
-[MIT](../../LICENSE) License © 2022 [Jonson B.](https://github.com/who-jonson)
+[MIT](../../LICENSE) License © 2020-PRESENT [Jonson B.](https://github.com/who-jonson)
