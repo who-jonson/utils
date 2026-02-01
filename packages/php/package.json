@@ -73,7 +73,7 @@
     "@whoj/utils-core": "workspace:*"
   },
   "peerDependencies": {
-    "php-serialize": "^5.0.1"
+    "php-serialize": "catalog:"
   },
   "author": {
     "name": "Jonson B.",

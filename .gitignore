@@ -85,3 +85,8 @@ dist
 *.crt
 *.csr
 *.key
+
+.claude
+docs
+CLAUDE.md
+

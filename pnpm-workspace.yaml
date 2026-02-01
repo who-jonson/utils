@@ -1,2 +1,78 @@
 packages:
   - packages/*
+
+catalog:
+  # Build & bundling tools
+  rollup: ^4.57.1
+  '@rollup/plugin-typescript': ^12.3.0
+  rollup-plugin-dts: ^6.3.0
+  rollup-plugin-esbuild: ^6.2.1
+  rollup-plugin-node-externals: ^8.1.2
+  rollup-plugin-postcss: ^4.0.2
+  esbuild: ^0.27.2
+  esbuild-register: ^3.6.0
+  unbuild: ^3.6.1
+  tsup: ^8.5.1
+
+  # TypeScript tooling
+  typescript: ~5.9.3
+  vue-tsc: ^3.2.4
+  vite-plugin-dts: ^4.5.4
+
+  # Framework (Vue 3)
+  vue: ^3.5.27
+  vue-router: ^5.0.1
+  '@vitejs/plugin-vue': ^6.0.3
+  vite: ^7.3.1
+
+  # Testing
+  vitest: ^4.0.18
+  '@vitest/ui': ^4.0.18
+  '@testing-library/vue': ^8.1.0
+  c8: ^10.1.3
+
+  # Linting
+  eslint: ^9.39.2
+  '@whoj/eslint-config': ^2.5.0
+  eslint-plugin-testing-library: ^7.15.4
+
+  # Dev utilities
+  bumpp: ^10.4.0
+  rimraf: ^6.1.2
+  cross-env: ^10.1.0
+  npm-run-all: ^4.1.5
+  esno: ^4.8.0
+  tsx: ^4.21.0
+
+  # Runtime utilities
+  change-case: ^5.4.4
+  scule: ^1.3.0
+  'fuse.js': ^7.0.0
+  throttle-debounce: ^5.0.2
+  php-serialize: ^5.0.1
+  dot-prop: ^10.1.0
+  core-js: ^3.48.0
+  unplugin: ^3.0.0
+  fast-glob: ^3.3.3
+  is-glob: ^4.0.3
+  postcss: ^8.5.6
+  nuxt: ^4.3.0
+
+  # Type definitions
+  '@types/node': latest
+  '@types/fs-extra': ^11.0.4
+  '@types/is-glob': ^4.0.4
+  '@types/throttle-debounce': ^5.0.2
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - core-js
+  - esbuild
+
+peerDependencyRules:
+  allowAny:
+    - rollup
+  ignoreMissing:
+    - rollup
+    - webpack
+    - '@vue/compiler-sfc'

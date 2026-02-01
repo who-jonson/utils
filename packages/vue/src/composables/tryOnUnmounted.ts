@@ -1,6 +1,6 @@
 import type { Func } from '@whoj/utils-types';
 
-import { onUnmounted, getCurrentInstance } from 'vue-demi';
+import { onUnmounted, getCurrentInstance } from 'vue';
 
 /**
  * Call onUnmounted() if it's inside a component lifecycle, if not, do nothing

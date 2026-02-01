@@ -6,11 +6,6 @@ export default defineConfig({
     // @ts-ignore
     vue({ reactivityTransform: true })
   ],
-  optimizeDeps: {
-    exclude: [
-      'vue-demi'
-    ]
-  },
   test: {
     include: [
       '{packages,test}/**/*.{test,spec}.ts'

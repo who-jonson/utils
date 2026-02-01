@@ -1,4 +1,4 @@
-import { unref } from 'vue-demi';
+import { unref } from 'vue';
 
 import type { ComputedRefable } from '../types';
 

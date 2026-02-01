@@ -1,4 +1,4 @@
-import { createApp } from 'vue-demi';
+import { createApp } from 'vue';
 import { Ripple } from '../../packages/vue/src';
 import App from './App.vue';
 

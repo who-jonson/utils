@@ -54,8 +54,8 @@
     "@whoj/utils-types": "workspace:*"
   },
   "peerDependencies": {
-    "change-case": "^5.4.4",
-    "scule": "^1.3.0"
+    "change-case": "catalog:",
+    "scule": "catalog:"
   },
   "author": {
     "name": "Jonson B.",

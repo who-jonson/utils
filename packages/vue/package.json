@@ -88,15 +88,14 @@
   },
   "dependencies": {
     "@whoj/utils-core": "workspace:*",
-    "@whoj/utils-types": "workspace:*",
-    "vue-demi": "^0.14.10"
+    "@whoj/utils-types": "workspace:*"
   },
   "devDependencies": {
-    "vue": "^3.5.13"
+    "vue": "catalog:"
   },
   "peerDependencies": {
-    "fuse.js": "^6.6.2",
-    "vue": "^2.6 || >=3.2"
+    "fuse.js": "catalog:",
+    "vue": "catalog:"
   },
   "author": {
     "name": "Jonson B.",

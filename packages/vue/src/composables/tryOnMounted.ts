@@ -1,4 +1,4 @@
-import { nextTick, onMounted, getCurrentInstance } from 'vue-demi';
+import { nextTick, onMounted, getCurrentInstance } from 'vue';
 
 /**
  * Call onMounted() if it's inside a component lifecycle, if not, just call the function
