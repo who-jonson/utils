@@ -1,2 +1,20 @@
 packages:
   - packages/*
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - core-js
+  - esbuild
+  - vue-demi
+
+overrides:
+  typescript: $typescript
+  vue-demi: $vue-demi
+
+peerDependencyRules:
+  allowAny:
+    - rollup
+  ignoreMissing:
+    - rollup
+    - webpack
+    - '@vue/compiler-sfc'
