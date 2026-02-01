@@ -28,7 +28,6 @@ const DEFAULT_EXTENSIONS = [
 const GLOBALS = {
   'vue': 'Vue',
   'fuse.js': 'Fuse',
-  'vue-demi': 'VueDemi',
   'resumablejs': 'Resumable'
 };
 
@@ -55,7 +54,6 @@ function plugins(opt: EsbuildOptions = {}) {
     alias({
       entries: [
         { find: /^node:(.+)$/, replacement: '$1' },
-        { find: /^vue$/, replacement: 'vue-demi' },
         {
           find: /^@whoj\/utils-(core|types|php|vue)$/,
           replacement: path.join(__dirname, '..', 'packages/$1/src')
@@ -121,7 +119,7 @@ export default defineConfig(() => {
       // Iife Build
       {
         ...commonOptions,
-        external: ['vue', 'vue-demi'],
+        external: ['vue'],
         output: {
           ...outputFileConfig({
             input,
@@ -129,8 +127,7 @@ export default defineConfig(() => {
             format: 'iife'
           }),
           globals: {
-            'vue': 'Vue',
-            'vue-demi': 'VueDemi'
+            'vue': 'Vue'
           }
         }, // @ts-ignore
         plugins: plugins()
@@ -154,7 +151,7 @@ export default defineConfig(() => {
       // Iife Build (mini)
       {
         ...commonOptions,
-        external: ['vue', 'vue-demi'],
+        external: ['vue'],
         output: {
           ...outputFileConfig({
             input,
@@ -162,8 +159,7 @@ export default defineConfig(() => {
             ext: 'global.min.js'
           }),
           globals: {
-            'vue': 'Vue',
-            'vue-demi': 'VueDemi'
+            'vue': 'Vue'
           }
         }, // @ts-ignore
         plugins: plugins({
@@ -308,7 +304,7 @@ function makeDtsEntry(input: InputOption): InputOption {
 
 export function getExternals(format: OutputOptions['format'] = 'esm') {
   return ['iife', 'umd'].includes(format)
-    ? ['vue', 'vue-demi']
+    ? ['vue']
     : [
         ...Object.keys({ ...(dependencies || {}), ...(peerDependencies || {}) }),
         'chalk',

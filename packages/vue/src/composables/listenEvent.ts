@@ -1,6 +1,6 @@
 import type { Func, Arrayable } from '@whoj/utils-types';
 
-import { watch } from 'vue-demi';
+import { watch } from 'vue';
 import { noop, isString } from '@whoj/utils-core';
 
 import type { ComputedRefable } from '../types';

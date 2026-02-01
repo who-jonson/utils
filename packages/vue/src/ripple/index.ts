@@ -1,6 +1,5 @@
-import type { Ref, Plugin, Directive, ObjectDirective, DirectiveBinding } from 'vue-demi';
+import type { Ref, Plugin, Directive, ObjectDirective, DirectiveBinding } from 'vue';
 
-import { isVue3 } from 'vue-demi';
 import { isNumber, objectKeys } from '@whoj/utils-core';
 
 import './style.css';
@@ -212,7 +211,7 @@ function rippleHandler(el: DirectiveEl, modifiers: DirectiveModifiers, options?:
 
 function makeRippleDir<T extends DirectiveEl>(options: RippleOptions = {}): Directive<T, string> {
   return <ObjectDirective<T, string>>{
-    [`${isVue3 ? 'beforeMount' : 'bind'}`]: (el: T, binding: DirectiveBinding<string>) => rippleHandler(
+    beforeMount: (el: T, binding: DirectiveBinding<string>) => rippleHandler(
       el,
       binding.modifiers,
       { ...options, color: binding.value }

@@ -1,7 +1,7 @@
 // Forked from https://github.com/vueuse/vueuse/blob/main/packages/core/useStyleTag/index.ts
-import type { Ref } from 'vue-demi';
+import type { Ref } from 'vue';
 
-import { ref, watch, readonly } from 'vue-demi';
+import { ref, watch, readonly } from 'vue';
 
 import type { MaybeRef } from '../types';
 import type { ConfigurableDocument } from '../_configurable';

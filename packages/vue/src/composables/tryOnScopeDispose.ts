@@ -1,6 +1,6 @@
 import type { Func } from '@whoj/utils-types';
 
-import { onScopeDispose, getCurrentScope } from 'vue-demi';
+import { onScopeDispose, getCurrentScope } from 'vue';
 
 /**
  * Call onScopeDispose() if it's inside a effect scope lifecycle, if not, do nothing

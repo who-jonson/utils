@@ -1,7 +1,7 @@
-import type { Ref, ComputedRef } from 'vue-demi';
+import type { Ref, ComputedRef } from 'vue';
 
 import Fuse from 'fuse.js';
-import { ref, watch, computed } from 'vue-demi';
+import { ref, watch, computed } from 'vue';
 
 export type FuseOptions<T> = Fuse.IFuseOptions<T>;
 

@@ -1,6 +1,6 @@
 import type { Optional } from '@whoj/utils-types';
 
-import { ref, watch } from 'vue-demi';
+import { ref, watch } from 'vue';
 import { noop, getDocument, objectEntries } from '@whoj/utils-core';
 
 import type { ComputedRefable } from '../types';

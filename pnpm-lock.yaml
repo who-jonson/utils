@@ -6,7 +6,6 @@ settings:
 
 overrides:
   typescript: ~5.9.3
-  vue-demi: ^0.14.10
 
 importers:
 
@@ -153,9 +152,6 @@ importers:
       vue:
         specifier: ^3.5.27
         version: 3.5.27(typescript@5.9.3)
-      vue-demi:
-        specifier: ^0.14.10
-        version: 0.14.10(vue@3.5.27(typescript@5.9.3))
       vue-router:
         specifier: ^5.0.1
         version: 5.0.1(@vue/compiler-sfc@3.5.27)(vue@3.5.27(typescript@5.9.3))
@@ -213,9 +209,6 @@ importers:
       fuse.js:
         specifier: ^6.6.2
         version: 6.6.2
-      vue-demi:
-        specifier: ^0.14.10
-        version: 0.14.10(vue@3.5.27(typescript@5.9.3))
     devDependencies:
       vue:
         specifier: ^3.5.27
@@ -6378,17 +6371,6 @@ packages:
 
   vue-component-type-helpers@2.2.0:
     resolution: {integrity: sha512-cYrAnv2me7bPDcg9kIcGwjJiSB6Qyi08+jLDo9yuvoFQjzHiPTzML7RnkJB1+3P6KMsX/KbCD4QE3Tv/knEllw==}
-
-  vue-demi@0.14.10:
-    resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
-    engines: {node: '>=12'}
-    hasBin: true
-    peerDependencies:
-      '@vue/composition-api': ^1.0.0-rc.1
-      vue: ^3.0.0-0 || ^2.6.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
 
   vue-devtools-stub@0.1.0:
     resolution: {integrity: sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==}
@@ -13543,10 +13525,6 @@ snapshots:
       ufo: 1.6.3
 
   vue-component-type-helpers@2.2.0: {}
-
-  vue-demi@0.14.10(vue@3.5.27(typescript@5.9.3)):
-    dependencies:
-      vue: 3.5.27(typescript@5.9.3)
 
   vue-devtools-stub@0.1.0: {}
 

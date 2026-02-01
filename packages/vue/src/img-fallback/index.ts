@@ -1,6 +1,5 @@
-import type { Plugin, ObjectDirective, DirectiveBinding } from 'vue-demi';
+import type { Plugin, ObjectDirective, DirectiveBinding } from 'vue';
 
-import { isVue3 } from 'vue-demi';
 import { isObject, isString } from '@whoj/utils-core';
 
 import { loadingImg } from './assets';
@@ -14,7 +13,7 @@ type ImgFallbackObjDirective<T extends HTMLImageElement, V extends string | ImgF
 
 function makeImgFallbackDir<ImgT extends HTMLImageElement, ImgV extends string | ImgFallbackOptions = ImgFallbackOptions>(options: ImgFallbackOptions = {}): ImgFallbackObjDirective<ImgT, ImgV> {
   return <ImgFallbackObjDirective<ImgT, ImgV>>{
-    [`${isVue3 ? 'beforeMount' : 'bind'}`]: (el: ImgT, binding: DirectiveBinding<ImgV>) => {
+    beforeMount: (el: ImgT, binding: DirectiveBinding<ImgV>) => {
       const { value } = binding;
       const defaultLoading = options?.loading || loadingImg;
       const defaultError = options?.error || options?.loading || loadingImg;

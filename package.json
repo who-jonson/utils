@@ -70,12 +70,10 @@
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^4.0.18",
     "vue": "^3.5.27",
-    "vue-demi": "^0.14.10",
     "vue-router": "^5.0.1",
     "vue-tsc": "^3.2.4"
   },
   "overrides": {
-    "vue-demi": "$vue-demi",
     "typescript": "$typescript"
   },
   "workspaces": [
