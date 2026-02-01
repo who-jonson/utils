@@ -91,11 +91,11 @@
     "@whoj/utils-types": "workspace:*"
   },
   "devDependencies": {
-    "vue": "^3.5.27"
+    "vue": "catalog:"
   },
   "peerDependencies": {
-    "fuse.js": "^6.6.2 || ^7.0.0",
-    "vue": ">=3.2.0"
+    "fuse.js": "catalog:",
+    "vue": "catalog:"
   },
   "author": {
     "name": "Jonson B.",
