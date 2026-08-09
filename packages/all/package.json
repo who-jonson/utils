@@ -11,64 +11,75 @@
   ],
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      },
+      "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
     },
     "./core": {
-      "import": {
-        "types": "./dist/core.d.mts",
-        "default": "./dist/core.mjs"
-      },
-      "require": {
-        "types": "./dist/core.d.cts",
-        "default": "./dist/core.cjs"
-      },
-      "types": "./dist/core.d.ts"
+      "import": "./dist/core/index.mjs",
+      "types": "./dist/core/index.d.ts"
+    },
+    "./core/*": {
+      "import": "./dist/core/*.mjs",
+      "types": "./dist/core/*.d.ts"
     },
     "./vue": {
-      "import": {
-        "types": "./dist/vue.d.mts",
-        "default": "./dist/vue.mjs"
-      },
-      "require": {
-        "types": "./dist/vue.d.cts",
-        "default": "./dist/vue.cjs"
-      },
+      "import": "./dist/vue.mjs",
       "types": "./dist/vue.d.ts"
     },
-    "./package.json": "./package.json"
+    "./php": {
+      "import": "./dist/php.mjs",
+      "types": "./dist/php.d.ts"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/types.mjs"
+    },
+    "./package.json": "./package.json",
+    "./*": {
+      "import": "./dist/core/*.mjs",
+      "types": "./dist/core/*.d.ts"
+    }
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "iife": "./dist/index.global.js",
-  "unpkg": "./dist/index.global.js",
-  "jsdelivr": "./dist/index.global.js",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/*",
+        "./dist/*.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "rollup --config ../../rollup.config.js",
-    "stub": "unbuild --stub",
+    "build": "unbuild",
+    "prebuild": "tsx scripts/buildhook.ts --pre",
+    "stub": "pnpm run prebuild && unbuild --stub",
     "prepublishOnly": "rm -rf dist && pnpm run build",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@whoj/utils-core": "workspace:*",
-    "@whoj/utils-types": "workspace:*",
+    "@whoj/utils-types": "workspace:*"
+  },
+  "peerDependencies": {
+    "@whoj/utils-php": "workspace:*",
     "@whoj/utils-vue": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@whoj/utils-php": {
+      "optional": true
+    },
+    "@whoj/utils-vue": {
+      "optional": true
+    }
   },
   "author": {
     "name": "Jonson B.",
     "email": "www.jbc.bd@gmail.com",
-    "url": "https://who-jonson.github.io"
+    "url": "https://whoj.dev"
   },
   "homepage": "https://github.com/who-jonson/utils#readme",
   "repository": {
