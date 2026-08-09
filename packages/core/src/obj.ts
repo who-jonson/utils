@@ -204,7 +204,7 @@ export function hasOwnProperty<T>(obj: T, key: PropertyKey) {
   if (obj == null) {
     return false;
   }
-  return Object.prototype.hasOwnProperty.call(obj, key);
+  return Object.hasOwn(obj, key);
 }
 
 /**

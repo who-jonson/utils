@@ -114,8 +114,8 @@ export type JsonValue = JsonArray | JsonObject | JsonPrimitive;
  *
  * @category Type Alias
  */
-export type MergeInsertions<T> =
-  T extends object
+export type MergeInsertions<T>
+  = T extends object
     ? { [K in keyof T]: MergeInsertions<T[K]> }
     : T;
 
@@ -139,8 +139,8 @@ export type DeepMerge<F, S> = MergeInsertions<{
  *
  * @category Type Alias
  */
-export type NestedKeyOf<Obj extends object> =
-  { [Key in keyof Obj & (string | number)]: Obj[Key] extends object
+export type NestedKeyOf<Obj extends object>
+  = { [Key in keyof Obj & (string | number)]: Obj[Key] extends object
     ? `${Key}` | `${Key}.${NestedKeyOf<Obj[Key]>}` : `${Key}`
   }[keyof Obj & (string | number)];
 

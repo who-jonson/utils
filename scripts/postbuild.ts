@@ -1,29 +1,29 @@
+import type { InlineConfig } from 'vite';
+
 import mri from 'mri';
 import { build } from 'vite';
 import { resolve } from 'pathe';
 import Vue from '@vitejs/plugin-vue';
-import type { InlineConfig } from 'vite';
 
 (async (root: string, { name, vue }) => {
   const config = <InlineConfig>{
-    root,
     build: {
-      outDir: resolve(root, 'dist'),
       emptyOutDir: false,
       lib: {
-        name,
         entry: 'src/index.ts',
+        fileName: format => format === 'iife' ? 'index.global.js' : 'index.esm-browser.js',
         formats: ['es', 'iife'],
-        fileName: format => format === 'iife' ? 'index.global.js' : 'index.esm-browser.js'
+        name
       },
+      outDir: resolve(root, 'dist'),
 
       rollupOptions: {
         external: ['vue', 'fuse.js', 'resumablejs'],
         output: {
           globals: {
-            'vue': 'Vue',
             'fuse.js': 'Fuse',
-            'resumablejs': 'Resumable'
+            'resumablejs': 'Resumable',
+            'vue': 'Vue'
           }
         }
       }
@@ -32,14 +32,15 @@ import type { InlineConfig } from 'vite';
       alias: [
         { find: /^node:(.+)$/, replacement: '$1' }
       ]
-    }
+    },
+    root
   };
 
   if (vue) {
     config.plugins = config.plugins || [];
     config.plugins.push(Vue({
-      reactivityTransform: true,
-      isProduction: true
+      isProduction: true,
+      reactivityTransform: true
     }));
   }
 

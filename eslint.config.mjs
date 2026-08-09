@@ -1,4 +1,4 @@
-import whoj from '@whoj/eslint-config';
+import { whoj } from '@whoj/eslint-config';
 import testingLibrary from 'eslint-plugin-testing-library';
 
 export default whoj(
@@ -41,6 +41,8 @@ export default whoj(
       }
     },
 
+    vue: true,
+
     yaml: false
   },
   {
@@ -74,4 +76,8 @@ export default whoj(
 
     ...testingLibrary.configs['flat/vue']
   }
+).removeRules(
+  'no-new-symbol',
+  'vue/component-tags-order',
+  'perfectionist/sort-arrays'
 );

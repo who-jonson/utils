@@ -7,14 +7,14 @@ export default defineConfig({
     vue({ reactivityTransform: true })
   ],
   test: {
-    include: [
-      '{packages,test}/**/*.{test,spec}.ts'
-    ],
     exclude: [
       'playground/**',
       'scripts/**'
     ],
     globals: true,
+    include: [
+      '{packages,test}/**/*.{test,spec}.ts'
+    ],
     setupFiles: [
       // './__tests__/utils/global-variables.ts'
     ]

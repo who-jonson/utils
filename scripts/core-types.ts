@@ -1,5 +1,6 @@
 import fs from 'fs-extra';
 import path from 'node:path';
+
 import { name } from './rollup.config';
 
 (async () => {

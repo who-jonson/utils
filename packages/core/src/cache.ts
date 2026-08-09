@@ -409,7 +409,7 @@ export class TTLCache<K, V> implements Iterable<[K, V]> {
     }
   }
 
-  *entries(): Generator<[K, V]> {
+  * entries(): Generator<[K, V]> {
     for (const exp in this.expirations) {
       for (const key of this.expirations[exp]) {
         yield [key, this.data.get(key)!];
@@ -417,7 +417,7 @@ export class TTLCache<K, V> implements Iterable<[K, V]> {
     }
   }
 
-  *keys(): Generator<K> {
+  * keys(): Generator<K> {
     for (const exp in this.expirations) {
       for (const key of this.expirations[exp]) {
         yield key;
@@ -425,7 +425,7 @@ export class TTLCache<K, V> implements Iterable<[K, V]> {
     }
   }
 
-  *values(): Generator<V> {
+  * values(): Generator<V> {
     for (const exp in this.expirations) {
       for (const key of this.expirations[exp]) {
         yield this.data.get(key)!;

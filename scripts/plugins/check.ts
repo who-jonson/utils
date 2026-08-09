@@ -1,5 +1,6 @@
-import path from 'node:path';
 import type { Plugin } from 'rollup';
+
+import path from 'node:path';
 import { createUnplugin } from 'unplugin';
 import { existsSync, appendFileSync } from 'node:fs';
 import { lstat, readdir, readFile, writeFile } from 'node:fs/promises';
@@ -60,12 +61,20 @@ async function processFiles(dir: string) {
 export const fixImportHell = createUnplugin(({ dir }: { dir?: (outDir: string) => string } = {}) => {
   let outDir = '';
   return {
-    name: 'fix-import-hell',
+    closeBundle: () => processFiles(outDir),
     esbuild: {
       setup(build) {
         if (build.initialOptions.outdir) {
           outDir = dir?.(build.initialOptions.outdir) || build.initialOptions.outdir;
         }
+      }
+    },
+
+    name: 'fix-import-hell',
+
+    rollup: {
+      outputOptions: (_options) => {
+        _options.dir && (outDir = (dir?.(_options.dir) || _options.dir));
       }
     },
 
@@ -75,17 +84,9 @@ export const fixImportHell = createUnplugin(({ dir }: { dir?: (outDir: string) =
       }
     },
 
-    rollup: {
-      outputOptions: (_options) => {
-        _options.dir && (outDir = (dir?.(_options.dir) || _options.dir));
-      }
-    },
-
     webpack: ({ options: _options }) => {
       _options.output.path && (outDir = (dir?.(_options.output.path) || _options.output.path));
-    },
-
-    closeBundle: () => processFiles(outDir)
+    }
   };
 });
 
