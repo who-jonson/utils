@@ -4,9 +4,12 @@ export default defineBuildConfig({
   clean: true,
   declaration: true,
   entries: [
-    'src/core',
-    'src/index',
-    'src/vue'
+    {
+      builder: 'mkdist',
+      declaration: 'compatible',
+      input: 'src/',
+      outDir: 'dist/'
+    }
   ],
   failOnWarn: false,
   rollup: {
@@ -18,9 +21,8 @@ export default defineBuildConfig({
     dts: {
       respectExternal: true
     },
-    emitCJS: true,
     esbuild: {
-      target: 'node14'
+      target: 'esnext'
     },
     replace: {
       'import.meta.vitest': 'undefined'

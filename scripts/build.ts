@@ -1,32 +1,33 @@
+import type { UserConfig } from 'vite';
+import type { BuildConfig } from 'unbuild';
+import type { RollupOptions } from 'rollup';
+
 import minimist from 'minimist';
 import { rollup } from 'rollup';
-import type { RollupOptions } from 'rollup';
 import { build as vite } from 'vite';
-import type { UserConfig } from 'vite';
 import { build as unBuild } from 'unbuild';
-import type { BuildConfig } from 'unbuild';
 
-type BuilderType = 'rollup' | 'vite' | 'unbuild';
+type BuilderType = 'vite' | 'rollup' | 'unbuild';
 
 interface WhojBuild<T extends BuilderType> {
+  builder: T;
+  mode?: 'production' | 'development';
   rootDir?: string;
   stub?: boolean;
-  builder: T;
-  mode?: 'development' | 'production';
 }
 
 type Functionable<T> = T | ReturnType<(...args: never[]) => T>;
 type Awaitable<T> = T | PromiseLike<T>;
 
-type BuilderConfigType<T> =
-  T extends 'rollup' ? Functionable<RollupOptions> :
-    T extends 'vite' ? Awaitable<UserConfig> :
-      Awaitable<BuildConfig>;
+type BuilderConfigType<T>
+  = T extends 'rollup' ? Functionable<RollupOptions>
+    : T extends 'vite' ? Awaitable<UserConfig>
+      : Awaitable<BuildConfig>;
 
-type BuilderReturnType<T> =
-  T extends 'rollup' ? ReturnType<typeof rollup> :
-    T extends 'vite' ? ReturnType<typeof vite> :
-      ReturnType<typeof unBuild>;
+type BuilderReturnType<T>
+  = T extends 'rollup' ? ReturnType<typeof rollup>
+    : T extends 'vite' ? ReturnType<typeof vite>
+      : ReturnType<typeof unBuild>;
 
 interface BuilderResult<T extends BuilderType> {
   <D extends WhojBuild<T>, K = BuilderConfigType<T>>
@@ -52,7 +53,7 @@ const unbuild: BuilderResult<'unbuild'> = function ({ rootDir = process.cwd(), s
 };
 
 function isValidBuilder(builder: string): builder is BuilderType {
-  return ['rollup', 'vite', 'unbuild'].includes('builder');
+  return ['vite', 'rollup', 'unbuild'].includes('builder');
 }
 
 function getBuilder(builder: string): BuilderType {
@@ -76,10 +77,10 @@ async function run<T extends BuilderType>(options: WhojBuild<T>, config: Builder
 
 (async (args?: any) => {
   const opt = {
-    rootDir: args?.root || args?.rootDir || process.cwd(),
-    stub: !!args?.stub,
+    builder: getBuilder(args?.builder),
     mode: args?.mode || process.env.NODE_ENV,
-    builder: getBuilder(args?.builder)
+    rootDir: args?.root || args?.rootDir || process.cwd(),
+    stub: !!args?.stub
   };
 
   await run<typeof opt.builder>(opt, {});

@@ -1,4 +1,5 @@
 import type { Plugin } from 'rollup';
+
 import MagicString from 'magic-string';
 import { findStaticImports } from 'mlly';
 

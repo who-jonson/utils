@@ -308,8 +308,8 @@ export class Encrypter implements EncrypterContract, StringEncrypter {
     iv: Buffer,
     decipher: D = false as D
   ): D extends true
-      ? Alg extends CipherGCMTypes ? DecipherGCM : Decipher
-      : Alg extends CipherGCMTypes ? CipherGCM : Cipher {
+    ? Alg extends CipherGCMTypes ? DecipherGCM : Decipher
+    : Alg extends CipherGCMTypes ? CipherGCM : Cipher {
     // @ts-ignore
     return !decipher
       ? createCipheriv(cipher, key, iv)
