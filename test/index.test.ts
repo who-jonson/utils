@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
+import * as core from '../packages/core/src/index';
+
 describe('index', () => {
-  it('hi vitest', () => {
-    expect(1).toBe(1);
+  it('re-exports deepMerge from the core barrel', () => {
+    expect(typeof core.deepMerge).toBe('function');
   });
 });

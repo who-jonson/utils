@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
+import * as vue from '../src/index';
+import { useRipple } from '../src/ripple';
+
 describe('index', () => {
-  it('hi vitest', () => {
-    expect(1).toBe(1);
+  it('re-exports useRipple from the vue barrel', () => {
+    expect(vue.useRipple).toBe(useRipple);
   });
 });

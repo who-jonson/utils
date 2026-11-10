@@ -97,8 +97,6 @@ export function objectEntries<T extends object>(obj: T) {
  *
  * @typeParam T
  * @typeParam S
- *
- * @__NO_SIDE_EFFECTS__
  */
 export function deepMerge<T extends object = object, S extends object = T>(target: T, ...sources: S[]): DeepMerge<T, S> {
   if (!sources.length) {

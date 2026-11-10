@@ -5,7 +5,7 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": ">=16.9"
+    "node": ">=20.11"
   },
   "keywords": [
     "typescript",
