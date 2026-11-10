@@ -53,7 +53,7 @@ const unbuild: BuilderResult<'unbuild'> = function ({ rootDir = process.cwd(), s
 };
 
 function isValidBuilder(builder: string): builder is BuilderType {
-  return ['vite', 'rollup', 'unbuild'].includes('builder');
+  return ['vite', 'rollup', 'unbuild'].includes(builder);
 }
 
 function getBuilder(builder: string): BuilderType {

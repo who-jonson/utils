@@ -1,5 +1,5 @@
 import vue from '@vitejs/plugin-vue';
-import { defineConfig } from 'vitest/config';
+import { configDefaults, defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [
@@ -8,6 +8,7 @@ export default defineConfig({
   ],
   test: {
     exclude: [
+      ...configDefaults.exclude,
       'playground/**',
       'scripts/**'
     ],

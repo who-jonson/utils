@@ -27,7 +27,7 @@
 - ✅ All validations pass with catalog system
   - Build: All packages build successfully
   - Tests: 8/8 tests pass
-  - Lint: No errors (only pre-existing warnings)
+  - Lint: No new errors (pre-existing baseline: 1 error, 13 warnings — see Release 1 notes below)
 
 ## Batches Completed
 - [x] Batch 1: Build & Bundling Tools - COMPLETED
@@ -51,13 +51,13 @@
 - ✅ All packages build and test successfully with Vue 3
 
 ## Breaking Changes
-- **@whoj/utils-vue**: Now requires Vue >=3.2.0 (Vue 2 support dropped)
+- **@whoj/utils-vue**: Required Vue >=3.2.0 as of this migration (Vue 2 support dropped); the floor was later raised to ^3.5.45 by the Release 1 catalog bump (2026-11-10, see below)
   - Removed vue-demi dependency completely
   - All Vue 2 compatibility code removed
   - Directive lifecycle hooks updated to Vue 3 only (beforeMount instead of bind)
   - Updated CLAUDE.md to reflect Vue 3-only support
   - Fixed fuse.js peerDependency to support v7 (was only listing v6)
-  - Vue peerDependency remains >=3.2.0 (supports Vue 3 and future Vue 4)
+  - Vue peerDependency floor raised to ^3.5.45 by the Release 1 catalog bump (Vue 3 only; Vue 4 no longer supported)
 
 
 ## Release 1 — Dependency Upgrade (2026-11-10)
