@@ -32,9 +32,9 @@ jobs:
         run: pnpm typecheck
         continue-on-error: true
 
-      - run: pnpm test
-
       - run: pnpm build
+
+      - run: pnpm test
 
       - name: Publish dry-run
         run: pnpm -r publish --dry-run --no-git-checks
