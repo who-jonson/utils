@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lint (known-red, non-blocking)
+        run: pnpm lint
+        continue-on-error: true
+
+      - name: Typecheck (known-red, non-blocking)
+        run: pnpm typecheck
+        continue-on-error: true
+
+      - run: pnpm test
+
+      - run: pnpm build
+
+      - name: Publish dry-run
+        run: pnpm -r publish --dry-run --no-git-checks
