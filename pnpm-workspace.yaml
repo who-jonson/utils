@@ -22,8 +22,10 @@ catalog:
   '@whoj/eslint-config': ^9.2.0
 
   # Dev utilities
+  automd: ^0.4.3
   bumpp: ^12.3.0
   c8: ^12.0.0
+  changelogithub: ^15.0.5
 
   # Runtime utilities
   change-case: ^5.4.4

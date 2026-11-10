@@ -51,7 +51,7 @@
     "stub": "unbuild --stub",
     "prepublishOnly": "rm -rf dist && pnpm run build",
     "typecheck": "tsc --noEmit",
-    "update:doc": "npx automd@latest"
+    "update:doc": "automd"
   },
   "dependencies": {
     "@whoj/utils-types": "workspace:*"
