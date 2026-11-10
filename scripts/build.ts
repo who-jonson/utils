@@ -56,10 +56,14 @@ function isValidBuilder(builder: string): builder is BuilderType {
   return ['vite', 'rollup', 'unbuild'].includes(builder);
 }
 
-function getBuilder(builder: string): BuilderType {
-  return isValidBuilder(builder)
-    ? builder
-    : 'unbuild';
+function getBuilder(builder?: string): BuilderType {
+  if (builder === undefined) {
+    return 'unbuild';
+  }
+  if (!isValidBuilder(builder)) {
+    throw new Error(`Unknown builder "${builder}". Expected one of: vite, rollup, unbuild.`);
+  }
+  return builder;
 }
 
 async function run<T extends BuilderType>(options: WhojBuild<T>, config: BuilderConfigType<T>) {

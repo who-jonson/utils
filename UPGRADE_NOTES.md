@@ -26,13 +26,13 @@
   - Updated packages/vue peerDependencies to use catalog: protocol
 - ✅ All validations pass with catalog system
   - Build: All packages build successfully
-  - Tests: 8/8 tests pass
+  - Tests: 9/9 tests pass
   - Lint: No new errors (pre-existing baseline: 1 error, 13 warnings — see Release 1 notes below)
 
 ## Batches Completed
 - [x] Batch 1: Build & Bundling Tools - COMPLETED
   - All packages build successfully with rollup, esbuild, typescript upgrades
-  - All tests pass (8/8)
+  - All tests pass (9/9)
   - No critical issues encountered
 - [ ] Batch 2: Testing & Development Tools
 - [x] Batch 3: Framework & Core Runtime (+ Vue 3 migration) - COMPLETED

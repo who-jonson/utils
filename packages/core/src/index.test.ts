@@ -1,14 +1,19 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
+import * as index from './index';
 import { deepMerge } from './obj';
 
 describe('should', () => {
-  it('exported', () => {
-    expect(1).toEqual(1);
+  it('re-export deepMerge from the barrel', () => {
+    expect(index.deepMerge).toBe(deepMerge);
   });
 });
 
 describe('deepMerge', () => {
+  afterEach(() => {
+    delete (Object.prototype as any).polluted;
+  });
+
   it('merges flat objects', () => {
     expect(deepMerge({ a: 1 }, { b: 2 })).toEqual({ a: 1, b: 2 });
   });
@@ -25,10 +30,23 @@ describe('deepMerge', () => {
     expect(deepMerge({ a: [1, 2] }, { a: [3] })).toEqual({ a: [3] });
   });
 
+  it('mutates and returns the target object', () => {
+    const target = { a: 1 };
+    const merged = deepMerge(target, { b: 2 });
+
+    expect(merged).toBe(target);
+    expect(target).toEqual({ a: 1, b: 2 });
+  });
+
+  it('keeps a scalar target value when the source value is an object', () => {
+    expect(deepMerge({ a: 1 }, { a: { b: 2 } })).toEqual({ a: 1 });
+  });
+
   it('does not pollute Object.prototype via a JSON.parse __proto__ key', () => {
     const merged = deepMerge({}, JSON.parse('{"__proto__":{"polluted":"yes"}}'));
 
     expect(({} as any).polluted).toBeUndefined();
+    expect(Object.getPrototypeOf(merged)).toBe(Object.prototype);
     expect(merged).toEqual({});
   });
 
@@ -36,6 +54,15 @@ describe('deepMerge', () => {
     const merged = deepMerge({ a: 1 }, JSON.parse('{"nested":{"__proto__":{"polluted":"yes"}}}'));
 
     expect(({} as any).polluted).toBeUndefined();
+    expect(Object.getPrototypeOf(merged.nested)).toBe(Object.prototype);
     expect(merged).toEqual({ a: 1, nested: {} });
+  });
+
+  it('does not pollute Object.prototype via a constructor key', () => {
+    const merged = deepMerge({}, JSON.parse('{"constructor":{"prototype":{"polluted":"yes"}}}'));
+
+    expect(({} as any).polluted).toBeUndefined();
+    expect(Object.getPrototypeOf(merged)).toBe(Object.prototype);
+    expect(merged).toEqual({});
   });
 });
