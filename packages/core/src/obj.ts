@@ -112,6 +112,11 @@ export function deepMerge<T extends object = object, S extends object = T>(targe
 
   if (isObjectMergable(target) && isObjectMergable(source)) {
     objectKeys(source).forEach((key) => {
+      // skip `__proto__` to prevent prototype pollution
+      if (key === '__proto__') {
+        return;
+      }
+
       if (isObjectMergable(source[key])) {
         // @ts-ignore
         if (!target[key]) {
