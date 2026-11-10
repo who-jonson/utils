@@ -49,8 +49,27 @@ jobs:
             console.log(`All packages match ${expected}`);
           '
 
+      - name: Derive npm dist-tag
+        id: dist-tag
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          version="${TAG#v}"
+          tag="latest"
+          if [[ "$version" == *-* ]]; then
+            id="${version#*-}"
+            id="${id%%.*}"
+            if [[ -z "$id" || "$id" =~ ^[0-9]+$ ]]; then
+              id="next"
+            fi
+            tag="$id"
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
       - name: Publish to npm (trusted publishing)
-        run: pnpm -r publish --access public --no-git-checks
+        env:
+          DIST_TAG: ${{ steps.dist-tag.outputs.tag }}
+        run: pnpm -r publish --access public --no-git-checks --tag "$DIST_TAG"
 
   changelog:
     needs: publish
