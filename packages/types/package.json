@@ -4,6 +4,9 @@
   "version": "2.4.1",
   "type": "module",
   "license": "MIT",
+  "engines": {
+    "node": ">=16.9"
+  },
   "keywords": [
     "ts",
     "typescript",

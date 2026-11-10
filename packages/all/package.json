@@ -4,6 +4,9 @@
   "version": "2.4.1",
   "type": "module",
   "license": "MIT",
+  "engines": {
+    "node": ">=16.9"
+  },
   "keywords": [
     "typescript",
     "ts",
@@ -11,24 +14,24 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
     },
     "./core": {
-      "import": "./dist/core/index.mjs",
-      "types": "./dist/core/index.d.ts"
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.mjs"
     },
     "./core/*": {
-      "import": "./dist/core/*.mjs",
-      "types": "./dist/core/*.d.ts"
+      "types": "./dist/core/*.d.ts",
+      "import": "./dist/core/*.mjs"
     },
     "./vue": {
-      "import": "./dist/vue.mjs",
-      "types": "./dist/vue.d.ts"
+      "types": "./dist/vue.d.ts",
+      "import": "./dist/vue.mjs"
     },
     "./php": {
-      "import": "./dist/php.mjs",
-      "types": "./dist/php.d.ts"
+      "types": "./dist/php.d.ts",
+      "import": "./dist/php.mjs"
     },
     "./types": {
       "types": "./dist/types.d.ts",
@@ -36,8 +39,8 @@
     },
     "./package.json": "./package.json",
     "./*": {
-      "import": "./dist/core/*.mjs",
-      "types": "./dist/core/*.d.ts"
+      "types": "./dist/core/*.d.ts",
+      "import": "./dist/core/*.mjs"
     }
   },
   "main": "./dist/index.mjs",
